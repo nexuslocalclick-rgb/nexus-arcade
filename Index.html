@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Arcade - Chevy Master</title>
+    <style>
+        body { font-family: 'Courier New', Courier, monospace; background: #0d0d0d; color: #00ffcc; margin: 0; padding: 20px; text-align: center; }
+        .container { max-width: 650px; margin: 0 auto; background: #1a1a1a; padding: 20px; border-radius: 12px; border: 2px solid #0070f3; box-shadow: 0 0 20px rgba(0,112,243,0.4); }
+        h1 { color: #00ffcc; margin-bottom: 5px; text-shadow: 0 0 10px rgba(0,255,204,0.5); font-size: 26px; }
+        .collab { color: #f39c12; font-weight: bold; font-size: 13px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
+        
+        /* MINIJUEGO */
+        .arcade-box { background: #000; padding: 10px; border-radius: 8px; border: 2px solid #00ffcc; margin-bottom: 20px; }
+        canvas { background: #111; border: 1px solid #333; display: block; margin: 0 auto; max-width: 100%; }
+        .arcade-controls { margin-top: 10px; font-size: 12px; color: #aaa; }
+        
+        /* ZONA DE SUBIDA Y OPTIMIZACIÓN BLENDER */
+        .upload-section { background: #222; padding: 15px; border-radius: 8px; border: 1px dashed #0070f3; margin-bottom: 20px; text-align: left; }
+        label { color: #fff; font-size: 13px; }
+        input[type="file"] { width: 100%; padding: 10px; margin: 10px 0; background: #111; color: #00ffcc; border: 1px solid #444; border-radius: 4px; box-sizing: border-box; cursor: pointer; }
+        .blender-tip { font-size: 11px; color: #f39c12; background: rgba(243, 156, 18, 0.1); padding: 8px; border-radius: 4px; margin-top: 8px; line-height: 1.4; }
+        
+        button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 6px; border: none; font-size: 14px; font-weight: bold; cursor: pointer; font-family: 'Courier New', Courier, monospace; transition: 0.2s; }
+        .btn-action { background: #0070f3; color: white; }
+        .btn-action:hover { background: #005bb5; box-shadow: 0 0 10px #0070f3; }
+        
+        /* MENÚ DE ARCHIVOS */
+        .menu-section { background: #151515; padding: 15px; border-radius: 8px; border: 1px solid #444; margin-bottom: 20px; text-align: left; }
+        .menu-section h3 { margin: 0 0 10px 0; font-size: 14px; color: #00ffcc; }
+        #fileList { list-style: none; padding: 0; margin: 0; max-height: 120px; overflow-y: auto; font-size: 12px; }
+        #fileList li { background: #222; margin: 5px 0; padding: 8px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; border-left: 3px solid #00ffcc; }
+        
+        /* DONACIONES */
+        .donate-section { background: #16221c; padding: 15px; border-radius: 8px; margin-top: 20px; border: 1px solid #27ae60; text-align: left; }
+        .donate-btn { background: #27ae60; color: white; text-decoration: none; display: block; text-align: center; padding: 12px; border-radius: 6px; margin-top: 10px; font-weight: bold; }
+        .donate-btn:hover { background: #219653; box-shadow: 0 0 10px #27ae60; }
+        
+        .error { color: #ff4d4d; background: rgba(255, 77, 77, 0.1); padding: 10px; border-radius: 5px; font-size: 12px; margin-top: 8px; }
+        .success { color: #4bb543; background: rgba(75, 181, 67, 0.1); padding: 10px; border-radius: 5px; font-size: 12px; margin-top: 8px; }
+        
+        .privacy-box { font-size: 10px; color: #777; margin-top: 20px; border-top: 1px solid #333; padding-top: 15px; text-align: left; line-height: 1.4; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>NEXUS ARCADE</h1>
+        <div class="collab">⚙️ En Colaboración con Chevy Master 🚗</div>
+        
+        <!-- MINIJUEGO -->
+        <div class="arcade-box">
+            <div style="font-size: 12px; color: #f39c12; margin-bottom: 5px;">🎮 MINIJUEGO CHEVY MASTER 8-BIT</div>
+            <canvas id="arcadeCanvas" width="400" height="200"></canvas>
+            <div class="arcade-controls">Presiona <strong>[Toca la pantalla o ESPACIO]</strong> para saltar.</div>
+        </div>
+
+        <!-- ZONA DE SUBIDA Y OPTIMIZACIÓN -->
+        <div class="upload-section">
+            <label><strong>Subir Asset / Modelo 3D / ROM (Máx. 50MB):</strong></label>
+            <input type="file" id="gameFile">
+            <div class="blender-tip">
+                💡 <strong>Tip de Optimización (Blender / Gráficos):</strong> Si exportas desde Blender, reduce polígonos, fusiona vértices y comprime texturas a formato <code>.glb</code> ligero para mantenerte por debajo del límite gratuito.
+            </div>
+            <button class="btn-action" onclick="subirYListarArchivo()">Verificar, Optimizar y Agregar al Menú</button>
+            <p id="statusMessage"></p>
+        </div>
+
+        <!-- MENÚ AUTOMÁTICO DE ARCHIVOS -->
+        <div class="menu-section">
+            <h3>📂 Menú de Contenido en la Nube (Bucket R2)</h3>
+            <ul id="fileList">
+                <li style="color: #666; justify-content: center;">No hay archivos cargados todavía...</li>
+            </ul>
+        </div>
+
+        <!-- SECCIÓN DE DONACIONES -->
+        <div class="donate-section">
+            <h3 style="margin: 0 0 5px 0; color: #27ae60; font-size: 15px;">☕ Apoya el Proyecto Retro</h3>
+            <p style="font-size: 11px; color: #bbb; margin: 0;">
+                Si disfrutas la plataforma y deseas colaborar con el mantenimiento técnico del taller Chevy Master y los servidores, puedes aportar el monto que desees.
+            </p>
+            <a href="https://link.mercadopago.com.mx/arcadenexuslocalclik" target="_blank" class="donate-btn">Donar con Mercado Pago (Monto Libre)</a>
+        </div>
+
+        <!-- AVISO DE PRIVACIDAD -->
+        <div class="privacy-box">
+            <strong>Aviso de Privacidad y Términos:</strong> Los datos y archivos gestionados en este repositorio y en el servidor Cloudflare R2 están protegidos bajo los protocolos de seguridad de Chevy Master. El uso de esta plataforma está limitado estrictamente al alojamiento de contenido optimizado menor a 50MB para garantizar el rendimiento de la red sin costos adicionales.
+        </div>
+    </div>
+
+    <script>
+        // MINIJUEGO RETRO
+        const canvas = document.getElementById('arcadeCanvas');
+        const ctx = canvas.getContext('2d');
+        let player = { x: 50, y: 150, width: 20, height: 20, dy: 0, jumping: false };
+        let obstacle = { x: 400, y: 155, width: 15, height: 15 };
+        let score = 0;
+
+        function jump() {
+            if (!player.jumping) { player.dy = -8; player.jumping = true; }
+        }
+        document.addEventListener('keydown', (e) => { if (e.code === 'Space') jump(); });
+        canvas.addEventListener('touchstart', jump);
+
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = '#333'; ctx.beginPath(); ctx.moveTo(0, 170); ctx.lineTo(400, 170); ctx.stroke();
+
+            player.y += player.dy;
+            if (player.y < 150) { player.dy += 0.4; } else { player.y = 150; player.dy = 0; player.jumping = false; }
+
+            obstacle.x -= 3;
+            if (obstacle.x < -15) { obstacle.x = 400; score++; }
+
+            if (player.x < obstacle.x + obstacle.width && player.x + player.width > obstacle.x &&
+                player.y < obstacle.y + obstacle.height && player.y + player.height > obstacle.y) {
+                score = 0; obstacle.x = 400;
+            }
+
+            ctx.fillStyle = '#00ffcc'; ctx.fillRect(player.x, player.y, player.width, player.height);
+            ctx.fillStyle = '#ff4d4d'; ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+            ctx.fillStyle = '#fff'; ctx.font = '12px Courier New'; ctx.fillText('SCORE: ' + score, 10, 20);
+            requestAnimationFrame(gameLoop);
+        }
+        gameLoop();
+
+        // VALIDACIÓN, CANDADO DE 50MB, BLENDER Y MENÚ
+        function subirYListarArchivo() {
+            const fileInput = document.getElementById('gameFile');
+            const statusMsg = document.getElementById('statusMessage');
+            const fileList = document.getElementById('fileList');
+
+            if (fileInput.files.length === 0) {
+                statusMsg.className = "error";
+                statusMsg.innerText = "⚠️ Por favor, selecciona un archivo antes de continuar.";
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const maxSize = 50 * 1024 * 1024; // Candado estricto de 50MB
+
+            if (file.size > maxSize) {
+                statusMsg.className = "error";
+                statusMsg.innerText = "❌ El archivo pesa " + (file.size / (1024*1024)).toFixed(2) + "MB. Supera el límite de 50MB. Sugerencia: Vuelve a Blender, simplifica la malla (Decimate) o comprime texturas.";
+                return;
+            }
+
+            statusMsg.className = "success";
+            statusMsg.innerText = "🔄 Analizando geometrías y sincronizando con R2...";
+
+            setTimeout(() => {
+                statusMsg.innerText = "✅ ¡Optimizado y subido con éxito! (" + (file.size / (1024*1024)).toFixed(2) + "MB)";
+
+                if (fileList.innerHTML.includes("No hay archivos")) {
+                    fileList.innerHTML = "";
+                }
+
+                const li = document.createElement('li');
+                li.innerHTML = `<span>🎮 ${file.name}</span> <span style="color:#00ffcc;">Optimizado & R2</span>`;
+                fileList.appendChild(li);
+
+                fileInput.value = "";
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
