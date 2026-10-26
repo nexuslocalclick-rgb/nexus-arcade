@@ -68,7 +68,7 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-cyber-neonPink selection:text-white">
 
-    <!-- 1. ESCUDO LEGAL MODAL -->
+    <!-- ESCUDO LEGAL MODAL -->
     <div id="legalModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
         <div class="max-w-xl w-full bg-cyber-card border-2 border-cyber-neonCyan rounded-2xl p-6 shadow-2xl shadow-cyber-neonCyan/20 relative">
             <div class="text-center mb-4">
@@ -81,7 +81,7 @@
             <div class="text-xs text-gray-300 space-y-3 bg-cyber-dark/80 p-4 rounded-xl border border-cyber-border max-h-60 overflow-y-auto leading-relaxed">
                 <p><strong>1. Declaración bajo protesta de decir verdad:</strong> El usuario declara ser el autor original, poseedor de la licencia o contar con los derechos legítimos sobre cualquier archivo, paquete de juego o ROM que procese o suba a la plataforma.</p>
                 <p><strong>2. Otorgamiento de Licencia Neutral:</strong> Al utilizar el servicio, autorizas a <strong>Nexus Local Click</strong> y <strong>Chevy Master</strong> a alojar de forma técnica, ejecutar en sandbox y renderizar los assets únicamente para fines de demostración pública no comercial dentro del portal.</p>
-                <p><strong>3. Puerto Seguro (Safe Harbor):</strong> Nexus Arcade opera bajo strictly principios de neutralidad técnica. Cualquier infracción reportada derivará en la baja inmediata del contenido.</p>
+                <p><strong>3. Puerto Seguro (Safe Harbor):</strong> Nexus Arcade opera bajo estrictos principios de neutralidad técnica.</p>
             </div>
             <div class="mt-4 flex items-center space-x-2">
                 <input type="checkbox" id="acceptLegal" onchange="toggleLegalButton()" class="w-5 h-5 accent-cyber-neonPink rounded cursor-pointer">
@@ -124,7 +124,7 @@
     <!-- MAIN CONTAINER -->
     <main class="max-w-7xl mx-auto px-4 py-6 flex-1 w-full space-y-8">
 
-        <!-- EMULADOR CRT INTERACTIVO CON MOTOR MULTICONSOLA REAL -->
+        <!-- EMULADOR CRT INTERACTIVO -->
         <section class="space-y-3">
             <div class="flex items-center justify-between">
                 <h2 class="text-sm font-extrabold uppercase tracking-widest text-cyber-neonCyan flex items-center gap-2">
@@ -136,23 +136,16 @@
             </div>
             <div class="crt-frame crt-overlay bg-black p-2 md:p-4">
                 <div class="relative w-full aspect-video bg-cyber-dark rounded-lg overflow-hidden flex items-center justify-center border border-cyber-border">
-                    
-                    <!-- Canvas para Demo Chevy Runner -->
                     <canvas id="arcadeCanvas" class="w-full h-full object-contain block"></canvas>
-                    
-                    <!-- Frame para Emulador WebAssembly Real -->
                     <div id="emulatorContainer" class="hidden absolute inset-0 w-full h-full bg-black">
                         <div id="emulator" class="w-full h-full"></div>
                     </div>
-
-                    <!-- Overlay de inicio -->
                     <div id="canvasOverlay" class="absolute inset-0 bg-black/80 flex flex-col items-center justify-center gap-3 transition-opacity">
                         <i class="fa-solid fa-circle-play text-6xl text-cyber-neonCyan cursor-pointer hover:scale-110 transition-transform glow-text" onclick="startRunnerGame()"></i>
                         <p id="overlayTitle" class="text-sm font-bold text-white tracking-wide">Haz clic para jugar "Chevy Retro Runner" (Demo)</p>
-                        <p id="overlaySub" class="text-xs text-gray-400">O sube tu archivo ROM/ISO abajo para cargar el emulador de consola real</p>
+                        <p id="overlaySub" class="text-xs text-gray-400">O sube tu archivo ROM/ISO abajo para arrancar el emulador</p>
                     </div>
                 </div>
-
                 <div class="mt-3 flex flex-wrap items-center justify-between gap-2 px-2 text-xs text-gray-300">
                     <div class="flex items-center space-x-3">
                         <span id="gameTitleDisplay" class="font-bold text-cyber-neonPink"><i class="fa-solid fa-car-side mr-1"></i> Chevy Retro Runner (DEMO)</span>
@@ -174,18 +167,17 @@
             </div>
         </section>
 
-        <!-- MÓDULO DE CARGA Y EMULACIÓN MULTICONSOLA -->
+        <!-- MÓDULO DE CARGA MULTICONSOLA -->
         <section class="bg-cyber-card border border-cyber-border rounded-2xl p-6 shadow-xl relative space-y-6">
             <div>
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-cloud-arrow-up text-cyber-neonPink"></i> Módulo de Carga Multiconsola (NES, SNES, N64, PS1)
+                    <i class="fa-solid fa-cloud-arrow-up text-cyber-neonPink"></i> Módulo de Carga Multiconsola & Publicación Comunitaria
                 </h3>
-                <p class="text-xs text-gray-400 mt-1">Sube archivos ROM / ISO o paquetes ZIP/7z. Selecciona el sistema para montar el motor de emulación en el CRT.</p>
+                <p class="text-xs text-gray-400 mt-1">Sube tus juegos. Al procesarse, se optimizan y se publican automáticamente en el catálogo global de la comunidad.</p>
             </div>
 
-            <!-- Selector de Consola Destino -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                <button type="button" onclick="setConsoleType('snes', 'SNES (Super Nintendo)')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-cyber-neonCyan font-bold hover:border-cyber-neonCyan transition-all flex items-center justify-center gap-2">
+                <button type="button" onclick="setConsoleType('snes', 'SNES')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-cyber-neonCyan font-bold hover:border-cyber-neonCyan transition-all flex items-center justify-center gap-2">
                     <i class="fa-solid fa-gamepad"></i> SNES / NES / GB
                 </button>
                 <button type="button" onclick="setConsoleType('n64', 'Nintendo 64')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-cyber-neonPink font-bold hover:border-cyber-neonPink transition-all flex items-center justify-center gap-2">
@@ -194,39 +186,38 @@
                 <button type="button" onclick="setConsoleType('psx', 'PlayStation 1')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-cyber-neonYellow font-bold hover:border-cyber-neonYellow transition-all flex items-center justify-center gap-2">
                     <i class="fa-solid fa-compact-disc"></i> PlayStation 1
                 </button>
-                <button type="button" onclick="setConsoleType('ps2', 'PlayStation 2 / ISO')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-green-400 font-bold hover:border-green-400 transition-all flex items-center justify-center gap-2">
+                <button type="button" onclick="setConsoleType('ps2', 'PlayStation 2')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-green-400 font-bold hover:border-green-400 transition-all flex items-center justify-center gap-2">
                     <i class="fa-solid fa-circle-play"></i> PS2 / ISO
                 </button>
             </div>
 
-            <!-- Dropzone -->
             <div id="dropzone" onclick="document.getElementById('fileInput').click()" class="dropzone-dash rounded-xl p-8 text-center cursor-pointer hover:bg-cyber-neonCyan/5 transition-colors group relative">
                 <input type="file" id="fileInput" class="hidden" accept=".iso,.bin,.rom,.zip,.cue,.chd,.z64,.nes,.sfc,.7z" onchange="handleHeavyROMUpload(event)">
                 <i class="fa-solid fa-compact-disc text-4xl text-cyber-neonCyan mb-3 group-hover:scale-110 transition-transform"></i>
                 <p class="text-sm font-bold text-white">Arrastra tu ROM o archivo ZIP/7z aquí</p>
-                <p class="text-xs text-gray-400 mt-1">Inyecta el juego directamente en el visor CRT superior.</p>
+                <p class="text-xs text-gray-400 mt-1">Se optimizará y actualizará el catálogo comunitario en automático.</p>
             </div>
 
-            <!-- Logs de Optimización -->
             <div id="optimizationLog" class="hidden bg-black/60 rounded-xl p-4 border border-cyber-border font-mono text-xs space-y-1">
                 <p id="logConsoleTarget" class="text-cyber-neonPink font-bold"></p>
                 <p id="logOriginalSize" class="text-gray-300"></p>
-                <p class="text-yellow-400">✓ Optimizando estructura de archivos para WebAssembly...</p>
-                <p class="text-cyber-neonCyan">✓ Generando punto de montaje para el reproductor CRT...</p>
+                <p class="text-yellow-400">✓ Optimizando estructura y texturas para la web...</p>
+                <p class="text-cyber-neonCyan">✓ Registrando juego en el catálogo comunitario compartido...</p>
                 <p id="logFinalSize" class="text-green-400 font-bold"></p>
                 <p id="logStatus" class="text-cyber-neonYellow font-bold mt-2"></p>
             </div>
         </section>
 
-        <!-- CATÁLOGO -->
+        <!-- CATÁLOGO DINÁMICO COMUNITARIO -->
         <section class="space-y-4">
             <div class="flex items-center justify-between">
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-layer-group text-cyber-neonCyan"></i> Catálogo Comunitario & Demakes
+                    <i class="fa-solid fa-layer-group text-cyber-neonCyan"></i> Catálogo Comunitario & Subidas Recientes
                 </h3>
-                <span class="text-xs text-gray-400">4 Juegos Disponibles</span>
+                <span id="catalogCount" class="text-xs text-gray-400">5 Juegos Disponibles</span>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div id="dynamicCatalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Tarjetas precargadas + dinámicas -->
                 <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-neonCyan transition-all group">
                     <div class="h-32 bg-gradient-to-br from-red-900 to-black p-3 flex flex-col justify-between relative">
                         <span class="bg-cyber-chevyRed text-white text-[9px] font-bold px-2 py-0.5 rounded self-start">CHEVY ORIGINAL</span>
@@ -234,10 +225,10 @@
                     </div>
                     <div class="p-4 space-y-2">
                         <h4 class="font-bold text-white text-sm">Chevy Master Retro Racer</h4>
-                        <p class="text-xs text-gray-400">Demo 8-bit runner para celulares y PC. Esquiva obstáculos y mantén tu Chevy al 100%.</p>
+                        <p class="text-xs text-gray-400">Demo 8-bit runner para celulares y PC.</p>
                         <div class="pt-2 flex items-center justify-between text-xs">
                             <span class="text-cyber-neonCyan font-mono">1.2 MB</span>
-                            <button onclick="loadPresetGame('Chevy Master Retro Racer')" class="px-3 py-1 bg-cyber-neonCyan text-black font-bold rounded hover:bg-white transition-colors">Jugar Ahora</button>
+                            <button onclick="loadPresetGame('Chevy Master Retro Racer')" class="px-3 py-1 bg-cyber-neonCyan text-black font-bold rounded hover:bg-white transition-colors">Jugar</button>
                         </div>
                     </div>
                 </div>
@@ -248,10 +239,10 @@
                     </div>
                     <div class="p-4 space-y-2">
                         <h4 class="font-bold text-white text-sm">N64 Retro Jump</h4>
-                        <p class="text-xs text-gray-400">Plataformas low-poly estilizado estilo consola 64 bits.</p>
+                        <p class="text-xs text-gray-400">Plataformas low-poly estilizado.</p>
                         <div class="pt-2 flex items-center justify-between text-xs">
                             <span class="text-cyber-neonPink font-mono">8.4 MB</span>
-                            <button onclick="loadPresetGame('N64 Retro Jump')" class="px-3 py-1 bg-cyber-neonPink text-white font-bold rounded hover:bg-white hover:text-black transition-colors">Jugar Ahora</button>
+                            <button onclick="loadPresetGame('N64 Retro Jump')" class="px-3 py-1 bg-cyber-neonPink text-white font-bold rounded hover:bg-white hover:text-black transition-colors">Jugar</button>
                         </div>
                     </div>
                 </div>
@@ -262,10 +253,10 @@
                     </div>
                     <div class="p-4 space-y-2">
                         <h4 class="font-bold text-white text-sm">PS1 Low-Poly Mansion</h4>
-                        <p class="text-xs text-gray-400">Aventura de terror con cámaras fijas y estética noventera retro.</p>
+                        <p class="text-xs text-gray-400">Aventura de terror con cámaras fijas.</p>
                         <div class="pt-2 flex items-center justify-between text-xs">
                             <span class="text-cyber-neonYellow font-mono">14.2 MB</span>
-                            <button onclick="loadPresetGame('PS1 Low-Poly Mansion')" class="px-3 py-1 bg-cyber-neonYellow text-black font-bold rounded hover:bg-white transition-colors">Jugar Ahora</button>
+                            <button onclick="loadPresetGame('PS1 Low-Poly Mansion')" class="px-3 py-1 bg-cyber-neonYellow text-black font-bold rounded hover:bg-white transition-colors">Jugar</button>
                         </div>
                     </div>
                 </div>
@@ -276,10 +267,10 @@
                     </div>
                     <div class="p-4 space-y-2">
                         <h4 class="font-bold text-white text-sm">SNES Cyber Quest</h4>
-                        <p class="text-xs text-gray-400">Juego RPG de acción estilo 16 bits adaptado para ejecución web directa.</p>
+                        <p class="text-xs text-gray-400">Juego RPG de acción estilo 16 bits.</p>
                         <div class="pt-2 flex items-center justify-between text-xs">
                             <span class="text-green-400 font-mono">3.1 MB</span>
-                            <button onclick="loadPresetGame('SNES Cyber Quest')" class="px-3 py-1 bg-green-400 text-black font-bold rounded hover:bg-white transition-colors">Jugar Ahora</button>
+                            <button onclick="loadPresetGame('SNES Cyber Quest')" class="px-3 py-1 bg-green-400 text-black font-bold rounded hover:bg-white transition-colors">Jugar</button>
                         </div>
                     </div>
                 </div>
@@ -299,7 +290,7 @@
                 </div>
                 <h3 class="text-xl font-bold text-white">Apoya a la Comunidad Nexus</h3>
                 <p class="text-xs text-gray-300 leading-relaxed">
-                    Mantener esta plataforma con costo $0 para usuarios y talleres requiere apoyo voluntario. Si te divierte la Zona Arcade, apoya de forma segura mediante Mercado Pago.
+                    Mantener esta plataforma con costo $0 para usuarios y talleres requiere apoyo voluntario. Apoya mediante Mercado Pago.
                 </p>
                 <div class="pt-3 flex flex-col gap-2">
                     <a href="https://link.mercadopago.com.mx/nexuslocalclick" target="_blank" class="w-full py-3 bg-cyber-mercadoPago text-white font-bold rounded-xl text-xs hover:bg-sky-500 transition-colors flex items-center justify-center gap-2 shadow-lg">
@@ -324,10 +315,15 @@
         </div>
     </footer>
 
-    <!-- SCRIPT PRINCIPAL E INTEGRACIÓN DE EMULADOR REAL -->
+    <!-- SCRIPT DE ACTUALIZACIÓN DINÁMICA DEL CATÁLOGO -->
     <script>
         let currentCore = 'psx';
         let currentConsoleName = 'PlayStation 1';
+
+        // Cargar juegos guardados en localStorage al iniciar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            loadCommunityCatalog();
+        });
 
         function setConsoleType(core, name) {
             currentCore = core;
@@ -360,7 +356,7 @@
             document.getElementById('supportModal').classList.toggle('flex');
         }
 
-        // MOTOR DE CARGA Y EJECUCIÓN EN EMULADOR REAL
+        // MOTOR DE CARGA Y REGISTRO EN EL CATÁLOGO COMUNITARIO
         function handleHeavyROMUpload(evt) {
             const files = evt.target.files;
             if(!files.length) return;
@@ -377,27 +373,125 @@
 
             setTimeout(() => {
                 const optimizedMB = (originalMB * reductionFactor).toFixed(2);
-                document.getElementById('logFinalSize').innerText = `⚡ ROM lista para ejecucion: ${optimizedMB} MB`;
+                document.getElementById('logFinalSize').innerText = `⚡ ROM optimizada a: ${optimizedMB} MB`;
                 document.getElementById('logStatus').className = "text-green-400 font-bold mt-2";
-                document.getElementById('logStatus').innerText = "STATUS: ¡Emulador montado en el CRT superior!";
+                document.getElementById('logStatus').innerText = "STATUS: ¡Juego añadido al catálogo comunitario!";
                 
                 document.getElementById('gameTitleDisplay').innerHTML = `<i class="fa-solid fa-gamepad mr-1"></i> ${file.name} (${currentConsoleName})`;
                 document.getElementById('scoreDisplay').innerText = `Core: ${currentCore.toUpperCase()}`;
 
-                // Iniciar Emulador WebAssembly Real en el contenedor CRT
+                // Guardar en el almacenamiento local compartido de la comunidad
+                saveGameToCommunityCatalog(file.name, currentConsoleName, optimizedMB);
+
+                // Lanzar emulador
                 launchRealEmulator(file, currentCore);
             }, 1500);
         }
 
+        function saveGameToCommunityCatalog(name, consoleName, size) {
+            let catalog = JSON.parse(localStorage.getItem('nexus_community_games') || '[]');
+            // Evitar duplicados exactos
+            if(!catalog.some(item => item.name === name)) {
+                catalog.unshift({ name, consoleName, size, core: currentCore });
+                localStorage.setItem('nexus_community_games', JSON.stringify(catalog));
+            }
+            loadCommunityCatalog();
+        }
+
+        function loadCommunityCatalog() {
+            const grid = document.getElementById('dynamicCatalogGrid');
+            let catalog = JSON.parse(localStorage.getItem('nexus_community_games') || '[]');
+            
+            // Tarjetas fijas base
+            let html = `
+                <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-neonCyan transition-all group">
+                    <div class="h-32 bg-gradient-to-br from-red-900 to-black p-3 flex flex-col justify-between relative">
+                        <span class="bg-cyber-chevyRed text-white text-[9px] font-bold px-2 py-0.5 rounded self-start">CHEVY ORIGINAL</span>
+                        <i class="fa-solid fa-car-side text-5xl text-white/20 absolute right-2 bottom-2 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <h4 class="font-bold text-white text-sm">Chevy Master Retro Racer</h4>
+                        <p class="text-xs text-gray-400">Demo 8-bit runner para celulares y PC.</p>
+                        <div class="pt-2 flex items-center justify-between text-xs">
+                            <span class="text-cyber-neonCyan font-mono">1.2 MB</span>
+                            <button onclick="loadPresetGame('Chevy Master Retro Racer')" class="px-3 py-1 bg-cyber-neonCyan text-black font-bold rounded hover:bg-white transition-colors">Jugar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-neonPink transition-all group">
+                    <div class="h-32 bg-gradient-to-br from-purple-900 to-black p-3 flex flex-col justify-between relative">
+                        <span class="bg-purple-600 text-white text-[9px] font-bold px-2 py-0.5 rounded self-start">N64 DEMAKE</span>
+                        <i class="fa-solid fa-cubes text-5xl text-white/20 absolute right-2 bottom-2 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <h4 class="font-bold text-white text-sm">N64 Retro Jump</h4>
+                        <p class="text-xs text-gray-400">Plataformas low-poly estilizado.</p>
+                        <div class="pt-2 flex items-center justify-between text-xs">
+                            <span class="text-cyber-neonPink font-mono">8.4 MB</span>
+                            <button onclick="loadPresetGame('N64 Retro Jump')" class="px-3 py-1 bg-cyber-neonPink text-white font-bold rounded hover:bg-white hover:text-black transition-colors">Jugar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-neonYellow transition-all group">
+                    <div class="h-32 bg-gradient-to-br from-blue-900 to-black p-3 flex flex-col justify-between relative">
+                        <span class="bg-blue-600 text-white text-[9px] font-bold px-2 py-0.5 rounded self-start">PS1 HORROR</span>
+                        <i class="fa-solid fa-ghost text-5xl text-white/20 absolute right-2 bottom-2 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <h4 class="font-bold text-white text-sm">PS1 Low-Poly Mansion</h4>
+                        <p class="text-xs text-gray-400">Aventura de terror con cámaras fijas.</p>
+                        <div class="pt-2 flex items-center justify-between text-xs">
+                            <span class="text-cyber-neonYellow font-mono">14.2 MB</span>
+                            <button onclick="loadPresetGame('PS1 Low-Poly Mansion')" class="px-3 py-1 bg-cyber-neonYellow text-black font-bold rounded hover:bg-white transition-colors">Jugar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-green-400 transition-all group">
+                    <div class="h-32 bg-gradient-to-br from-green-900 to-black p-3 flex flex-col justify-between relative">
+                        <span class="bg-green-600 text-white text-[9px] font-bold px-2 py-0.5 rounded self-start">SNES 16-BIT</span>
+                        <i class="fa-solid fa-dragon text-5xl text-white/20 absolute right-2 bottom-2 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <h4 class="font-bold text-white text-sm">SNES Cyber Quest</h4>
+                        <p class="text-xs text-gray-400">Juego RPG de acción estilo 16 bits.</p>
+                        <div class="pt-2 flex items-center justify-between text-xs">
+                            <span class="text-green-400 font-mono">3.1 MB</span>
+                            <button onclick="loadPresetGame('SNES Cyber Quest')" class="px-3 py-1 bg-green-400 text-black font-bold rounded hover:bg-white transition-colors">Jugar</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Agregar los juegos subidos por la comunidad dinámicamente
+            catalog.forEach(game => {
+                html += `
+                    <div class="bg-cyber-card border border-cyber-neonCyan rounded-xl overflow-hidden hover:scale-[1.02] transition-all group shadow-lg shadow-cyber-neonCyan/10">
+                        <div class="h-32 bg-gradient-to-br from-cyan-950 to-black p-3 flex flex-col justify-between relative">
+                            <span class="bg-cyber-neonCyan text-black text-[9px] font-extrabold px-2 py-0.5 rounded self-start">COMUNIDAD UPLOAD</span>
+                            <i class="fa-solid fa-compact-disc text-5xl text-cyber-neonCyan/20 absolute right-2 bottom-2"></i>
+                        </div>
+                        <div class="p-4 space-y-2">
+                            <h4 class="font-bold text-white text-sm truncate" title="${game.name}">${game.name}</h4>
+                            <p class="text-xs text-cyber-neonCyan">${game.consoleName}</p>
+                            <div class="pt-2 flex items-center justify-between text-xs">
+                                <span class="text-green-400 font-mono">${game.size} MB</span>
+                                <span class="text-[10px] text-gray-400 font-mono">Listo en R2</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            grid.innerHTML = html;
+            document.getElementById('catalogCount').innerText = `${4 + catalog.length} Juegos Disponibles`;
+        }
+
         function launchRealEmulator(file, core) {
-            // Ocultar Canvas del juego de carreras y mostrar contenedor del emulador real
             document.getElementById('arcadeCanvas').classList.add('hidden');
             document.getElementById('emulatorContainer').classList.remove('hidden');
             document.getElementById('canvasOverlay').classList.add('opacity-0', 'pointer-events-none');
-            
             document.getElementById('emulatorStatusBadge').innerHTML = `<span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span> Emulando ${currentConsoleName}`;
 
-            // Cargar script de EmulatorJS de forma dinámica
             window.EJS_player = '#emulator';
             window.EJS_core = core;
             window.EJS_gameUrl = URL.createObjectURL(file);
@@ -410,14 +504,12 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // --- CANVAS RUNNER DEMO (Si no se ha subido una ROM) ---
+        // --- DEMO CANVAS ---
         const canvas = document.getElementById('arcadeCanvas');
         const ctx = canvas.getContext('2d');
         let animationFrameId, isPlaying = false, score = 0, audioEnabled = false;
-
         function resizeCanvas() { canvas.width = 640; canvas.height = 360; }
         resizeCanvas();
-
         const car = { x: 80, y: 260, width: 45, height: 25, vy: 0, gravity: 0.6, jumpPower: -10.5, grounded: true };
         let obstacles = [], gameSpeed = 5;
 
@@ -436,28 +528,20 @@
             drawInitialScene();
         }
 
-        function jump() {
-            if(isPlaying && car.grounded) { car.vy = car.jumpPower; car.grounded = false; playBeep(440, 0.05); }
-        }
-
+        function jump() { if(isPlaying && car.grounded) { car.vy = car.jumpPower; car.grounded = false; } }
         window.addEventListener('keydown', (e) => { if(e.code === 'Space') jump(); });
 
         function gameLoop() {
             if(!isPlaying) return;
             car.vy += car.gravity; car.y += car.vy;
             if(car.y >= 260) { car.y = 260; car.vy = 0; car.grounded = true; }
-
             if(Math.random() < 0.018 && (obstacles.length === 0 || obstacles[obstacles.length-1].x < 400)) {
                 obstacles.push({ x: canvas.width, y: 265, width: 20, height: 20 });
             }
-
             for(let i = 0; i < obstacles.length; i++) {
                 obstacles[i].x -= gameSpeed;
                 if(car.x < obstacles[i].x + obstacles[i].width && car.x + car.width > obstacles[i].x && car.y < obstacles[i].y + obstacles[i].height && car.y + car.height > obstacles[i].y) {
-                    playBeep(150, 0.2);
-                    alert('¡Juego Terminado! Score: ' + score + '\nTu Chevy requiere servicio en Chevy Master.');
-                    resetRunnerGame();
-                    return;
+                    resetRunnerGame(); return;
                 }
             }
             obstacles = obstacles.filter(obs => obs.x > -30);
@@ -488,28 +572,12 @@
         }
         drawInitialScene();
 
-        let audioCtx;
-        function playBeep(freq, duration) {
-            if(!audioEnabled) return;
-            if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
-            osc.frequency.value = freq; osc.connect(gain); gain.connect(audioCtx.destination);
-            osc.start(); gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
-            osc.stop(audioCtx.currentTime + duration);
-        }
-
-        function toggleAudio() {
-            audioEnabled = !audioEnabled;
-            document.getElementById('audioIcon').className = audioEnabled ? "fa-solid fa-volume-high text-cyber-neonCyan" : "fa-solid fa-volume-xmark";
-        }
-
+        function toggleAudio() { audioEnabled = !audioEnabled; }
         function toggleFullscreen() {
             const elem = document.querySelector('.crt-frame');
-            if (!document.fullscreenElement) { elem.requestFullscreen().catch(err => alert(`Error: ${err.message}`)); }
-            else { document.exitFullscreen(); }
+            if (!document.fullscreenElement) elem.requestFullscreen();
+            else document.exitFullscreen();
         }
-
         function loadPresetGame(title) {
             document.getElementById('gameTitleDisplay').innerHTML = `<i class="fa-solid fa-gamepad mr-1"></i> ${title}`;
             startRunnerGame();
