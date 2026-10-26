@@ -81,7 +81,7 @@
             <div class="text-xs text-gray-300 space-y-3 bg-cyber-dark/80 p-4 rounded-xl border border-cyber-border max-h-60 overflow-y-auto leading-relaxed">
                 <p><strong>1. Declaración bajo protesta de decir verdad:</strong> El usuario declara ser el autor original, poseedor de la licencia o contar con los derechos legítimos sobre cualquier archivo, paquete de juego o ROM que procese o suba a la plataforma.</p>
                 <p><strong>2. Otorgamiento de Licencia Neutral:</strong> Al utilizar el servicio, autorizas a <strong>Nexus Local Click</strong> y <strong>Chevy Master</strong> a alojar de forma técnica, ejecutar en sandbox y renderizar los assets únicamente para fines de demostración pública no comercial dentro del portal.</p>
-                <p><strong>3. Puerto Seguro (Safe Harbor):</strong> Nexus Arcade opera bajo strictly principios de neutralidad técnica.</p>
+                <p><strong>3. Puerto Seguro (Safe Harbor):</strong> Nexus Arcade opera bajo estrictos principios de neutralidad técnica.</p>
             </div>
             <div class="mt-4 flex items-center space-x-2">
                 <input type="checkbox" id="acceptLegal" onchange="toggleLegalButton()" class="w-5 h-5 accent-cyber-neonPink rounded cursor-pointer">
@@ -173,12 +173,12 @@
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
                     <i class="fa-solid fa-cloud-arrow-up text-cyber-neonPink"></i> Módulo de Carga Multiconsola & Publicación Comunitaria
                 </h3>
-                <p class="text-xs text-gray-400 mt-1">Sube tus juegos. Para asegurar emulación fluida sin pantalla negra, usa archivos <strong>.zip, .iso, .bin, .nes, .sfc, .z64</strong> (Evita .7z).</p>
+                <p class="text-xs text-gray-400 mt-1">Sube tus juegos en formatos compatibles con autocarga directa (<strong>.zip, .nes, .sfc, .z64, .bin</strong>).</p>
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                <button type="button" onclick="setConsoleType('snes', 'SNES')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-cyber-neonCyan font-bold hover:border-cyber-neonCyan transition-all flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-gamepad"></i> SNES / NES / GB
+                <button type="button" onclick="setConsoleType('nes', 'NES / Famicom')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-cyber-neonCyan font-bold hover:border-cyber-neonCyan transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-gamepad"></i> NES / SNES
                 </button>
                 <button type="button" onclick="setConsoleType('n64', 'Nintendo 64')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-cyber-neonPink font-bold hover:border-cyber-neonPink transition-all flex items-center justify-center gap-2">
                     <i class="fa-solid fa-cube"></i> Nintendo 64
@@ -186,23 +186,23 @@
                 <button type="button" onclick="setConsoleType('psx', 'PlayStation 1')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-cyber-neonYellow font-bold hover:border-cyber-neonYellow transition-all flex items-center justify-center gap-2">
                     <i class="fa-solid fa-compact-disc"></i> PlayStation 1
                 </button>
-                <button type="button" onclick="setConsoleType('ps2', 'PlayStation 2')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-green-400 font-bold hover:border-green-400 transition-all flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-circle-play"></i> PS2 / ISO
+                <button type="button" onclick="setConsoleType('segaMD', 'Sega Genesis')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-green-400 font-bold hover:border-green-400 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-circle-play"></i> Sega Genesis
                 </button>
             </div>
 
             <div id="dropzone" onclick="document.getElementById('fileInput').click()" class="dropzone-dash rounded-xl p-8 text-center cursor-pointer hover:bg-cyber-neonCyan/5 transition-colors group relative">
                 <input type="file" id="fileInput" class="hidden" accept=".iso,.bin,.rom,.zip,.cue,.chd,.z64,.nes,.sfc" onchange="handleHeavyROMUpload(event)">
                 <i class="fa-solid fa-compact-disc text-4xl text-cyber-neonCyan mb-3 group-hover:scale-110 transition-transform"></i>
-                <p class="text-sm font-bold text-white">Arrastra tu ROM o archivo ZIP aquí (.zip, .iso, .bin, .nes)</p>
-                <p class="text-xs text-gray-400 mt-1">Compatibilidad garantizada con emulación directa WebAssembly.</p>
+                <p class="text-sm font-bold text-white">Arrastra tu ROM o archivo ZIP aquí</p>
+                <p class="text-xs text-gray-400 mt-1">Autocarga directa en el emulador CRT sin menús de configuración.</p>
             </div>
 
             <div id="optimizationLog" class="hidden bg-black/60 rounded-xl p-4 border border-cyber-border font-mono text-xs space-y-1">
                 <p id="logConsoleTarget" class="text-cyber-neonPink font-bold"></p>
                 <p id="logOriginalSize" class="text-gray-300"></p>
-                <p class="text-yellow-400">✓ Validando formato para motor de emulación WebAssembly...</p>
-                <p class="text-cyber-neonCyan">✓ Registrando juego en el catálogo comunitario compartido...</p>
+                <p class="text-yellow-400">✓ Configurando autocarga en el núcleo WebAssembly...</p>
+                <p class="text-cyber-neonCyan">✓ Registrando juego en el catálogo comunitario...</p>
                 <p id="logFinalSize" class="text-green-400 font-bold"></p>
                 <p id="logStatus" class="text-cyber-neonYellow font-bold mt-2"></p>
             </div>
@@ -259,10 +259,10 @@
         </div>
     </footer>
 
-    <!-- SCRIPT PRINCIPAL -->
+    <!-- SCRIPT PRINCIPAL CON AUTOCARGA -->
     <script>
-        let currentCore = 'psx';
-        let currentConsoleName = 'PlayStation 1';
+        let currentCore = 'nes';
+        let currentConsoleName = 'NES / Famicom';
         let audioCtx, audioEnabled = true;
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -317,7 +317,7 @@
             const file = files[0];
 
             if(file.name.endsWith('.7z')) {
-                alert('⚠️ Formato .7z no compatible directamente con el emulador web. Por favor comprímelo en formato .ZIP o sube la ISO/BIN suelta.');
+                alert('⚠️ Formato .7z no compatible directamente. Comprímelo en formato .ZIP o usa ROMs sueltas.');
                 return;
             }
 
@@ -335,14 +335,14 @@
                 const optimizedMB = (originalMB * reductionFactor).toFixed(2);
                 document.getElementById('logFinalSize').innerText = `⚡ ROM optimizada a: ${optimizedMB} MB`;
                 document.getElementById('logStatus').className = "text-green-400 font-bold mt-2";
-                document.getElementById('logStatus').innerText = "STATUS: ¡Emulador montado en el CRT!";
+                document.getElementById('logStatus').innerText = "STATUS: ¡Iniciando autocarga en el CRT!";
                 
                 document.getElementById('gameTitleDisplay').innerHTML = `<i class="fa-solid fa-gamepad mr-1"></i> ${file.name} (${currentConsoleName})`;
                 document.getElementById('scoreDisplay').innerText = `Core: ${currentCore.toUpperCase()}`;
 
                 saveGameToCommunityCatalog(file.name, currentConsoleName, optimizedMB, currentCore);
                 launchRealEmulatorFromFile(file, currentCore);
-            }, 1500);
+            }, 1200);
         }
 
         function saveGameToCommunityCatalog(name, consoleName, size, core) {
@@ -373,48 +373,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-neonPink transition-all group">
-                    <div class="h-32 bg-gradient-to-br from-purple-900 to-black p-3 flex flex-col justify-between relative">
-                        <span class="bg-purple-600 text-white text-[9px] font-bold px-2 py-0.5 rounded self-start">N64 DEMAKE</span>
-                        <i class="fa-solid fa-cubes text-5xl text-white/20 absolute right-2 bottom-2 group-hover:scale-110 transition-transform"></i>
-                    </div>
-                    <div class="p-4 space-y-2">
-                        <h4 class="font-bold text-white text-sm">N64 Retro Jump</h4>
-                        <p class="text-xs text-gray-400">Plataformas low-poly estilizado.</p>
-                        <div class="pt-2 flex items-center justify-between text-xs">
-                            <span class="text-cyber-neonPink font-mono">8.4 MB</span>
-                            <button onclick="loadPresetGame('N64 Retro Jump')" class="px-3 py-1 bg-cyber-neonPink text-white font-bold rounded hover:bg-white hover:text-black transition-colors">Jugar</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-neonYellow transition-all group">
-                    <div class="h-32 bg-gradient-to-br from-blue-900 to-black p-3 flex flex-col justify-between relative">
-                        <span class="bg-blue-600 text-white text-[9px] font-bold px-2 py-0.5 rounded self-start">PS1 HORROR</span>
-                        <i class="fa-solid fa-ghost text-5xl text-white/20 absolute right-2 bottom-2 group-hover:scale-110 transition-transform"></i>
-                    </div>
-                    <div class="p-4 space-y-2">
-                        <h4 class="font-bold text-white text-sm">PS1 Low-Poly Mansion</h4>
-                        <p class="text-xs text-gray-400">Aventura de terror con cámaras fijas.</p>
-                        <div class="pt-2 flex items-center justify-between text-xs">
-                            <span class="text-cyber-neonYellow font-mono">14.2 MB</span>
-                            <button onclick="loadPresetGame('PS1 Low-Poly Mansion')" class="px-3 py-1 bg-cyber-neonYellow text-black font-bold rounded hover:bg-white transition-colors">Jugar</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-green-400 transition-all group">
-                    <div class="h-32 bg-gradient-to-br from-green-900 to-black p-3 flex flex-col justify-between relative">
-                        <span class="bg-green-600 text-white text-[9px] font-bold px-2 py-0.5 rounded self-start">SNES 16-BIT</span>
-                        <i class="fa-solid fa-dragon text-5xl text-white/20 absolute right-2 bottom-2 group-hover:scale-110 transition-transform"></i>
-                    </div>
-                    <div class="p-4 space-y-2">
-                        <h4 class="font-bold text-white text-sm">SNES Cyber Quest</h4>
-                        <p class="text-xs text-gray-400">Juego RPG de acción estilo 16 bits.</p>
-                        <div class="pt-2 flex items-center justify-between text-xs">
-                            <span class="text-green-400 font-mono">3.1 MB</span>
-                            <button onclick="loadPresetGame('SNES Cyber Quest')" class="px-3 py-1 bg-green-400 text-black font-bold rounded hover:bg-white transition-colors">Jugar</button>
-                        </div>
-                    </div>
-                </div>
             `;
 
             catalog.forEach((game) => {
@@ -439,7 +397,7 @@
             });
 
             grid.innerHTML = html;
-            document.getElementById('catalogCount').innerText = `${4 + catalog.length} Juegos Disponibles`;
+            document.getElementById('catalogCount').innerText = `${1 + catalog.length} Juegos Disponibles`;
         }
 
         function playCatalogGame(name, core, consoleName) {
@@ -462,13 +420,14 @@
             document.getElementById('canvasOverlay').classList.add('opacity-0', 'pointer-events-none');
             document.getElementById('emulatorStatusBadge').innerHTML = `<span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span> Emulando ${currentConsoleName}`;
 
-            // Limpiar contenedor
+            // Limpiar contenedor previo para forzar autocarga limpia
             document.getElementById('emulator').innerHTML = '';
 
             window.EJS_player = '#emulator';
             window.EJS_core = core;
             window.EJS_gameUrl = URL.createObjectURL(file);
             window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            window.EJS_autostart = true; // Forzar inicio directo sin menús de configuración
 
             const script = document.createElement('script');
             script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
