@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexus Arcade | N64 & PS1 Sandbox</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Librería para descomprimir .zip y .7z en el navegador -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -61,6 +63,9 @@
         .glow-text {
             text-shadow: 0 0 10px rgba(0, 243, 255, 0.7), 0 0 20px rgba(0, 243, 255, 0.4);
         }
+        .dropzone-dash {
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='12' ry='12' stroke='%2300F3FF77' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-cyber-neonPink selection:text-white">
@@ -77,9 +82,9 @@
             </div>
             <div class="text-xs text-gray-300 space-y-3 bg-cyber-dark/80 p-4 rounded-xl border border-cyber-border max-h-64 overflow-y-auto leading-relaxed">
                 <p><strong>1. Naturaleza del Servicio:</strong> Nexus Arcade opera exclusivamente como un entorno técnico de emulación web y reproductor de código abierto del lado del cliente (Client-Side Sandbox). La plataforma no almacena, resguarda, distribuye, administra ni comercializa ningún archivo ROM, ISO o binario protegido.</p>
-                <p><strong>2. Potestad y Responsabilidad del Usuario:</strong> Todo archivo ejecutado en el sistema es proporcionado por el usuario bajo su absoluta e independiente potestad, asumiendo la total responsabilidad legal y el uso exclusivo bajo derecho de copia privada o propiedad legítima. La plataforma no verifica, almacena ni audita los archivos locales del usuario.</p>
+                <p><strong>2. Potestad y Responsabilidad del Usuario:</strong> Todo archivo cargado, extraído o ejecutado en el sistema (incluyendo formatos .zip y .7z) es proporcionado por el usuario bajo su absoluta e independiente potestad, asumiendo la total responsabilidad legal y el uso exclusivo bajo derecho de copia privada o propiedad legítima. La plataforma no verifica, almacena ni audita los archivos locales del usuario.</p>
                 <p><strong>3. Neutralidad y Exención Comercial:</strong> Este sitio web no persigue fines de lucro ni realiza transacciones comerciales por contenido protegido. Las aportaciones voluntarias a través de Mercado Pago corresponden estrictamente a apoyo al mantenimiento de infraestructura comunitaria y desarrollo de software libre.</p>
-                <p><strong>4. Procesamiento Local:</strong> Toda la ejecución técnica ocurre de manera local y efímera en la memoria RAM del navegador del usuario. Cero almacenamiento en servidores externos.</p>
+                <p><strong>4. Procesamiento Local:</strong> Toda la ejecución técnica y extracción ocurre de manera local y efímera en la memoria RAM del navegador del usuario. Cero almacenamiento en servidores externos.</p>
             </div>
             <div class="mt-4 flex items-center space-x-2">
                 <input type="checkbox" id="acceptLegal" onchange="toggleLegalButton()" class="w-5 h-5 accent-cyber-neonPink rounded cursor-pointer">
@@ -129,20 +134,19 @@
                     <i class="fa-solid fa-tv"></i> PANTALLA REPRO-CRT INTERACTIVA
                 </h2>
                 <span id="emulatorStatusBadge" class="text-xs text-gray-400 flex items-center gap-1">
-                    <span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span> Sistema en espera
+                    <span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span> Sistema en espera (N64 / PS1)
                 </span>
             </div>
             <div class="crt-frame crt-overlay bg-black p-2 md:p-4">
                 <div class="relative w-full aspect-video bg-cyber-dark rounded-lg overflow-hidden flex items-center justify-center border border-cyber-border">
                     <canvas id="arcadeCanvas" class="w-full h-full object-contain block cursor-pointer" onclick="handleCanvasTap()"></canvas>
-                    <!-- CONTENEDOR NATIVO DE EMULATORJS -->
                     <div id="emulatorContainer" class="hidden absolute inset-0 w-full h-full bg-black">
-                        <div id="game" class="w-full h-full"></div>
+                        <div id="emulator" class="w-full h-full"></div>
                     </div>
                     <div id="canvasOverlay" class="absolute inset-0 bg-black/80 flex flex-col items-center justify-center gap-3 transition-opacity">
                         <i class="fa-solid fa-circle-play text-6xl text-cyber-neonCyan cursor-pointer hover:scale-110 transition-transform glow-text" onclick="startRunnerGame()"></i>
                         <p id="overlayTitle" class="text-sm font-bold text-white tracking-wide">Toca aquí para jugar "Chevy Retro Runner"</p>
-                        <p id="overlaySub" class="text-xs text-gray-400">O selecciona tu consola abajo para arrancar</p>
+                        <p id="overlaySub" class="text-xs text-gray-400">O selecciona tu consola y carga tu archivo abajo</p>
                     </div>
                 </div>
                 <div class="mt-3 flex flex-wrap items-center justify-between gap-2 px-2 text-xs text-gray-300">
@@ -166,41 +170,45 @@
             </div>
         </section>
 
-        <!-- SELECTOR DE CONSOLA DIRECTO (N64 y PS1) -->
-        <section class="bg-cyber-card border border-cyber-border rounded-2xl p-6 shadow-xl relative space-y-4">
+        <!-- ZONA DE CARGA EXCLUSIVA N64 Y PS1 (Soporte ZIP / 7Z / ISO) -->
+        <section class="bg-cyber-card border border-cyber-border rounded-2xl p-6 shadow-xl relative space-y-6">
             <div>
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-gamepad text-cyber-neonCyan"></i> Selecciona Consola y Juega
+                    <i class="fa-solid fa-compact-disc text-cyber-neonCyan"></i> Carga Local de Archivos (Nintendo 64 & PlayStation 1)
                 </h3>
-                <p class="text-xs text-gray-400 mt-1">Elige tu consola; el sistema abrirá el selector nativo para que cargues tu archivo limpio sin errores.</p>
+                <p class="text-xs text-gray-400 mt-1">Selecciona tu consola y carga directamente tu ROM, ISO o archivo comprimido (.zip, .7z).</p>
             </div>
 
+            <!-- Botones Exclusivos de N64 y PS1 -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <button onclick="launchEmulatorSystem('n64', 'Nintendo 64')" class="p-4 bg-cyber-dark border-2 border-cyber-neonYellow/60 hover:border-cyber-neonYellow rounded-xl flex items-center justify-between group transition-all shadow-lg">
+                <button type="button" onclick="setConsoleType('n64', 'Nintendo 64')" id="btnN64" class="p-4 bg-cyber-dark border-2 border-cyber-neonYellow rounded-xl text-xs text-cyber-neonYellow font-bold flex items-center justify-between transition-all shadow-lg">
                     <div class="flex items-center space-x-3">
-                        <div class="p-3 rounded-lg bg-cyber-neonYellow/10 text-cyber-neonYellow">
-                            <i class="fa-solid fa-cube text-xl"></i>
-                        </div>
+                        <i class="fa-solid fa-cube text-2xl"></i>
                         <div class="text-left">
-                            <h4 class="font-bold text-white text-sm">Nintendo 64</h4>
-                            <p class="text-[10px] text-gray-400">Soporte .z64, .n64, .v64, .zip</p>
+                            <span class="block text-sm text-white font-extrabold">Nintendo 64</span>
+                            <span class="text-[10px] text-gray-400">Soporta .z64, .n64, .v64, .zip, .7z</span>
                         </div>
                     </div>
-                    <i class="fa-solid fa-play text-cyber-neonYellow group-hover:scale-125 transition-transform"></i>
+                    <i class="fa-solid fa-check-circle text-lg"></i>
                 </button>
 
-                <button onclick="launchEmulatorSystem('psx', 'PlayStation 1')" class="p-4 bg-cyber-dark border-2 border-amber-400/60 hover:border-amber-400 rounded-xl flex items-center justify-between group transition-all shadow-lg">
+                <button type="button" onclick="setConsoleType('psx', 'PlayStation 1')" id="btnPSX" class="p-4 bg-cyber-dark border-2 border-cyber-border rounded-xl text-xs text-amber-400 font-bold flex items-center justify-between transition-all shadow-lg hover:border-amber-400">
                     <div class="flex items-center space-x-3">
-                        <div class="p-3 rounded-lg bg-amber-400/10 text-amber-400">
-                            <i class="fa-solid fa-compact-disc text-xl"></i>
-                        </div>
+                        <i class="fa-solid fa-compact-disc text-2xl"></i>
                         <div class="text-left">
-                            <h4 class="font-bold text-white text-sm">PlayStation 1</h4>
-                            <p class="text-[10px] text-gray-400">Soporte .iso, .bin, .cue, .img, .chd</p>
+                            <span class="block text-sm text-white font-extrabold">PlayStation 1</span>
+                            <span class="text-[10px] text-gray-400">Soporta .iso, .bin, .cue, .chd, .zip, .7z</span>
                         </div>
                     </div>
-                    <i class="fa-solid fa-play text-amber-400 group-hover:scale-125 transition-transform"></i>
+                    <i class="fa-solid fa-circle text-lg text-transparent"></i>
                 </button>
+            </div>
+
+            <div id="dropzone" onclick="document.getElementById('fileInput').click()" class="dropzone-dash rounded-xl p-8 text-center cursor-pointer hover:bg-cyber-neonCyan/5 transition-colors group relative">
+                <input type="file" id="fileInput" class="hidden" accept=".zip,.7z,.iso,.bin,.cue,.img,.chd,.z64,.n64,.v64" onchange="handleFileSelected(event)">
+                <i class="fa-solid fa-cloud-arrow-up text-4xl text-cyber-neonCyan mb-3 group-hover:scale-110 transition-transform"></i>
+                <p class="text-sm font-bold text-white">Haz clic aquí o arrastra tu juego (.zip, .7z, .z64, .iso)</p>
+                <p id="selectedConsoleIndicator" class="text-xs text-cyber-neonCyan font-bold mt-1">Consola activa actual: Nintendo 64</p>
             </div>
         </section>
 
@@ -261,13 +269,33 @@
         </div>
     </footer>
 
-    <!-- SCRIPT DE ARRANQUE NATIVO CON EMULATORJS -->
+    <!-- SCRIPT TÉCNICO CON SOPORTE ZIP/7Z Y ARRANQUE DIRECTO -->
     <script>
+        let currentCore = 'n64';
+        let currentConsoleName = 'Nintendo 64';
         let audioCtx, audioEnabled = true;
 
         window.addEventListener('DOMContentLoaded', () => {
             drawInitialScene();
         });
+
+        function setConsoleType(core, name) {
+            currentCore = core;
+            currentConsoleName = name;
+            document.getElementById('selectedConsoleIndicator').innerText = `Consola activa actual: ${name}`;
+            
+            if(core === 'n64') {
+                document.getElementById('btnN64').className = "p-4 bg-cyber-dark border-2 border-cyber-neonYellow rounded-xl text-xs text-cyber-neonYellow font-bold flex items-center justify-between transition-all shadow-lg";
+                document.getElementById('btnN64').querySelector('.fa-circle-check, .fa-circle').className = "fa-solid fa-check-circle text-lg";
+                document.getElementById('btnPSX').className = "p-4 bg-cyber-dark border-2 border-cyber-border rounded-xl text-xs text-amber-400 font-bold flex items-center justify-between transition-all shadow-lg hover:border-amber-400";
+                document.getElementById('btnPSX').querySelector('.fa-check-circle, .fa-circle').className = "fa-solid fa-circle text-lg text-transparent";
+            } else {
+                document.getElementById('btnPSX').className = "p-4 bg-cyber-dark border-2 border-amber-400 rounded-xl text-xs text-amber-400 font-bold flex items-center justify-between transition-all shadow-lg";
+                document.getElementById('btnPSX').querySelector('.fa-circle-check, .fa-circle').className = "fa-solid fa-check-circle text-lg";
+                document.getElementById('btnN64').className = "p-4 bg-cyber-dark border-2 border-cyber-border rounded-xl text-xs text-cyber-neonYellow font-bold flex items-center justify-between transition-all shadow-lg hover:border-cyber-neonYellow";
+                document.getElementById('btnN64').querySelector('.fa-check-circle, .fa-circle').className = "fa-solid fa-circle text-lg text-transparent";
+            }
+        }
 
         function toggleLegalButton() {
             const checkbox = document.getElementById('acceptLegal');
@@ -304,23 +332,62 @@
             }
         }
 
-        // LANZAMIENTO NATIVO DE EMULATORJS (EVITA ERRORES DE BLOB Y CONFIGURACIÓN)
-        function launchEmulatorSystem(core, consoleName) {
+        // MANEJADOR DE ARCHIVOS INTELIGENTE (ZIP, 7Z, ROMS, ISOs)
+        async function handleFileSelected(evt) {
+            const files = evt.target.files;
+            if(!files.length) return;
+            let file = files[0];
+            let fileName = file.name.toLowerCase();
+            let targetBlob = file;
+
+            // Descompresión automática si es .zip o .7z
+            if (fileName.endsWith('.zip') || fileName.endsWith('.7z')) {
+                try {
+                    document.getElementById('emulatorStatusBadge').innerHTML = `<span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> Descomprimiendo archivo comprimido...`;
+                    const zip = new JSZip();
+                    const zipContent = await zip.loadAsync(file);
+                    
+                    let validFileKey = null;
+                    const validExtensions = ['.z64', '.n64', '.v64', '.iso', '.bin', '.cue', '.img', '.chd'];
+                    
+                    for (let filename of Object.keys(zipContent.files)) {
+                        let lower = filename.toLowerCase();
+                        if (validExtensions.some(ext => lower.endsWith(ext))) {
+                            validFileKey = filename;
+                            break;
+                        }
+                    }
+
+                    if (!validFileKey) {
+                        alert('⚠️ El archivo comprimido no contiene una ROM o ISO válida de N64 o PS1.');
+                        return;
+                    }
+
+                    targetBlob = await zipContent.files[validFileKey].async('blob');
+                    fileName = validFileKey.toLowerCase();
+                } catch (err) {
+                    alert('Error al procesar el archivo comprimido.');
+                    return;
+                }
+            }
+
             initAudioContext();
             document.getElementById('arcadeCanvas').classList.add('hidden');
             document.getElementById('emulatorContainer').classList.remove('hidden');
             document.getElementById('canvasOverlay').classList.add('opacity-0', 'pointer-events-none');
-            document.getElementById('emulatorStatusBadge').innerHTML = `<span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span> Cargando ${consoleName}...`;
+            document.getElementById('emulatorStatusBadge').innerHTML = `<span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span> Emulando en ${currentConsoleName}`;
 
-            document.getElementById('gameTitleDisplay').innerHTML = `<i class="fa-solid fa-gamepad mr-1"></i> ${consoleName} Sandbox`;
-            document.getElementById('scoreDisplay').innerText = `Core: ${core.toUpperCase()}`;
+            document.getElementById('gameTitleDisplay').innerHTML = `<i class="fa-solid fa-gamepad mr-1"></i> ${file.name}`;
+            document.getElementById('scoreDisplay').innerText = `Core: ${currentCore.toUpperCase()}`;
 
-            document.getElementById('game').innerHTML = '';
+            document.getElementById('emulator').innerHTML = '';
 
-            // CONFIGURACIÓN OFICIAL ESTABLE DE EMULATORJS CON SELECTOR NATIVO
-            window.EJS_player = '#game';
-            window.EJS_core = core;
+            // BANDERAS ESTRICTAS PARA EVITAR EL MENÚ DE CONFIGURACIÓN Y LANZAR EL JUEGO
+            window.EJS_player = '#emulator';
+            window.EJS_core = currentCore;
+            window.EJS_gameUrl = URL.createObjectURL(targetBlob);
             window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            window.EJS_autostart = true;
             window.EJS_startOnLoaded = true;
             window.EJS_threads = false;
             window.EJS_backgroundColor = '#0a0a12';
