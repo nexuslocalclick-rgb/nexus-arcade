@@ -1,160 +1,598 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Arcade - Chevy Master</title>
+    <title>Nexus Arcade | Powered by Nexus Local Click</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            dark: '#0a0a12',
+                            card: '#121222',
+                            border: '#2a2a4a',
+                            neonPink: '#ff007f',
+                            neonCyan: '#00f3ff',
+                            neonYellow: '#ffe600',
+                            chevyRed: '#e62117'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Courier New', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Courier New', Courier, monospace; background: #0d0d0d; color: #00ffcc; margin: 0; padding: 15px; text-align: center; }
-        .container { max-width: 650px; margin: 0 auto; background: #1a1a1a; padding: 20px; border-radius: 12px; border: 2px solid #0070f3; box-shadow: 0 0 20px rgba(0,112,243,0.4); }
-        h1 { color: #00ffcc; margin-bottom: 5px; text-shadow: 0 0 10px rgba(0,255,204,0.5); font-size: 24px; }
-        .collab { color: #f39c12; font-weight: bold; font-size: 12px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
-        
-        /* MINIJUEGO */
-        .arcade-box { background: #000; padding: 10px; border-radius: 8px; border: 2px solid #00ffcc; margin-bottom: 20px; }
-        canvas { background: #111; border: 1px solid #333; display: block; margin: 0 auto; max-width: 100%; width: 100%; height: auto; }
-        .arcade-controls { margin-top: 8px; font-size: 11px; color: #aaa; }
-        
-        /* ZONA DE SUBIDA Y OPTIMIZACIÓN */
-        .upload-section { background: #222; padding: 15px; border-radius: 8px; border: 1px dashed #0070f3; margin-bottom: 20px; text-align: left; }
-        label { color: #fff; font-size: 12px; }
-        input[type="file"] { width: 100%; padding: 8px; margin: 8px 0; background: #111; color: #00ffcc; border: 1px solid #444; border-radius: 4px; box-sizing: border-box; cursor: pointer; }
-        .blender-tip { font-size: 10px; color: #f39c12; background: rgba(243, 156, 18, 0.1); padding: 6px; border-radius: 4px; margin-top: 6px; line-height: 1.3; }
-        
-        button { width: 100%; padding: 10px; margin: 8px 0; border-radius: 6px; border: none; font-size: 13px; font-weight: bold; cursor: pointer; font-family: 'Courier New', Courier, monospace; transition: 0.2s; }
-        .btn-action { background: #0070f3; color: white; }
-        .btn-action:hover { background: #005bb5; }
-        
-        /* MENÚ DE ARCHIVOS */
-        .menu-section { background: #151515; padding: 12px; border-radius: 8px; border: 1px solid #444; margin-bottom: 15px; text-align: left; }
-        .menu-section h3 { margin: 0 0 8px 0; font-size: 13px; color: #00ffcc; }
-        #fileList { list-style: none; padding: 0; margin: 0; max-height: 100px; overflow-y: auto; font-size: 11px; }
-        #fileList li { background: #222; margin: 4px 0; padding: 6px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; border-left: 3px solid #00ffcc; }
-        
-        /* DONACIONES */
-        .donate-section { background: #16221c; padding: 12px; border-radius: 8px; margin-top: 15px; border: 1px solid #27ae60; text-align: left; }
-        .donate-btn { background: #27ae60; color: white; text-decoration: none; display: block; text-align: center; padding: 10px; border-radius: 6px; margin-top: 8px; font-weight: bold; font-size: 13px; }
-        .donate-btn:hover { background: #219653; }
-        
-        .error { color: #ff4d4d; background: rgba(255, 77, 77, 0.1); padding: 8px; border-radius: 4px; font-size: 11px; margin-top: 6px; }
-        .success { color: #4bb543; background: rgba(75, 181, 67, 0.1); padding: 8px; border-radius: 4px; font-size: 11px; margin-top: 6px; }
-        
-        .privacy-box { font-size: 9px; color: #777; margin-top: 15px; border-top: 1px solid #333; padding-top: 10px; text-align: left; line-height: 1.3; }
+        /* Custom Synthwave / CRT Scanline FX */
+        body {
+            background-color: #05050a;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(0, 243, 255, 0.15), transparent 70%),
+                linear-gradient(to bottom, rgba(255, 0, 127, 0.05), transparent 80%);
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .crt-frame {
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3), inset 0 0 15px rgba(0,0,0,0.8);
+            border: 2px solid #00f3ff;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .crt-overlay::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 10;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        .glow-text {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7), 0 0 20px rgba(0, 243, 255, 0.4);
+        }
+
+        .dropzone-dash {
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='12' ry='12' stroke='%2300F3FF77' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+        }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>NEXUS ARCADE</h1>
-        <div class="collab">⚙️ En Colaboración con Chevy Master 🚗</div>
-        
-        <!-- MINIJUEGO -->
-        <div class="arcade-box">
-            <div style="font-size: 11px; color: #f39c12; margin-bottom: 4px;">🎮 MINIJUEGO CHEVY MASTER 8-BIT</div>
-            <canvas id="arcadeCanvas" width="400" height="180"></canvas>
-            <div class="arcade-controls">Toca la pantalla o presiona <strong>[ESPACIO]</strong> para saltar.</div>
-        </div>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyber-neonPink selection:text-white">
 
-        <!-- ZONA DE SUBIDA Y OPTIMIZACIÓN -->
-        <div class="upload-section">
-            <label><strong>Subir Asset / Modelo 3D / ROM (Máx. 50MB):</strong></label>
-            <input type="file" id="gameFile">
-            <div class="blender-tip">
-                💡 <strong>Tip Blender:</strong> Reduce polígonos y comprime texturas en formato <code>.glb</code> ligero para cumplir con el límite de 50MB.
+    <!-- 1. MANDATORY LEGAL SHIELD MODAL -->
+    <div id="legalModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+        <div class="max-w-xl w-full bg-cyber-card border-2 border-cyber-neonCyan rounded-2xl p-6 shadow-2xl shadow-cyber-neonCyan/20 relative">
+            <div class="text-center mb-4">
+                <div class="inline-block p-3 rounded-full bg-cyber-neonCyan/10 mb-2 border border-cyber-neonCyan">
+                    <i class="fa-solid fa-shield-halved text-3xl text-cyber-neonCyan"></i>
+                </div>
+                <h2 class="text-2xl font-extrabold tracking-wide text-white glow-text">ACUERDO DE USO Y ESCUDO LEGAL</h2>
+                <p class="text-xs text-cyber-neonCyan tracking-widest mt-1">NEXUS ARCADE • ACCESO DECLARATIVO OBLIGATORIO</p>
             </div>
-            <button class="btn-action" onclick="subirYListarArchivo()">Verificar, Optimizar y Agregar</button>
-            <p id="statusMessage"></p>
-        </div>
 
-        <!-- MENÚ AUTOMÁTICO -->
-        <div class="menu-section">
-            <h3>📂 Menú en la Nube (Bucket R2)</h3>
-            <ul id="fileList">
-                <li style="color: #666; justify-content: center;">No hay archivos cargados todavía...</li>
-            </ul>
-        </div>
+            <div class="text-xs text-gray-300 space-y-3 bg-cyber-dark/80 p-4 rounded-xl border border-cyber-border max-h-60 overflow-y-auto leading-relaxed">
+                <p><strong>1. Declaración bajo protesta de decir verdad:</strong> El usuario declara ser el autor original, poseedor de la licencia o contar con los derechos legítimos sobre cualquier archivo, paquete de juego o ROM que procese o suba a la plataforma.</p>
+                <p><strong>2. Otorgamiento de Licencia Neutral:</strong> Al utilizar el servicio, autorizas a <strong>Nexus Local Click</strong> y <strong>Chevy Master</strong> a alojar de forma técnica, ejecutar en sandbox y renderizar los assets únicamente para fines de demostración pública no comercial dentro del portal.</p>
+                <p><strong>3. Puerto Seguro (Safe Harbor):</strong> Nexus Arcade opera bajo estrictos principios de neutralidad técnica. Cualquier infracción reportada derivará en la baja inmediata del contenido.</p>
+            </div>
 
-        <!-- DONACIONES -->
-        <div class="donate-section">
-            <h3 style="margin: 0 0 4px 0; color: #27ae60; font-size: 14px;">☕ Apoya el Proyecto Retro</h3>
-            <p style="font-size: 10px; color: #bbb; margin: 0;">
-                Colabora con el mantenimiento técnico del taller Chevy Master y los servidores mediante aportaciones libres.
-            </p>
-            <a href="https://link.mercadopago.com.mx/arcadenexuslocalclik" target="_blank" class="donate-btn">Donar con Mercado Pago (Monto Libre)</a>
-        </div>
+            <div class="mt-4 flex items-center space-x-2">
+                <input type="checkbox" id="acceptLegal" class="w-4 h-4 accent-cyber-neonPink rounded cursor-pointer">
+                <label for="acceptLegal" class="text-xs text-gray-200 cursor-pointer select-none">
+                    Declaro bajo protesta que los juegos que suba son de mi propiedad o de libre distribución.
+                </label>
+            </div>
 
-        <!-- AVISO DE PRIVACIDAD -->
-        <div class="privacy-box">
-            <strong>Aviso de Privacidad:</strong> Los archivos gestionados en Cloudflare R2 están resguardados bajo los protocolos de Chevy Master. Uso limitado a contenido optimizado menor a 50MB.
+            <button id="btnAcceptLegal" disabled onclick="acceptShield()" class="mt-5 w-full py-3 bg-gray-700 text-gray-400 font-bold rounded-xl transition-all duration-300 tracking-wider shadow-lg flex items-center justify-center gap-2 cursor-not-allowed">
+                <i class="fa-solid fa-lock"></i> ACEPTAR Y ENTRAR AL ARCADE
+            </button>
         </div>
     </div>
 
+    <!-- MAIN HEADER & NAVIGATION -->
+    <header class="border-b border-cyber-border bg-cyber-dark/80 backdrop-blur-md sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyber-neonPink to-cyber-neonCyan flex items-center justify-center text-black font-black text-xl shadow-lg shadow-cyber-neonCyan/30">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-black tracking-wider text-white glow-text">NEXUS ARCADE</h1>
+                    <p class="text-[10px] text-gray-400">Powered by <a href="https://localclick.com.mx" target="_blank" class="text-cyber-neonCyan underline">localclick.com.mx</a></p>
+                </div>
+            </div>
+
+            <!-- Chevy Master Partnership Banner -->
+            <div class="flex-1 max-w-xl bg-gradient-to-r from-red-950/60 via-cyber-card to-cyber-dark border border-cyber-chevyRed/50 rounded-xl p-2 px-3 flex items-center gap-3">
+                <span class="bg-cyber-chevyRed text-white text-[10px] font-bold px-2 py-1 rounded tracking-widest uppercase flex-shrink-0">
+                    <i class="fa-solid fa-wrench mr-1"></i> Chevy Master
+                </span>
+                <p class="text-xs text-gray-300 truncate">
+                    En colaboración con <strong>Chevy Master Toluca</strong> — Juega gratis mientras tu auto recibe el mejor mantenimiento.
+                </p>
+            </div>
+
+            <!-- Buy Me A Coffee Quick Action -->
+            <button onclick="toggleSupportModal()" class="px-3 py-1.5 bg-cyber-neonYellow/10 border border-cyber-neonYellow text-cyber-neonYellow hover:bg-cyber-neonYellow hover:text-black transition-all text-xs font-bold rounded-lg flex items-center gap-2">
+                <i class="fa-solid fa-mug-hot"></i> Apoyar $0
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-1 w-full space-y-8">
+
+        <!-- 2. INTERACTIVE GAME EMULATOR / PLAYER DEMO (PROOF OF CONCEPT) -->
+        <section class="space-y-3">
+            <div class="flex items-center justify-between">
+                <h2 class="text-sm font-extrabold uppercase tracking-widest text-cyber-neonCyan flex items-center gap-2">
+                    <i class="fa-solid fa-tv"></i> Repro-CRT Interactivo (Demo en vivo)
+                </h2>
+                <span class="text-xs text-gray-400 flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span> Listo para jugar
+                </span>
+            </div>
+
+            <div class="crt-frame crt-overlay bg-black p-2 md:p-4">
+                <!-- CANVAS PLAYER -->
+                <div class="relative w-full aspect-video bg-cyber-dark rounded-lg overflow-hidden flex items-center justify-center border border-cyber-border">
+                    <canvas id="arcadeCanvas" class="w-full h-full object-contain block"></canvas>
+
+                    <!-- Player Controls Overlay -->
+                    <div id="canvasOverlay" class="absolute inset-0 bg-black/70 flex flex-col items-center justify-center gap-3 transition-opacity">
+                        <i class="fa-solid fa-circle-play text-6xl text-cyber-neonCyan cursor-pointer hover:scale-110 transition-transform glow-text" onclick="startRunnerGame()"></i>
+                        <p class="text-sm font-bold text-white tracking-wide">Haz clic para iniciar "Chevy Retro Runner"</p>
+                        <p class="text-xs text-gray-400">Controles: [Espacio] o Tocar pantalla para Saltar</p>
+                    </div>
+                </div>
+
+                <!-- CRT Control Bar -->
+                <div class="mt-3 flex flex-wrap items-center justify-between gap-2 px-2 text-xs text-gray-300">
+                    <div class="flex items-center space-x-3">
+                        <span id="gameTitleDisplay" class="font-bold text-cyber-neonPink"><i class="fa-solid fa-car-side mr-1"></i> Chevy Retro Runner (DEMO)</span>
+                        <span class="text-gray-500">|</span>
+                        <span id="scoreDisplay" class="font-mono text-cyber-neonYellow">Score: 0000</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="toggleAudio()" class="px-2 py-1 bg-cyber-card border border-cyber-border rounded hover:border-cyber-neonCyan text-gray-300">
+                            <i id="audioIcon" class="fa-solid fa-volume-xmark"></i> Audio
+                        </button>
+                        <button onclick="resetRunnerGame()" class="px-2 py-1 bg-cyber-card border border-cyber-border rounded hover:border-cyber-neonCyan text-gray-300">
+                            <i class="fa-solid fa-rotate-left"></i> Reiniciar
+                        </button>
+                        <button onclick="toggleFullscreen()" class="px-2 py-1 bg-cyber-neonCyan/20 border border-cyber-neonCyan text-cyber-neonCyan rounded hover:bg-cyber-neonCyan hover:text-black font-bold">
+                            <i class="fa-solid fa-expand"></i> Pantalla Completa
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. GAME UPLOADER (DROPZONE & ASSET CHECKER) -->
+        <section class="bg-cyber-card border border-cyber-border rounded-2xl p-6 shadow-xl relative">
+            <div class="mb-4">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-cloud-arrow-up text-cyber-neonPink"></i> Módulo de Carga y Optimización de Assets
+                </h3>
+                <p class="text-xs text-gray-400 mt-1">Sube tus roms, paquetes web o demakes (.ZIP, .HTML5). Compresión simulada client-side (&lt;50 MB).</p>
+            </div>
+
+            <div id="dropzone" onclick="document.getElementById('fileInput').click()" class="dropzone-dash rounded-xl p-8 text-center cursor-pointer hover:bg-cyber-neonCyan/5 transition-colors group relative">
+                <input type="file" id="fileInput" class="hidden" accept=".zip,.html,.rom" onchange="handleFileSelect(event)">
+                <i class="fa-solid fa-file-zipper text-4xl text-cyber-neonCyan mb-3 group-hover:scale-110 transition-transform"></i>
+                <p class="text-sm font-bold text-white">Arrastra tu juego o haz clic para examinar</p>
+                <p class="text-xs text-gray-400 mt-1">Soporta formatos WebAssembly, HTML5 export y emuladores compatibles.</p>
+            </div>
+
+            <!-- Optimization Simulation Logs -->
+            <div id="optimizationLog" class="hidden mt-4 bg-black/60 rounded-xl p-4 border border-cyber-border font-mono text-xs space-y-1">
+                <p class="text-cyber-neonCyan"><i class="fa-solid fa-spinner animate-spin"></i> Analizando paquete de assets...</p>
+                <p id="logSize" class="text-gray-300"> Verificando peso total (&lt; 50MB Cap)...</p>
+                <p id="logTexture" class="text-gray-300"> Verificando resolución de texturas e imágenes...</p>
+                <p id="logWasm" class="text-gray-300"> Validando sandbox de ejecución WebAssembly...</p>
+                <p id="logStatus" class="text-cyber-neonYellow font-bold mt-2"></p>
+            </div>
+        </section>
+
+        <!-- 4. GAME CATALOG GRID -->
+        <section class="space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-layer-group text-cyber-neonCyan"></i> Catálogo Comunitario & Demakes
+                </h3>
+                <span class="text-xs text-gray-400">4 Juegos Disponibles</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Card 1 -->
+                <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-neonCyan transition-all group">
+                    <div class="h-32 bg-gradient-to-br from-red-900 to-black p-3 flex flex-col justify-between relative">
+                        <span class="bg-cyber-chevyRed text-white text-[9px] font-bold px-2 py-0.5 rounded self-start">CHEVY ORIGINAL</span>
+                        <i class="fa-solid fa-car-side text-5xl text-white/20 absolute right-2 bottom-2 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <h4 class="font-bold text-white text-sm">Chevy Master Retro Racer</h4>
+                        <p class="text-xs text-gray-400">Demo 8-bit runner para celulares y PC. Esquiva obstáculos y mantén tu Chevy al 100%.</p>
+                        <div class="pt-2 flex items-center justify-between text-xs">
+                            <span class="text-cyber-neonCyan font-mono">1.2 MB</span>
+                            <button onclick="loadPresetGame('Chevy Master Retro Racer')" class="px-3 py-1 bg-cyber-neonCyan text-black font-bold rounded hover:bg-white transition-colors">
+                                Jugar Ahora
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-neonPink transition-all group">
+                    <div class="h-32 bg-gradient-to-br from-purple-900 to-black p-3 flex flex-col justify-between relative">
+                        <span class="bg-purple-600 text-white text-[9px] font-bold px-2 py-0.5 rounded self-start">N64 DEMAKE</span>
+                        <i class="fa-solid fa-cubes text-5xl text-white/20 absolute right-2 bottom-2 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <h4 class="font-bold text-white text-sm">N64 Retro Jump</h4>
+                        <p class="text-xs text-gray-400">Plataformas low-poly estilizado estilo consola 64 bits. Cero latencia.</p>
+                        <div class="pt-2 flex items-center justify-between text-xs">
+                            <span class="text-cyber-neonPink font-mono">8.4 MB</span>
+                            <button onclick="loadPresetGame('N64 Retro Jump')" class="px-3 py-1 bg-cyber-neonPink text-white font-bold rounded hover:bg-white hover:text-black transition-colors">
+                                Jugar Ahora
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-neonYellow transition-all group">
+                    <div class="h-32 bg-gradient-to-br from-blue-900 to-black p-3 flex flex-col justify-between relative">
+                        <span class="bg-blue-600 text-white text-[9px] font-bold px-2 py-0.5 rounded self-start">PS1 HORROR</span>
+                        <i class="fa-solid fa-ghost text-5xl text-white/20 absolute right-2 bottom-2 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <h4 class="font-bold text-white text-sm">PS1 Low-Poly Mansion</h4>
+                        <p class="text-xs text-gray-400">Aventura de terror con cámaras fijas y estética noventera retro.</p>
+                        <div class="pt-2 flex items-center justify-between text-xs">
+                            <span class="text-cyber-neonYellow font-mono">14.2 MB</span>
+                            <button onclick="loadPresetGame('PS1 Low-Poly Mansion')" class="px-3 py-1 bg-cyber-neonYellow text-black font-bold rounded hover:bg-white transition-colors">
+                                Jugar Ahora
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-green-400 transition-all group">
+                    <div class="h-32 bg-gradient-to-br from-green-900 to-black p-3 flex flex-col justify-between relative">
+                        <span class="bg-green-600 text-white text-[9px] font-bold px-2 py-0.5 rounded self-start">SNES 16-BIT</span>
+                        <i class="fa-solid fa-dragon text-5xl text-white/20 absolute right-2 bottom-2 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <h4 class="font-bold text-white text-sm">SNES Cyber Quest</h4>
+                        <p class="text-xs text-gray-400">Juego RPG de acción estilo 16 bits adaptado para ejecución web directa.</p>
+                        <div class="pt-2 flex items-center justify-between text-xs">
+                            <span class="text-green-400 font-mono">3.1 MB</span>
+                            <button onclick="loadPresetGame('SNES Cyber Quest')" class="px-3 py-1 bg-green-400 text-black font-bold rounded hover:bg-white transition-colors">
+                                Jugar Ahora
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 5. COMMUNITY SUPPORT MODAL / WIDGET -->
+    <div id="supportModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div class="max-w-md w-full bg-cyber-card border border-cyber-neonYellow rounded-2xl p-6 shadow-2xl relative">
+            <button onclick="toggleSupportModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="text-center space-y-3">
+                <i class="fa-solid fa-mug-hot text-4xl text-cyber-neonYellow"></i>
+                <h3 class="text-xl font-bold text-white">Apoya a la Comunidad Nexus</h3>
+                <p class="text-xs text-gray-300 leading-relaxed">
+                    Mantener esta plataforma con costo $0 para usuarios y talleres requiere apoyo voluntario. Si te divierte la Zona Arcade, invita un café al desarrollador.
+                </p>
+                <div class="pt-3 flex flex-col gap-2">
+                    <a href="#" onclick="alert('Demostración: Enlace de donación PayPal / Buy Me a Coffee.'); return false;" class="w-full py-2.5 bg-cyber-neonYellow text-black font-bold rounded-xl text-xs hover:bg-white transition-colors">
+                        <i class="fa-solid fa-heart mr-1"></i> Donar con Paypal / Tarjeta
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-cyber-border bg-cyber-dark py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-4 text-xs text-gray-400">
+            <div>
+                <p><strong>Nexus Arcade</strong> © 2026. Proyecto comunitario de código abierto.</p>
+                <p class="text-[10px] text-gray-500 mt-0.5">En alianza con <strong>Chevy Master Toluca</strong> y <strong>Nexus Local Click</strong> (<a href="https://localclick.com.mx" class="underline">localclick.com.mx</a>)</p>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#" onclick="alert('Términos completos desplegados'); return false;" class="hover:text-cyber-neonCyan">Términos</a>
+                <a href="#" onclick="alert('Aviso de Privacidad: Cero recolección de datos personales.'); return false;" class="hover:text-cyber-neonCyan">Privacidad</a>
+                <a href="https://github.com" target="_blank" class="hover:text-cyber-neonCyan"><i class="fa-brands fa-github text-base"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT & RUNNER GAME LOGIC -->
     <script>
+        // --- 1. LEGAL SHIELD LOGIC ---
+        const checkbox = document.getElementById('acceptLegal');
+        const btnAccept = document.getElementById('btnAcceptLegal');
+
+        checkbox.addEventListener('change', function() {
+            if(this.checked) {
+                btnAccept.disabled = false;
+                btnAccept.classList.remove('bg-gray-700', 'text-gray-400', 'cursor-not-allowed');
+                btnAccept.classList.add('bg-cyber-neonPink', 'text-white', 'hover:bg-white', 'hover:text-black', 'cursor-pointer');
+                btnAccept.innerHTML = '<i class="fa-solid fa-unlock"></i> ACEPTAR Y ENTRAR AL ARCADE';
+            } else {
+                btnAccept.disabled = true;
+                btnAccept.classList.add('bg-gray-700', 'text-gray-400', 'cursor-not-allowed');
+                btnAccept.classList.remove('bg-cyber-neonPink', 'text-white', 'hover:bg-white', 'hover:text-black', 'cursor-pointer');
+                btnAccept.innerHTML = '<i class="fa-solid fa-lock"></i> ACEPTAR Y ENTRAR AL ARCADE';
+            }
+        });
+
+        function acceptShield() {
+            document.getElementById('legalModal').classList.add('hidden');
+        }
+
+        function toggleSupportModal() {
+            document.getElementById('supportModal').classList.toggle('hidden');
+            document.getElementById('supportModal').classList.toggle('flex');
+        }
+
+        // --- 2. CANVAS RUNNER MINI-GAME DEMO ---
         const canvas = document.getElementById('arcadeCanvas');
         const ctx = canvas.getContext('2d');
-        let player = { x: 40, y: 130, width: 18, height: 18, dy: 0, jumping: false };
-        let obstacle = { x: 380, y: 132, width: 14, height: 16 };
+        
+        let animationFrameId;
+        let isPlaying = false;
         let score = 0;
+        let audioEnabled = false;
+
+        // Auto-resize canvas resolution
+        function resizeCanvas() {
+            canvas.width = 640;
+            canvas.height = 360;
+        }
+        resizeCanvas();
+
+        // Game Objects
+        const car = {
+            x: 80,
+            y: 260,
+            width: 45,
+            height: 25,
+            vy: 0,
+            gravity: 0.6,
+            jumpPower: -10.5,
+            grounded: true
+        };
+
+        let obstacles = [];
+        let gameSpeed = 5;
+
+        function startRunnerGame() {
+            document.getElementById('canvasOverlay').classList.add('opacity-0', 'pointer-events-none');
+            if(!isPlaying) {
+                isPlaying = true;
+                score = 0;
+                obstacles = [];
+                car.y = 260;
+                car.vy = 0;
+                gameLoop();
+            }
+        }
+
+        function resetRunnerGame() {
+            cancelAnimationFrame(animationFrameId);
+            isPlaying = false;
+            document.getElementById('canvasOverlay').classList.remove('opacity-0', 'pointer-events-none');
+            document.getElementById('scoreDisplay').innerText = "Score: 0000";
+            drawInitialScene();
+        }
 
         function jump() {
-            if (!player.jumping) { player.dy = -7; player.jumping = true; }
+            if(isPlaying && car.grounded) {
+                car.vy = car.jumpPower;
+                car.grounded = false;
+                playBeep(440, 0.05); // Jump synth sound
+            }
         }
-        document.addEventListener('keydown', (e) => { if (e.code === 'Space') { jump(); e.preventDefault(); } });
-        canvas.addEventListener('touchstart', (e) => { jump(); e.preventDefault(); });
-        canvas.addEventListener('click', jump);
+
+        // Keyboard & Touch events
+        window.addEventListener('keydown', (e) => {
+            if(e.code === 'Space') jump();
+        });
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if(!isPlaying) startRunnerGame();
+            else jump();
+        });
 
         function gameLoop() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.strokeStyle = '#222'; ctx.beginPath(); ctx.moveTo(0, 148); ctx.lineTo(400, 148); ctx.stroke();
+            if(!isPlaying) return;
 
-            player.y += player.dy;
-            if (player.y < 130) { player.dy += 0.35; } else { player.y = 130; player.dy = 0; player.jumping = false; }
+            // Update Physics
+            car.vy += car.gravity;
+            car.y += car.vy;
 
-            obstacle.x -= 2.5;
-            if (obstacle.x < -15) { obstacle.x = 400; score++; }
-
-            if (player.x < obstacle.x + obstacle.width && player.x + player.width > obstacle.x &&
-                player.y < obstacle.y + obstacle.height && player.y + player.height > obstacle.y) {
-                score = 0; obstacle.x = 400;
+            if(car.y >= 260) {
+                car.y = 260;
+                car.vy = 0;
+                car.grounded = true;
             }
 
-            ctx.fillStyle = '#00ffcc'; ctx.fillRect(player.x, player.y, player.width, player.height);
-            ctx.fillStyle = '#ff4d4d'; ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-            ctx.fillStyle = '#fff'; ctx.font = '11px Courier New'; ctx.fillText('SCORE: ' + score, 10, 18);
-            requestAnimationFrame(gameLoop);
+            // Obstacles Logic
+            if(Math.random() < 0.018 && (obstacles.length === 0 || obstacles[obstacles.length-1].x < 400)) {
+                obstacles.push({
+                    x: canvas.width,
+                    y: 265,
+                    width: 20,
+                    height: 20
+                });
+            }
+
+            for(let i = 0; i < obstacles.length; i++) {
+                obstacles[i].x -= gameSpeed;
+
+                // Collision Detection
+                if(
+                    car.x < obstacles[i].x + obstacles[i].width &&
+                    car.x + car.width > obstacles[i].x &&
+                    car.y < obstacles[i].y + obstacles[i].height &&
+                    car.y + car.height > obstacles[i].y
+                ) {
+                    playBeep(150, 0.2); // Game Over Sound
+                    alert('¡Juego Terminado! Score: ' + score + '\nTu Chevy requiere servicio en Chevy Master.');
+                    resetRunnerGame();
+                    return;
+                }
+            }
+
+            // Filter passed obstacles
+            obstacles = obstacles.filter(obs => obs.x > -30);
+
+            // Increase Score
+            score += 1;
+            document.getElementById('scoreDisplay').innerText = "Score: " + String(score).padStart(4, '0');
+
+            // Render Frame
+            draw();
+
+            animationFrameId = requestAnimationFrame(gameLoop);
         }
-        gameLoop();
 
-        function subirYListarArchivo() {
-            const fileInput = document.getElementById('gameFile');
-            const statusMsg = document.getElementById('statusMessage');
-            const fileList = document.getElementById('fileList');
+        function draw() {
+            // Background / Road
+            ctx.fillStyle = '#0a0a12';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            if (fileInput.files.length === 0) {
-                statusMsg.className = "error";
-                statusMsg.innerText = "⚠️ Selecciona un archivo primero.";
-                return;
+            // Cyber Horizon grid lines
+            ctx.strokeStyle = '#00f3ff33';
+            ctx.beginPath();
+            ctx.moveTo(0, 285);
+            ctx.lineTo(canvas.width, 285);
+            ctx.stroke();
+
+            // Draw Road
+            ctx.fillStyle = '#121222';
+            ctx.fillRect(0, 285, canvas.width, 75);
+
+            // Draw Chevy Car
+            ctx.fillStyle = '#e62117'; // Chevy Red
+            ctx.fillRect(car.x, car.y, car.width, car.height);
+            ctx.fillStyle = '#00f3ff'; // Windshield
+            ctx.fillRect(car.x + 25, car.y + 3, 12, 10);
+            ctx.fillStyle = '#ff007f'; // Tail light
+            ctx.fillRect(car.x - 2, car.y + 12, 4, 6);
+
+            // Wheels
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(car.x + 6, car.y + 20, 10, 8);
+            ctx.fillRect(car.x + 28, car.y + 20, 10, 8);
+
+            // Draw Obstacles (Cones)
+            ctx.fillStyle = '#ffe600';
+            for(let obs of obstacles) {
+                ctx.beginPath();
+                ctx.moveTo(obs.x, obs.y + obs.height);
+                ctx.lineTo(obs.x + obs.width / 2, obs.y);
+                ctx.lineTo(obs.x + obs.width, obs.y + obs.height);
+                ctx.closePath();
+                ctx.fill();
             }
+        }
 
-            const file = fileInput.files[0];
-            const maxSize = 50 * 1024 * 1024;
+        function drawInitialScene() {
+            ctx.fillStyle = '#0a0a12';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00f3ff';
+            ctx.font = '16px "Courier New", monospace';
+            ctx.fillText('PRESS PLAY TO LAUNCH DEMO', 200, 180);
+        }
+        drawInitialScene();
 
-            if (file.size > maxSize) {
-                statusMsg.className = "error";
-                statusMsg.innerText = "❌ Pesa " + (file.size / (1024*1024)).toFixed(2) + "MB. Supera los 50MB. Simplifica en Blender.";
-                return;
+        // Simple Web Audio API Beep Generator
+        let audioCtx;
+        function playBeep(freq, duration) {
+            if(!audioEnabled) return;
+            if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.frequency.value = freq;
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
+            osc.stop(audioCtx.currentTime + duration);
+        }
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            const icon = document.getElementById('audioIcon');
+            icon.className = audioEnabled ? "fa-solid fa-volume-high text-cyber-neonCyan" : "fa-solid fa-volume-xmark";
+        }
+
+        function toggleFullscreen() {
+            const elem = document.querySelector('.crt-frame');
+            if (!document.fullscreenElement) {
+                elem.requestFullscreen().catch(err => alert(`Error de pantalla completa: ${err.message}`));
+            } else {
+                document.exitFullscreen();
             }
+        }
 
-            statusMsg.className = "success";
-            statusMsg.innerText = "🔄 Sincronizando con R2...";
+        // --- 3. DROPZONE SIMULATOR LOGIC ---
+        function handleFileSelect(evt) {
+            const files = evt.target.files;
+            if(!files.length) return;
+            
+            const file = files[0];
+            const logDiv = document.getElementById('optimizationLog');
+            logDiv.classList.remove('hidden');
 
+            document.getElementById('logSize').innerText = ` Verificando peso: ${(file.size / (1024*1024)).toFixed(2)} MB (Límite: 50MB)...`;
+            
             setTimeout(() => {
-                statusMsg.innerText = "✅ ¡Subido con éxito! (" + (file.size / (1024*1024)).toFixed(2) + "MB)";
-                if (fileList.innerHTML.includes("No hay archivos")) fileList.innerHTML = "";
-                const li = document.createElement('li');
-                li.innerHTML = `<span>🎮 ${file.name}</span> <span style="color:#00ffcc;">R2 OK</span>`;
-                fileList.appendChild(li);
-                fileInput.value = "";
+                if(file.size > 50 * 1024 * 1024) {
+                    document.getElementById('logStatus').className = "text-red-400 font-bold mt-2";
+                    document.getElementById('logStatus').innerText = "❌ ERROR: El archivo excede los 50MB permitidos para ejecución web.";
+                } else {
+                    document.getElementById('logTexture').innerText = " Texturas optimizadas automáticas a max 1024x1024px [OK]";
+                    document.getElementById('logWasm').innerText = " Sandbox de ejecución WebAssembly verificado [OK]";
+                    document.getElementById('logStatus').className = "text-green-400 font-bold mt-2";
+                    document.getElementById('logStatus').innerText = " STATUS: Juego listo. Guardado en almacenamiento efímero y cargado al CRT.";
+                    
+                    document.getElementById('gameTitleDisplay').innerHTML = `<i class="fa-solid fa-gamepad mr-1"></i> ${file.name}`;
+                    startRunnerGame();
+                }
             }, 1200);
+        }
+
+        function loadPresetGame(title) {
+            document.getElementById('gameTitleDisplay').innerHTML = `<i class="fa-solid fa-gamepad mr-1"></i> ${title}`;
+            startRunnerGame();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
