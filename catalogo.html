@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Arcade | Catálogo Indie Unificado</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            dark: '#0a0a12',
+                            card: '#121222',
+                            border: '#2a2a4a',
+                            neonPink: '#ff007f',
+                            neonCyan: '#00f3ff',
+                            neonYellow: '#ffe600',
+                            chevyRed: '#e62117'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Courier New', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #05050a;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(0, 243, 255, 0.15), transparent 70%),
+                linear-gradient(to bottom, rgba(255, 0, 127, 0.05), transparent 80%);
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .glow-text {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7), 0 0 20px rgba(0, 243, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyber-neonPink selection:text-white">
+
+    <!-- HEADER -->
+    <header class="border-b border-cyber-border bg-cyber-dark/80 backdrop-blur-md sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <a href="index.html" class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyber-neonPink to-cyber-neonCyan flex items-center justify-center text-black font-black text-xl shadow-lg shadow-cyber-neonCyan/30 hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-gamepad"></i>
+                </a>
+                <div>
+                    <h1 class="text-xl font-black tracking-wider text-white glow-text">NEXUS ARCADE</h1>
+                    <p class="text-[10px] text-gray-400">Directorio Unificado de Juegos Indie</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="px-3 py-1.5 bg-cyber-card border border-cyber-border text-gray-300 hover:border-cyber-neonCyan hover:text-white transition-all text-xs font-bold rounded-lg flex items-center gap-2">
+                    <i class="fa-solid fa-house"></i> Volver al Sandbox
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-1 w-full space-y-8">
+
+        <!-- PRESENTACIÓN -->
+        <section class="text-center max-w-3xl mx-auto space-y-3">
+            <h2 class="text-2xl md:text-3xl font-black text-white glow-text uppercase tracking-wider">
+                Catálogo Indie Global & Hecho en México
+            </h2>
+            <p class="text-xs md:text-sm text-gray-400 leading-relaxed">
+                Directorio comunitario que recopila proyectos independientes de libre acceso. Selecciona un título para ir a jugar a su plataforma o estudio oficial.
+            </p>
+        </section>
+
+        <!-- PANEL DE BÚSQUEDA Y FILTROS -->
+        <section class="bg-cyber-card border border-cyber-border rounded-2xl p-4 md:p-6 shadow-xl space-y-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <!-- Buscador -->
+                <div class="relative w-full md:w-1/2">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-xs text-cyber-neonCyan"></i>
+                    <input type="text" id="searchInput" onkeyup="filterGames()" placeholder="Buscar juego por nombre o palabras clave..." class="w-full bg-cyber-dark border border-cyber-border rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-cyber-neonCyan transition-colors">
+                </div>
+
+                <!-- Filtros por Género -->
+                <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                    <button onclick="setCategory('Todos')" class="cat-btn px-3 py-1.5 bg-cyber-neonCyan text-black font-bold text-xs rounded-lg transition-all" data-cat="Todos">Todos</button>
+                    <button onclick="setCategory('México / Latam')" class="cat-btn px-3 py-1.5 bg-cyber-dark border border-cyber-border text-gray-300 font-bold text-xs rounded-lg hover:border-cyber-neonCyan transition-all" data-cat="México / Latam">🇲🇽 Mex/Latam</button>
+                    <button onclick="setCategory('Arcade')" class="cat-btn px-3 py-1.5 bg-cyber-dark border border-cyber-border text-gray-300 font-bold text-xs rounded-lg hover:border-cyber-neonCyan transition-all" data-cat="Arcade">Arcade</button>
+                    <button onclick="setCategory('Plataformas')" class="cat-btn px-3 py-1.5 bg-cyber-dark border border-cyber-border text-gray-300 font-bold text-xs rounded-lg hover:border-cyber-neonCyan transition-all" data-cat="Plataformas">Plataformas</button>
+                    <button onclick="setCategory('Terror')" class="cat-btn px-3 py-1.5 bg-cyber-dark border border-cyber-border text-gray-300 font-bold text-xs rounded-lg hover:border-cyber-neonCyan transition-all" data-cat="Terror">Terror</button>
+                    <button onclick="setCategory('Puzle')" class="cat-btn px-3 py-1.5 bg-cyber-dark border border-cyber-border text-gray-300 font-bold text-xs rounded-lg hover:border-cyber-neonCyan transition-all" data-cat="Puzle">Puzle</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- REJILLA DE JUEGOS -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="gamesGrid">
+            <!-- Los juegos se renderizan dinámicamente con JavaScript -->
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-cyber-border bg-cyber-dark py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-4 text-xs text-gray-400">
+            <div>
+                <p><strong>Nexus Arcade</strong> © 2026. Directorio Indie de Redirección.</p>
+                <p class="text-[10px] text-gray-500 mt-0.5">Apoyando a los desarrolladores y la escena independiente mundial.</p>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="index.html" class="hover:text-cyber-neonCyan">Ir al Sandbox Web</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT DEL CATÁLOGO -->
+    <script>
+        // BASE DE DATOS DEL CATÁLOGO UNIFICADO
+        const gamesData = [
+            {
+                title: "Mexican Legends",
+                category: "México / Latam",
+                genre: "Aventura / Leyendas",
+                source: "itch.io",
+                desc: "Juego de aventura basado en las tres leyendas más populares de México.",
+                url: "https://itch.io/games/tag-indie/tag-mexico",
+                badge: "🇲🇽 MEXICAN INDIE"
+            },
+            {
+                title: "¿Quién es el Mechaburro?",
+                category: "México / Latam",
+                genre: "Acción / Comedia",
+                source: "itch.io",
+                desc: "¿Te convertirás en el siguiente Mechaburro? Acción directa hecha en México.",
+                url: "https://itch.io/games/tag-indie/tag-mexico",
+                badge: "🇲🇽 MEXICAN INDIE"
+            },
+            {
+                title: "Rumberry",
+                category: "México / Latam",
+                genre: "Plataformas 3D / Puzle",
+                source: "itch.io",
+                desc: "Plataforma 3D inspirado en la Época de Oro del Cine Mexicano de los 40s.",
+                url: "https://itch.io/games/tag-indie/tag-mexico",
+                badge: "🇲🇽 MEXICAN INDIE"
+            },
+            {
+                title: "Glory Hunters",
+                category: "México / Latam",
+                genre: "RPG GameBoy Style",
+                source: "itch.io",
+                desc: "Increíble RPG retro estilo Game Boy creado por talento mexicano.",
+                url: "https://itch.io/games/tag-indie/tag-mexico",
+                badge: "🇲🇽 RETRO LATAM"
+            },
+            {
+                title: "No Players Online",
+                category: "Terror",
+                genre: "Terror Psicológico",
+                source: "itch.io",
+                desc: "Un inquietante shooter abandonado donde descubres que no estás tan solo.",
+                url: "https://papercookies.itch.io/no-players-online",
+                badge: "🔥 POPULAR"
+            },
+            {
+                title: "Windowframe",
+                category: "Plataformas",
+                genre: "Puzle / Plataformas",
+                source: "itch.io",
+                desc: "Manipula el tamaño de la ventana de juego para resolver los escenarios.",
+                url: "https://managore.itch.io/windowframe",
+                badge: "💡 INNOVADOR"
+            },
+            {
+                title: "The Maître D'",
+                category: "Puzle",
+                genre: "Puzle / Plataformas",
+                source: "itch.io",
+                desc: "Divertido juego sobre un mesero que se estira para servir a los clientes.",
+                url: "https://seadads.itch.io/the-maitre-d",
+                badge: "⭐ RECOMENDADO"
+            },
+            {
+                title: "Tiny Islands",
+                category: "Puzle",
+                genre: "Estrategia Corta",
+                source: "itch.io",
+                desc: "Crea e ilustra pequeñas islas con combinaciones aleatorias de cartas.",
+                url: "https://dr-d-king.itch.io/tiny-islands",
+                badge: "🎮 HTML5"
+            },
+            {
+                title: "Babbdi",
+                category: "Arcade",
+                genre: "Exploración / Breve",
+                source: "itch.io",
+                desc: "Explora una brutalista ciudad subterránea y encuentra formas locas de escapar.",
+                url: "https://sir-babbdi.itch.io/babbdi",
+                badge: "⭐ DE CULTO"
+            },
+            {
+                title: "The Baby In Yellow",
+                category: "Terror",
+                genre: "Terror Cómico",
+                source: "Game Jolt",
+                desc: "Cuida a un bebé demoníaco en este fenómeno viral del terror indie.",
+                url: "https://gamejolt.com/",
+                badge: "🔥 VIRAL"
+            },
+            {
+                title: "Shattered Pixel Dungeon",
+                category: "Arcade",
+                genre: "Roguelike / Pixel Art",
+                source: "itch.io",
+                desc: "Un clásico roguelike de exploración de mazmorras simple de jugar pero exigente.",
+                url: "https://shatteredpixel.itch.io/shattered-pixel-dungeon",
+                badge: "🛡️ ROGUELIKE"
+            },
+            {
+                title: "Friday Night Funkin'",
+                category: "Arcade",
+                genre: "Ritmo / Arcade",
+                source: "Newgrounds",
+                desc: "El juego de ritmo de código abierto más famoso de la última década.",
+                url: "https://www.newgrounds.com/",
+                badge: "🎶 RITMO"
+            }
+        ];
+
+        let selectedCategory = 'Todos';
+
+        function renderGames(data) {
+            const grid = document.getElementById('gamesGrid');
+            grid.innerHTML = '';
+
+            if (data.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500 text-xs">No se encontraron juegos con ese filtro.</div>`;
+                return;
+            }
+
+            data.forEach(game => {
+                const card = document.createElement('div');
+                card.className = "bg-cyber-card border border-cyber-border rounded-xl p-5 flex flex-col justify-between hover:border-cyber-neonCyan transition-all group shadow-lg";
+                card.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-extrabold px-2 py-0.5 rounded bg-cyber-neonCyan/10 border border-cyber-neonCyan text-cyber-neonCyan uppercase tracking-wider">${game.badge}</span>
+                            <span class="text-[10px] text-gray-400 font-mono"><i class="fa-solid fa-globe mr-1"></i>${game.source}</span>
+                        </div>
+                        <h3 class="font-extrabold text-white text-base group-hover:text-cyber-neonCyan transition-colors">${game.title}</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed line-clamp-2">${game.desc}</p>
+                    </div>
+                    <div class="pt-4 mt-4 border-t border-cyber-border/50 flex items-center justify-between">
+                        <span class="text-[10px] text-cyber-neonYellow font-bold">${game.genre}</span>
+                        <a href="${game.url}" target="_blank" class="px-3 py-1.5 bg-cyber-neonCyan text-black font-bold rounded-lg text-xs hover:bg-white transition-colors flex items-center gap-1 shadow">
+                            Jugar / Ver <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function setCategory(cat) {
+            selectedCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if (btn.getAttribute('data-cat') === cat) {
+                    btn.className = "cat-btn px-3 py-1.5 bg-cyber-neonCyan text-black font-bold text-xs rounded-lg transition-all";
+                } else {
+                    btn.className = "cat-btn px-3 py-1.5 bg-cyber-dark border border-cyber-border text-gray-300 font-bold text-xs rounded-lg hover:border-cyber-neonCyan transition-all";
+                }
+            });
+            filterGames();
+        }
+
+        function filterGames() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = gamesData.filter(g => {
+                const matchesCategory = (selectedCategory === 'Todos') || (g.category === selectedCategory);
+                const matchesSearch = g.title.toLowerCase().includes(query) || g.desc.toLowerCase().includes(query) || g.genre.toLowerCase().includes(query);
+                return matchesCategory && matchesSearch;
+            });
+            renderGames(filtered);
+        }
+
+        // Carga inicial
+        renderGames(gamesData);
+    </script>
+</body>
+</html>
