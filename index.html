@@ -333,13 +333,70 @@
             }
         }
 
-        // MANEJADOR DE ARCHIVOS INTELIGENTE (ZIP, 7Z, ROMS, ISOs)
+                // MANEJADOR DE ARCHIVOS INTELIGENTE (SOPORTE DIRECTO E HÍBRIDO)
         async function handleFileSelected(evt) {
             const files = evt.target.files;
             if(!files.length) return;
             let file = files[0];
             let fileName = file.name.toLowerCase();
             let targetBlob = file;
+
+            // Si es un archivo comprimido .zip y pesa poco, intentamos descomprimir
+            if (fileName.endsWith('.zip')) {
+                try {
+                    document.getElementById('emulatorStatusBadge').innerHTML = `<span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> Procesando archivo...`;
+                    const zip = new JSZip();
+                    const zipContent = await zip.loadAsync(file);
+                    
+                    let validFileKey = null;
+                    const validExtensions = ['.z64', '.n64', '.v64', '.iso', '.bin', '.cue', '.img', '.chd'];
+                    
+                    for (let filename of Object.keys(zipContent.files)) {
+                        let lower = filename.toLowerCase();
+                        if (validExtensions.some(ext => lower.endsWith(ext))) {
+                            validFileKey = filename;
+                            break;
+                        }
+                    }
+
+                    if (validFileKey) {
+                        targetBlob = await zipContent.files[validFileKey].async('blob');
+                        fileName = validFileKey.toLowerCase();
+                    }
+                    // Si fallara el zip pero es un archivo directo de PS1, pasa directo abajo
+                } catch (err) {
+                    console.log("Aviso: Leyendo archivo de forma directa por tamaño o formato.");
+                }
+            }
+
+            initAudioContext();
+            document.getElementById('arcadeCanvas').classList.add('hidden');
+            document.getElementById('emulatorContainer').classList.remove('hidden');
+            document.getElementById('canvasOverlay').classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('emulatorStatusBadge').innerHTML = `<span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span> Emulando en ${currentConsoleName}`;
+
+            document.getElementById('gameTitleDisplay').innerHTML = `<i class="fa-solid fa-gamepad mr-1"></i> ${file.name}`;
+            document.getElementById('scoreDisplay').innerText = `Core: ${currentCore.toUpperCase()}`;
+
+            document.getElementById('emulator').innerHTML = '';
+
+            // CARGA EN EMULATORJS
+            window.EJS_player = '#emulator';
+            window.EJS_core = currentCore;
+            window.EJS_gameUrl = URL.createObjectURL(targetBlob);
+            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            window.EJS_autostart = true;
+            window.EJS_startOnLoaded = true;
+            window.EJS_threads = false;
+            window.EJS_backgroundColor = '#0a0a12';
+
+            const script = document.createElement('script');
+            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            document.body.appendChild(script);
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
 
             // Descompresión automática si es .zip o .7z
             if (fileName.endsWith('.zip') || fileName.endsWith('.7z')) {
