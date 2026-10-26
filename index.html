@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Arcade | N64 & PS1 Sandbox</title>
+    <title>Nexus Arcade | Entorno Sandbox Web</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Librería para descomprimir .zip en el navegador -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -78,11 +78,11 @@
                     <i class="fa-solid fa-shield-halved text-3xl text-cyber-neonCyan"></i>
                 </div>
                 <h2 class="text-xl font-extrabold tracking-wide text-white glow-text">AVISO LEGAL Y DE PRIVACIDAD</h2>
-                <p class="text-xs text-cyber-neonCyan tracking-widest mt-1">NEXUS ARCADE • ENTORNO SANDBOX N64 / PS1</p>
+                <p class="text-xs text-cyber-neonCyan tracking-widest mt-1">NEXUS ARCADE • ENTORNO SANDBOX TÉCNICO</p>
             </div>
             <div class="text-xs text-gray-300 space-y-3 bg-cyber-dark/80 p-4 rounded-xl border border-cyber-border max-h-64 overflow-y-auto leading-relaxed">
                 <p><strong>1. Naturaleza del Servicio:</strong> Nexus Arcade opera exclusivamente como un entorno técnico de emulación web y reproductor de código abierto del lado del cliente (Client-Side Sandbox). La plataforma no almacena, resguarda, distribuye, administra ni comercializa ningún archivo ROM, ISO o binario protegido.</p>
-                <p><strong>2. Potestad y Responsabilidad del Usuario:</strong> Todo archivo cargado, extraído o ejecutado en el sistema (incluyendo formatos .zip y .7z) es proporcionado por el usuario bajo su absoluta e independiente potestad, asumiendo la total responsabilidad legal y el uso exclusivo bajo derecho de copia privada o propiedad legítima. La plataforma no verifica, almacena ni audita los archivos locales del usuario.</p>
+                <p><strong>2. Potestad y Responsabilidad del Usuario:</strong> Todo archivo cargado, extraído o ejecutado en el sistema (incluyendo formatos .zip) es proporcionado por el usuario bajo su absoluta e independiente potestad, asumiendo la total responsabilidad legal y el uso exclusivo bajo derecho de copia privada o propiedad legítima. La plataforma no verifica, almacena ni audita los archivos locales del usuario.</p>
                 <p><strong>3. Neutralidad y Exención Comercial:</strong> Este sitio web no persigue fines de lucro ni realiza transacciones comerciales por contenido protegido. Las aportaciones voluntarias a través de Mercado Pago corresponden estrictamente a apoyo al mantenimiento de infraestructura comunitaria y desarrollo de software libre.</p>
                 <p><strong>4. Procesamiento Local:</strong> Toda la ejecución técnica y extracción ocurre de manera local y efímera en la memoria RAM del navegador del usuario. Cero almacenamiento en servidores externos.</p>
             </div>
@@ -110,17 +110,26 @@
                     <p class="text-[10px] text-gray-400">Powered by <a href="https://localclick.com.mx" target="_blank" class="text-cyber-neonCyan underline">localclick.com.mx</a></p>
                 </div>
             </div>
-            <div class="flex-1 max-w-xl bg-gradient-to-r from-red-950/60 via-cyber-card to-cyber-dark border border-cyber-chevyRed/50 rounded-xl p-2 px-3 flex items-center gap-3">
-                <span class="bg-cyber-chevyRed text-white text-[10px] font-bold px-2 py-1 rounded tracking-widest uppercase flex-shrink-0">
-                    <i class="fa-solid fa-wrench mr-1"></i> Chevy Master
+
+            <!-- BANNER LIMPIO (Sin mención de marcas/colaboraciones ajenas) -->
+            <div class="flex-1 max-w-lg bg-gradient-to-r from-cyan-950/40 via-cyber-card to-cyber-dark border border-cyber-neonCyan/40 rounded-xl p-2 px-3 flex items-center gap-3">
+                <span class="bg-cyber-neonCyan text-black text-[10px] font-black px-2 py-1 rounded tracking-widest uppercase flex-shrink-0">
+                    <i class="fa-solid fa-code mr-1"></i> Sandbox Web
                 </span>
                 <p class="text-xs text-gray-300 truncate">
-                    En colaboración con <strong>Chevy Master Toluca</strong> — Nintendo 64 & PlayStation 1 Sandbox.
+                    Entorno independiente de emulación y ejecución local del usuario.
                 </p>
             </div>
-            <button onclick="toggleSupportModal()" class="px-3 py-1.5 bg-cyber-mercadoPago/10 border border-cyber-mercadoPago text-cyber-mercadoPago hover:bg-cyber-mercadoPago hover:text-white transition-all text-xs font-bold rounded-lg flex items-center gap-2">
-                <i class="fa-solid fa-hand-holding-dollar"></i> Apoyar (Mercado Pago)
-            </button>
+
+            <!-- BOTONERA DE ACCESO (Catálogo + Apoyo) -->
+            <div class="flex items-center gap-2">
+                <a href="catalogo.html" class="px-3 py-1.5 bg-cyber-neonCyan/10 border border-cyber-neonCyan text-cyber-neonCyan hover:bg-cyber-neonCyan hover:text-black transition-all text-xs font-bold rounded-lg flex items-center gap-2 shadow-lg">
+                    <i class="fa-solid fa-compass"></i> Catálogo Indie
+                </a>
+                <button onclick="toggleSupportModal()" class="px-3 py-1.5 bg-cyber-mercadoPago/10 border border-cyber-mercadoPago text-cyber-mercadoPago hover:bg-cyber-mercadoPago hover:text-white transition-all text-xs font-bold rounded-lg flex items-center gap-2">
+                    <i class="fa-solid fa-hand-holding-dollar"></i> Apoyar
+                </button>
+            </div>
         </div>
     </header>
 
@@ -293,7 +302,7 @@
                 document.getElementById('btnPSX').className = "p-4 bg-cyber-dark border-2 border-amber-400 rounded-xl text-xs text-amber-400 font-bold flex items-center justify-between transition-all shadow-lg";
                 document.getElementById('btnPSX').querySelector('.fa-circle-check, .fa-circle').className = "fa-solid fa-check-circle text-lg";
                 document.getElementById('btnN64').className = "p-4 bg-cyber-dark border-2 border-cyber-border rounded-xl text-xs text-cyber-neonYellow font-bold flex items-center justify-between transition-all shadow-lg hover:border-cyber-neonYellow";
-                document.getElementById('btnN64').querySelector('.fa-check-circle, .fa-circle').className = "fa-solid fa-circle text-lg text-transparent";
+                document.getElementById('btnN64').querySelector('.fa-circle-check, .fa-circle').className = "fa-solid fa-circle text-lg text-transparent";
             }
         }
 
