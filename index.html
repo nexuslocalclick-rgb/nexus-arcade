@@ -245,7 +245,7 @@
                     Mantenimiento de infraestructura web y dominio mediante aportaciones voluntarias.
                 </p>
                 <div class="pt-3 flex flex-col gap-2">
-                    <a href="https://link.mercadopago.com.mx/nexuslocalclick" target="_blank" class="w-full py-3 bg-cyber-mercadoPago text-white font-bold rounded-xl text-xs hover:bg-sky-500 transition-colors flex items-center justify-center gap-2 shadow-lg">
+                    <a href="https://link.mercadopago.com.mx/arcadenexuslocalclik" target="_blank" class="w-full py-3 bg-cyber-mercadoPago text-white font-bold rounded-xl text-xs hover:bg-sky-500 transition-colors flex items-center justify-center gap-2 shadow-lg">
                         <i class="fa-solid fa-credit-card"></i> Donar con Mercado Pago
                     </a>
                 </div>
@@ -267,7 +267,7 @@
         </div>
     </footer>
 
-    <!-- SCRIPT LIMPIO Y DIRECTO -->
+    <!-- SCRIPT CORREGIDO PARA ARRANQUE DIRECTO -->
     <script>
         let currentCore = 'nes';
         let currentConsoleName = 'NES / Famicom';
@@ -335,12 +335,13 @@
 
             document.getElementById('emulator').innerHTML = '';
 
+            // BANDERAS ESTRICTAS PARA EVITAR EL MENÚ DE CONFIGURACIÓN Y ARRANCAR DIRECTO
             window.EJS_player = '#emulator';
             window.EJS_core = currentCore;
             window.EJS_gameUrl = URL.createObjectURL(file);
             window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
             window.EJS_autostart = true;
-            window.EJS_startOnLoaded = true;
+            window.EJS_startOnLoaded = true; // Fuerza el inicio inmediato de la ROM
             window.EJS_threads = false;
             window.EJS_backgroundColor = '#0a0a12';
 
