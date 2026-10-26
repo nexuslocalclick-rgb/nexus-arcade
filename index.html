@@ -136,14 +136,14 @@
             </div>
             <div class="crt-frame crt-overlay bg-black p-2 md:p-4">
                 <div class="relative w-full aspect-video bg-cyber-dark rounded-lg overflow-hidden flex items-center justify-center border border-cyber-border">
-                    <canvas id="arcadeCanvas" class="w-full h-full object-contain block"></canvas>
+                    <canvas id="arcadeCanvas" class="w-full h-full object-contain block cursor-pointer" onclick="handleCanvasTap()"></canvas>
                     <div id="emulatorContainer" class="hidden absolute inset-0 w-full h-full bg-black">
                         <div id="emulator" class="w-full h-full"></div>
                     </div>
                     <div id="canvasOverlay" class="absolute inset-0 bg-black/80 flex flex-col items-center justify-center gap-3 transition-opacity">
                         <i class="fa-solid fa-circle-play text-6xl text-cyber-neonCyan cursor-pointer hover:scale-110 transition-transform glow-text" onclick="startRunnerGame()"></i>
-                        <p id="overlayTitle" class="text-sm font-bold text-white tracking-wide">Haz clic para jugar "Chevy Retro Runner" (Demo)</p>
-                        <p id="overlaySub" class="text-xs text-gray-400">O sube/selecciona un juego del catálogo abajo</p>
+                        <p id="overlayTitle" class="text-sm font-bold text-white tracking-wide">Toca aquí para jugar "Chevy Retro Runner"</p>
+                        <p id="overlaySub" class="text-xs text-gray-400">Toca la pantalla o presiona [Espacio] para saltar</p>
                     </div>
                 </div>
                 <div class="mt-3 flex flex-wrap items-center justify-between gap-2 px-2 text-xs text-gray-300">
@@ -173,7 +173,7 @@
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
                     <i class="fa-solid fa-cloud-arrow-up text-cyber-neonPink"></i> Módulo de Carga Multiconsola & Publicación Comunitaria
                 </h3>
-                <p class="text-xs text-gray-400 mt-1">Sube tus juegos. Al procesarse, se optimizan y se publican automáticamente en el catálogo global de la comunidad.</p>
+                <p class="text-xs text-gray-400 mt-1">Sube tus juegos. Al procesarse, se optimizan y se publican automáticamente con su peso real en el catálogo.</p>
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -195,7 +195,7 @@
                 <input type="file" id="fileInput" class="hidden" accept=".iso,.bin,.rom,.zip,.cue,.chd,.z64,.nes,.sfc,.7z" onchange="handleHeavyROMUpload(event)">
                 <i class="fa-solid fa-compact-disc text-4xl text-cyber-neonCyan mb-3 group-hover:scale-110 transition-transform"></i>
                 <p class="text-sm font-bold text-white">Arrastra tu ROM o archivo ZIP/7z aquí</p>
-                <p class="text-xs text-gray-400 mt-1">Se optimizará y actualizará el catálogo comunitario en automático.</p>
+                <p class="text-xs text-gray-400 mt-1">Se calculará el tamaño exacto optimizado para la comunidad.</p>
             </div>
 
             <div id="optimizationLog" class="hidden bg-black/60 rounded-xl p-4 border border-cyber-border font-mono text-xs space-y-1">
@@ -214,10 +214,10 @@
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
                     <i class="fa-solid fa-layer-group text-cyber-neonCyan"></i> Catálogo Comunitario & Subidas Recientes
                 </h3>
-                <span id="catalogCount" class="text-xs text-gray-400">5 Juegos Disponibles</span>
+                <span id="catalogCount" class="text-xs text-gray-400"> Juegos Disponibles</span>
             </div>
             <div id="dynamicCatalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Tarjetas dinámicas generadas mediante JavaScript -->
+                <!-- Generado por JavaScript -->
             </div>
         </section>
     </main>
@@ -267,6 +267,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             loadCommunityCatalog();
+            drawInitialScene();
         });
 
         function setConsoleType(core, name) {
@@ -333,12 +334,12 @@
                 document.getElementById('gameTitleDisplay').innerHTML = `<i class="fa-solid fa-gamepad mr-1"></i> ${file.name} (${currentConsoleName})`;
                 document.getElementById('scoreDisplay').innerText = `Core: ${currentCore.toUpperCase()}`;
 
-                saveGameToCommunityCatalog(file.name, currentConsoleName, optimizedMB, currentCore, file);
+                saveGameToCommunityCatalog(file.name, currentConsoleName, optimizedMB, currentCore);
                 launchRealEmulatorFromFile(file, currentCore);
             }, 1500);
         }
 
-        function saveGameToCommunityCatalog(name, consoleName, size, core, fileObj = null) {
+        function saveGameToCommunityCatalog(name, consoleName, size, core) {
             let catalog = JSON.parse(localStorage.getItem('nexus_community_games') || '[]');
             if(!catalog.some(item => item.name === name)) {
                 catalog.unshift({ name, consoleName, size, core });
@@ -410,7 +411,7 @@
                 </div>
             `;
 
-            catalog.forEach((game, index) => {
+            catalog.forEach((game) => {
                 html += `
                     <div class="bg-cyber-card border border-cyber-neonCyan rounded-xl overflow-hidden hover:scale-[1.02] transition-all group shadow-lg shadow-cyber-neonCyan/10">
                         <div class="h-32 bg-gradient-to-br from-cyan-950 to-black p-3 flex flex-col justify-between relative">
@@ -460,9 +461,12 @@
             window.EJS_gameUrl = URL.createObjectURL(file);
             window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
 
-            const script = document.createElement('script');
-            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-            document.body.appendChild(script);
+            if(!document.getElementById('ejs-loader-script')) {
+                const script = document.createElement('script');
+                script.id = 'ejs-loader-script';
+                script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+                document.body.appendChild(script);
+            }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -500,20 +504,36 @@
             }
         }
 
-        window.addEventListener('keydown', (e) => { if(e.code === 'Space') jump(); });
-        canvas.addEventListener('touchstart', (e) => { e.preventDefault(); if(!isPlaying) startRunnerGame(); else jump(); });
+        function handleCanvasTap() {
+            if(!isPlaying) {
+                startRunnerGame();
+            } else {
+                jump();
+            }
+        }
+
+        window.addEventListener('keydown', (e) => { 
+            if(e.code === 'Space') {
+                e.preventDefault();
+                if(!isPlaying) startRunnerGame();
+                else jump();
+            } 
+        });
 
         function gameLoop() {
             if(!isPlaying) return;
-            car.vy += car.gravity; car.y += car.vy;
+            car.vy += car.gravity; 
+            car.y += car.vy;
             if(car.y >= 260) { car.y = 260; car.vy = 0; car.grounded = true; }
-            if(Math.random() < 0.018 && (obstacles.length === 0 || obstacles[obstacles.length-1].x < 400)) {
-                obstacles.push({ x: canvas.width, y: 265, width: 20, height: 20 });
+            
+            if(Math.random() < 0.02 && (obstacles.length === 0 || obstacles[obstacles.length-1].x < 420)) {
+                obstacles.push({ x: canvas.width, y: 265, width: 22, height: 22 });
             }
+
             for(let i = 0; i < obstacles.length; i++) {
                 obstacles[i].x -= gameSpeed;
                 if(car.x < obstacles[i].x + obstacles[i].width && car.x + car.width > obstacles[i].x && car.y < obstacles[i].y + obstacles[i].height && car.y + car.height > obstacles[i].y) {
-                    playBeep(150, 0.2);
+                    playBeep(120, 0.25);
                     alert('¡Juego Terminado! Score: ' + score + '\nTu Chevy requiere servicio en Chevy Master.');
                     resetRunnerGame();
                     return;
@@ -543,9 +563,8 @@
         function drawInitialScene() {
             ctx.fillStyle = '#0a0a12'; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = '#00f3ff'; ctx.font = '16px "Courier New", monospace';
-            ctx.fillText('PRESS PLAY TO LAUNCH DEMO', 200, 180);
+            ctx.fillText('PRESS PLAY TO LAUNCH DEMO', 180, 180);
         }
-        drawInitialScene();
 
         function playBeep(freq, duration) {
             if(!audioEnabled) return;
@@ -568,10 +587,8 @@
             const btn = document.getElementById('audioIcon');
             if(audioEnabled) {
                 initAudioContext();
-                btn.className = "fa-solid fa-volume-high text-cyber-neonCyan";
                 btn.parentNode.innerHTML = '<i id="audioIcon" class="fa-solid fa-volume-high text-cyber-neonCyan"></i> Audio: On';
             } else {
-                btn.className = "fa-solid fa-volume-xmark";
                 btn.parentNode.innerHTML = '<i id="audioIcon" class="fa-solid fa-volume-xmark"></i> Audio: Off';
             }
         }
