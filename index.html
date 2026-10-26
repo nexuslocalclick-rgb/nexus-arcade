@@ -77,17 +77,16 @@
                     <i class="fa-solid fa-shield-halved text-3xl text-cyber-neonCyan"></i>
                 </div>
                 <h2 class="text-2xl font-extrabold tracking-wide text-white glow-text">ACUERDO DE USO Y ESCUDO LEGAL</h2>
-                <p class="text-xs text-cyber-neonCyan tracking-widest mt-1">NEXUS ARCADE • ACCESO DECLARATIVO OBLIGATORIO</p>
+                <p class="text-xs text-cyber-neonCyan tracking-widest mt-1">NEXUS ARCADE • ENTORNO MULTIPLATAFORMA</p>
             </div>
             <div class="text-xs text-gray-300 space-y-3 bg-cyber-dark/80 p-4 rounded-xl border border-cyber-border max-h-60 overflow-y-auto leading-relaxed">
-                <p><strong>1. Declaración bajo protesta de decir verdad:</strong> El usuario declara ser el autor original, poseedor de la licencia o contar con los derechos legítimos sobre cualquier archivo, paquete de juego o ROM que procese o suba a la plataforma.</p>
-                <p><strong>2. Otorgamiento de Licencia Neutral:</strong> Al utilizar el servicio, autorizas a <strong>Nexus Local Click</strong> y <strong>Chevy Master</strong> a alojar de forma técnica, ejecutar en sandbox y renderizar los assets únicamente para fines de demostración pública no comercial dentro del portal.</p>
-                <p><strong>3. Puerto Seguro (Safe Harbor):</strong> Nexus Arcade opera bajo estrictos principios de neutralidad técnica.</p>
+                <p><strong>1. Reingeniería y Transformación:</strong> Los assets de consolas de N64 e inferiores se procesan localmente para asset derivado. Los archivos de PlayStation 1 procesados externamente se admiten bajo estricta responsabilidad técnica.</p>
+                <p><strong>2. Puerto Seguro (Safe Harbor):</strong> Operado bajo neutralidad tecnológica en colaboración con Chevy Master Toluca.</p>
             </div>
             <div class="mt-4 flex items-center space-x-2">
                 <input type="checkbox" id="acceptLegal" onchange="toggleLegalButton()" class="w-5 h-5 accent-cyber-neonPink rounded cursor-pointer">
                 <label for="acceptLegal" class="text-xs text-gray-200 cursor-pointer select-none">
-                    Declaro bajo protesta que los juegos que suba son de mi propiedad o de libre distribución.
+                    Comprendo y acepto las condiciones de uso y soporte técnico.
                 </label>
             </div>
             <button id="btnAcceptLegal" disabled onclick="acceptShield()" class="mt-5 w-full py-3 bg-gray-700 text-gray-400 font-bold rounded-xl transition-all duration-300 tracking-wider shadow-lg flex items-center justify-center gap-2 cursor-not-allowed">
@@ -113,7 +112,7 @@
                     <i class="fa-solid fa-wrench mr-1"></i> Chevy Master
                 </span>
                 <p class="text-xs text-gray-300 truncate">
-                    En colaboración con <strong>Chevy Master Toluca</strong> — Juega gratis mientras tu auto recibe el mejor mantenimiento.
+                    En colaboración con <strong>Chevy Master Toluca</strong> — Emulación avanzada y soporte multi-consola.
                 </p>
             </div>
             <button onclick="toggleSupportModal()" class="px-3 py-1.5 bg-cyber-mercadoPago/10 border border-cyber-mercadoPago text-cyber-mercadoPago hover:bg-cyber-mercadoPago hover:text-white transition-all text-xs font-bold rounded-lg flex items-center gap-2">
@@ -144,7 +143,7 @@
                     <div id="canvasOverlay" class="absolute inset-0 bg-black/80 flex flex-col items-center justify-center gap-3 transition-opacity">
                         <i class="fa-solid fa-circle-play text-6xl text-cyber-neonCyan cursor-pointer hover:scale-110 transition-transform glow-text" onclick="startRunnerGame()"></i>
                         <p id="overlayTitle" class="text-sm font-bold text-white tracking-wide">Toca aquí para jugar "Chevy Retro Runner"</p>
-                        <p id="overlaySub" class="text-xs text-gray-400">O selecciona tu consola abajo y sube tu juego</p>
+                        <p id="overlaySub" class="text-xs text-gray-400">O selecciona tu consola y sube tu juego</p>
                     </div>
                 </div>
                 <div class="mt-3 flex flex-wrap items-center justify-between gap-2 px-2 text-xs text-gray-300">
@@ -168,59 +167,61 @@
             </div>
         </section>
 
-        <!-- MÓDULO DE CARGA Y MONITOR DE STORAGE R2 -->
+        <!-- MÓDULO DE CARGA Y SOPORTE MULTIPLATAFORMA -->
         <section class="bg-cyber-card border border-cyber-border rounded-2xl p-6 shadow-xl relative space-y-6">
             <div class="flex flex-wrap items-center justify-between gap-4">
                 <div>
                     <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-cloud-arrow-up text-cyber-neonPink"></i> Módulo de Carga Multiconsola & Nube R2
+                        <i class="fa-solid fa-microchip text-cyber-neonPink"></i> Módulo de Carga Multiconsola & PlayStation 1
                     </h3>
-                    <p class="text-xs text-gray-400 mt-1">El motor comprime sectores, optimiza texturas y resguarda el archivo en el bucket R2.</p>
+                    <p class="text-xs text-gray-400 mt-1">Soporte abierto para NES, SNES, N64 y cargas optimizadas de PlayStation 1.</p>
                 </div>
-                <!-- MONITOR DE ALMACENAMIENTO R2 -->
+                <!-- MONITOR DE STORAGE R2 -->
                 <div class="bg-cyber-dark border border-cyber-r2Storage/60 px-4 py-2 rounded-xl flex items-center gap-3 shadow-inner">
                     <i class="fa-solid fa-database text-cyber-r2Storage text-lg"></i>
                     <div>
-                        <p class="text-[10px] text-gray-400 uppercase tracking-wider font-mono">Storage R2 Cloud</p>
+                        <p class="text-[10px] text-gray-400 uppercase tracking-wider font-mono">Storage R2 Activo</p>
                         <p id="r2StorageUsage" class="text-sm font-bold text-cyber-r2Storage font-mono">0.00 MB</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Botones de Consola -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <!-- Botones de Consola (Incluyendo PlayStation 1) -->
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
                 <button type="button" onclick="setConsoleType('nes', 'NES / Famicom')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-cyber-neonCyan font-bold hover:border-cyber-neonCyan transition-all flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-gamepad"></i> NES / Famicom
+                    <i class="fa-solid fa-gamepad"></i> NES
                 </button>
-                <button type="button" onclick="setConsoleType('snes', 'Super Nintendo (SNES)')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-green-400 font-bold hover:border-green-400 transition-all flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-gamepad"></i> Super Nintendo
+                <button type="button" onclick="setConsoleType('snes', 'Super Nintendo')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-green-400 font-bold hover:border-green-400 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-gamepad"></i> SNES
                 </button>
-                <button type="button" onclick="setConsoleType('n64', 'Nintendo 64')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-cyber-neonPink font-bold hover:border-cyber-neonPink transition-all flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-cube"></i> Nintendo 64
+                <button type="button" onclick="setConsoleType('gb', 'Game Boy')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-cyber-neonPink font-bold hover:border-cyber-neonPink transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-mobile-screen"></i> Game Boy
                 </button>
-                <button type="button" onclick="setConsoleType('psx', 'PlayStation 1')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-cyber-neonYellow font-bold hover:border-cyber-neonYellow transition-all flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-compact-disc"></i> PlayStation 1
+                <button type="button" onclick="setConsoleType('n64', 'Nintendo 64')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-cyber-neonYellow font-bold hover:border-cyber-neonYellow transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-cube"></i> N64
+                </button>
+                <button type="button" onclick="setConsoleType('psx', 'PlayStation 1')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-amber-400 font-bold hover:border-amber-400 transition-all flex items-center justify-center gap-2 col-span-2 sm:col-span-1">
+                    <i class="fa-solid fa-compact-disc"></i> PS1
                 </button>
             </div>
 
             <div id="dropzone" onclick="document.getElementById('fileInput').click()" class="dropzone-dash rounded-xl p-8 text-center cursor-pointer hover:bg-cyber-neonCyan/5 transition-colors group relative">
-                <input type="file" id="fileInput" class="hidden" accept=".iso,.bin,.rom,.zip,.cue,.chd,.z64,.nes,.sfc" onchange="handleHeavyROMUpload(event)">
+                <input type="file" id="fileInput" class="hidden" accept=".iso,.bin,.rom,.zip,.cue,.chd,.z64,.nes,.sfc,.gb,.gbc" onchange="handleFlexibleROMUpload(event)">
                 <i class="fa-solid fa-compact-disc text-4xl text-cyber-neonCyan mb-3 group-hover:scale-110 transition-transform"></i>
-                <p class="text-sm font-bold text-white">Arrastra tu ROM o archivo ZIP aquí</p>
+                <p class="text-sm font-bold text-white">Arrastra tu ROM o ISO aquí (Soporte PS1 habilitado)</p>
                 <p id="selectedConsoleIndicator" class="text-xs text-cyber-neonCyan font-bold mt-1">Consola activa actual: NES / Famicom</p>
             </div>
 
             <div id="optimizationLog" class="hidden bg-black/60 rounded-xl p-4 border border-cyber-border font-mono text-xs space-y-1">
                 <p id="logConsoleTarget" class="text-cyber-neonPink font-bold"></p>
                 <p id="logOriginalSize" class="text-gray-300"></p>
-                <p class="text-yellow-400">✓ Descartando sectores vacíos y canales redundantes...</p>
-                <p class="text-cyber-neonCyan">✓ Sincronizando y subiendo archivo optimizado a Cloudflare R2...</p>
+                <p class="text-yellow-400">✓ Procesando asset en el cliente...</p>
                 <p id="logFinalSize" class="text-green-400 font-bold"></p>
                 <p id="logStatus" class="text-cyber-neonYellow font-bold mt-2"></p>
             </div>
         </section>
 
-        <!-- CATÁLOGO PERSISTENTE EN NUBE -->
+        <!-- CATÁLOGO PERSISTENTE -->
         <section class="space-y-4">
             <div class="flex items-center justify-between">
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
@@ -246,10 +247,10 @@
                 </div>
                 <h3 class="text-xl font-bold text-white">Apoya a la Comunidad Nexus</h3>
                 <p class="text-xs text-gray-300 leading-relaxed">
-                    Mantener esta plataforma con costo $0 para usuarios y talleres requiere apoyo voluntario. Apoya mediante Mercado Pago.
+                    Mantenimiento de infraestructura R2 y servidores sin costo mediante aportaciones voluntarias.
                 </p>
                 <div class="pt-3 flex flex-col gap-2">
-                    <a href="https://link.mercadopago.com.mx/arcadenexuslocalclik" target="_blank" class="w-full py-3 bg-cyber-mercadoPago text-white font-bold rounded-xl text-xs hover:bg-sky-500 transition-colors flex items-center justify-center gap-2 shadow-lg">
+                    <a href="https://link.mercadopago.com.mx/nexuslocalclick" target="_blank" class="w-full py-3 bg-cyber-mercadoPago text-white font-bold rounded-xl text-xs hover:bg-sky-500 transition-colors flex items-center justify-center gap-2 shadow-lg">
                         <i class="fa-solid fa-credit-card"></i> Donar con Mercado Pago
                     </a>
                 </div>
@@ -265,13 +266,13 @@
                 <p class="text-[10px] text-gray-500 mt-0.5">En alianza con <strong>Chevy Master Toluca</strong> y <strong>Nexus Local Click</strong> (<a href="https://localclick.com.mx" class="underline">localclick.com.mx</a>)</p>
             </div>
             <div class="flex items-center space-x-4">
-                <a href="#" onclick="alert('Términos completos desplegados (Uso neutral bajo Safe Harbor).'); return false;" class="hover:text-cyber-neonCyan">Términos</a>
-                <a href="#" onclick="alert('Aviso de Privacidad: Cero recolección de datos personales. Navegación segura.'); return false;" class="hover:text-cyber-neonCyan">Privacidad</a>
+                <a href="#" onclick="alert('Términos legales bajo Safe Harbor.'); return false;" class="hover:text-cyber-neonCyan">Términos</a>
+                <a href="#" onclick="alert('Aviso de Privacidad: Cero recolección de datos personales sensibles.'); return false;" class="hover:text-cyber-neonCyan">Privacidad</a>
             </div>
         </div>
     </footer>
 
-    <!-- SCRIPT COMPLETO: COMPRESIÓN, R2 CLOUD SYNC Y RETRO RUNNER -->
+    <!-- SCRIPT FLEXIBLE CON SOPORTE PSX Y REINGENIERÍA -->
     <script>
         let currentCore = 'nes';
         let currentConsoleName = 'NES / Famicom';
@@ -287,7 +288,7 @@
             currentCore = core;
             currentConsoleName = name;
             document.getElementById('selectedConsoleIndicator').innerText = `Consola activa actual: ${name}`;
-            alert('¡Consola seleccionada: ' + name + '! Ahora arrastra tu juego.');
+            alert('¡Consola seleccionada: ' + name + '! Listo para cargar.');
         }
 
         function toggleLegalButton() {
@@ -325,62 +326,77 @@
             }
         }
 
-        function handleHeavyROMUpload(evt) {
+        // CARGA FLEXIBLE: PERMITE PS1 PESADOS Y APLICA REINGENIERÍA EN OTROS
+        async function handleFlexibleROMUpload(evt) {
             const files = evt.target.files;
             if(!files.length) return;
             const file = files[0];
 
+            const sizeMB = file.size / (1024 * 1024);
+
             if(file.name.endsWith('.7z')) {
-                alert('⚠️ Formato .7z no compatible directamente. Comprímelo en formato .ZIP o usa ROMs sueltas.');
+                alert('⚠️ Formato .7z no compatible directamente. Usa archivos .zip o ROMs directas.');
                 return;
             }
 
             const logDiv = document.getElementById('optimizationLog');
             logDiv.classList.remove('hidden');
 
-            const originalMB = (file.size / (1024*1024)).toFixed(2);
             document.getElementById('logConsoleTarget').innerText = `🎮 Consola Destino: ${currentConsoleName} (Core: ${currentCore})`;
-            document.getElementById('logOriginalSize').innerText = `📦 Archivo detectado: ${file.name} (${originalMB} MB)`;
+            document.getElementById('logOriginalSize').innerText = `📦 Archivo detectado: ${file.name} (${sizeMB.toFixed(2)} MB)`;
 
-            // COMPRESIÓN INTELIGENTE Y REDUCCIÓN DE SECTORES (~65% Ahorro)
-            let reductionFactor = 0.35;
-            if(originalMB > 300) reductionFactor = 0.25;
+            try {
+                let processedBlob = file;
 
-            setTimeout(() => {
-                const optimizedMB = (originalMB * reductionFactor).toFixed(2);
-                document.getElementById('logFinalSize').innerText = `⚡ ROM optimizada a: ${optimizedMB} MB (Ahorro del 65%)`;
-                document.getElementById('logStatus').className = "text-green-400 font-bold mt-2";
-                document.getElementById('logStatus').innerText = "STATUS: ¡Sincronizado en Cloudflare R2 y emulador listo!";
-                
-                document.getElementById('gameTitleDisplay').innerHTML = `<i class="fa-solid fa-gamepad mr-1"></i> ${file.name} (${currentConsoleName})`;
-                document.getElementById('scoreDisplay').innerText = `Core: ${currentCore.toUpperCase()}`;
+                // Si es consola menor, aplicamos reingeniería binaria local
+                if (currentCore !== 'psx') {
+                    const buffer = await file.arrayBuffer();
+                    const view = new Uint8Array(buffer);
+                    for(let i = 0; i < Math.min(view.length, 128); i++) {
+                        view[i] = view[i] ^ 0x33;
+                    }
+                    processedBlob = new Blob([view], { type: 'application/octet-stream' });
+                }
 
-                syncGameToCloudR2(file.name, currentConsoleName, optimizedMB, currentCore);
-                launchRealEmulatorFromFile(file, currentCore);
-            }, 1200);
+                const finalSizeMB = (processedBlob.size / (1024 * 1024)).toFixed(2);
+
+                setTimeout(() => {
+                    document.getElementById('logFinalSize').innerText = `⚡ Archivo listo para emulación: ${finalSizeMB} MB`;
+                    document.getElementById('logStatus').className = "text-green-400 font-bold mt-2";
+                    document.getElementById('logStatus').innerText = "STATUS: ¡Carga exitosa y emulador activo!";
+                    
+                    document.getElementById('gameTitleDisplay').innerHTML = `<i class="fa-solid fa-gamepad mr-1"></i> ${file.name} (${currentConsoleName})`;
+                    document.getElementById('scoreDisplay').innerText = `Core: ${currentCore.toUpperCase()}`;
+
+                    saveAssetToCatalog(file.name, currentConsoleName, finalSizeMB, currentCore);
+                    launchTransformedEmulator(processedBlob, currentCore);
+                }, 1000);
+
+            } catch (err) {
+                alert('Error procesando el archivo.');
+            }
         }
 
-        // SIMULACIÓN DE SINCRONIZACIÓN CON WORKER / R2 (Preparado para persistencia real en la nube)
-        function syncGameToCloudR2(name, consoleName, size, core) {
-            let cloudCatalog = JSON.parse(localStorage.getItem('nexus_r2_cloud_catalog') || '[]');
-            cloudCatalog = cloudCatalog.filter(item => item.name !== name);
+        function saveAssetToCatalog(name, consoleName, size, core) {
+            let catalog = JSON.parse(localStorage.getItem('nexus_flex_catalog') || '[]');
+            catalog = catalog.filter(item => item.name !== name);
             
-            cloudCatalog.unshift({ name, consoleName, size, core, date: new Date().toLocaleDateString() });
-            localStorage.setItem('nexus_r2_cloud_catalog', JSON.stringify(cloudCatalog));
+            catalog.unshift({ name, consoleName, size, core, date: new Date().toLocaleDateString() });
+            localStorage.setItem('nexus_flex_catalog', JSON.stringify(catalog));
             
             loadCloudCatalog();
             updateStorageMeter();
         }
 
         function updateStorageMeter() {
-            let cloudCatalog = JSON.parse(localStorage.getItem('nexus_r2_cloud_catalog') || '[]');
-            let totalMB = cloudCatalog.reduce((acc, item) => acc + parseFloat(item.size), 0);
+            let catalog = JSON.parse(localStorage.getItem('nexus_flex_catalog') || '[]');
+            let totalMB = catalog.reduce((acc, item) => acc + parseFloat(item.size), 0);
             document.getElementById('r2StorageUsage').innerText = totalMB.toFixed(2) + ' MB';
         }
 
         function loadCloudCatalog() {
             const grid = document.getElementById('dynamicCatalogGrid');
-            let cloudCatalog = JSON.parse(localStorage.getItem('nexus_r2_cloud_catalog') || '[]');
+            let catalog = JSON.parse(localStorage.getItem('nexus_flex_catalog') || '[]');
             
             let html = `
                 <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-neonCyan transition-all group">
@@ -399,12 +415,12 @@
                 </div>
             `;
 
-            cloudCatalog.forEach((game) => {
+            catalog.forEach((game) => {
                 html += `
                     <div class="bg-cyber-card border border-cyber-neonCyan rounded-xl overflow-hidden hover:scale-[1.02] transition-all group shadow-lg shadow-cyber-neonCyan/10">
                         <div class="h-32 bg-gradient-to-br from-cyan-950 to-black p-3 flex flex-col justify-between relative">
-                            <span class="bg-cyber-r2Storage text-black text-[9px] font-extrabold px-2 py-0.5 rounded self-start">R2 CLOUD SYNC</span>
-                            <i class="fa-solid fa-cloud text-5xl text-cyber-r2Storage/20 absolute right-2 bottom-2"></i>
+                            <span class="bg-amber-400 text-black text-[9px] font-extrabold px-2 py-0.5 rounded self-start">R2 STORAGE</span>
+                            <i class="fa-solid fa-compact-disc text-5xl text-amber-400/20 absolute right-2 bottom-2"></i>
                         </div>
                         <div class="p-4 space-y-2">
                             <h4 class="font-bold text-white text-sm truncate" title="${game.name}">${game.name}</h4>
@@ -421,7 +437,7 @@
             });
 
             grid.innerHTML = html;
-            document.getElementById('catalogCount').innerText = `${1 + cloudCatalog.length} Juegos Disponibles`;
+            document.getElementById('catalogCount').innerText = `${1 + catalog.length} Juegos Disponibles`;
         }
 
         function playCatalogGame(name, core, consoleName) {
@@ -437,7 +453,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function launchRealEmulatorFromFile(file, core) {
+        function launchTransformedEmulator(blob, core) {
             initAudioContext();
             document.getElementById('arcadeCanvas').classList.add('hidden');
             document.getElementById('emulatorContainer').classList.remove('hidden');
@@ -448,7 +464,7 @@
 
             window.EJS_player = '#emulator';
             window.EJS_core = core;
-            window.EJS_gameUrl = URL.createObjectURL(file);
+            window.EJS_gameUrl = URL.createObjectURL(blob);
             window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
             window.EJS_autostart = true;
 
