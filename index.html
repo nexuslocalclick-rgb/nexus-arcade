@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es" class="dark">
 <head>
@@ -6,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexus Arcade | N64 & PS1 Sandbox</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Librería para descomprimir .zip y .7z en el navegador -->
+    <!-- Librería para descomprimir .zip en el navegador -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script>
         tailwind.config = {
@@ -88,13 +87,13 @@
                 <p><strong>4. Procesamiento Local:</strong> Toda la ejecución técnica y extracción ocurre de manera local y efímera en la memoria RAM del navegador del usuario. Cero almacenamiento en servidores externos.</p>
             </div>
             <div class="mt-4 flex items-center space-x-2">
-                <input type="checkbox" id="acceptLegal" onchange="toggleLegalButton()" class="w-5 h-5 accent-cyber-neonPink rounded cursor-pointer">
+                <input type="checkbox" id="acceptLegal" onchange="toggleLegalButton()" class="w-5 h-5 accent-cyber-neonPink rounded cursor-pointer" checked>
                 <label for="acceptLegal" class="text-xs text-gray-200 cursor-pointer select-none">
                     He leído y acepto los términos de responsabilidad, uso local y exención legal.
                 </label>
             </div>
-            <button id="btnAcceptLegal" disabled onclick="acceptShield()" class="mt-5 w-full py-3 bg-gray-700 text-gray-400 font-bold rounded-xl transition-all duration-300 tracking-wider shadow-lg flex items-center justify-center gap-2 cursor-not-allowed">
-                <i class="fa-solid fa-lock"></i> ACEPTAR Y ENTRAR AL ARCADE
+            <button id="btnAcceptLegal" onclick="acceptShield()" class="mt-5 w-full py-3 bg-cyber-neonPink text-white font-bold rounded-xl transition-all duration-300 tracking-wider shadow-lg flex items-center justify-center gap-2 cursor-pointer hover:bg-white hover:text-black">
+                <i class="fa-solid fa-unlock"></i> ACEPTAR Y ENTRAR AL ARCADE
             </button>
         </div>
     </div>
@@ -171,13 +170,13 @@
             </div>
         </section>
 
-        <!-- ZONA DE CARGA EXCLUSIVA N64 Y PS1 (Soporte ZIP / 7Z / ISO) -->
+        <!-- ZONA DE CARGA EXCLUSIVA N64 Y PS1 -->
         <section class="bg-cyber-card border border-cyber-border rounded-2xl p-6 shadow-xl relative space-y-6">
             <div>
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
                     <i class="fa-solid fa-compact-disc text-cyber-neonCyan"></i> Carga Local de Archivos (Nintendo 64 & PlayStation 1)
                 </h3>
-                <p class="text-xs text-gray-400 mt-1">Selecciona tu consola y carga directamente tu ROM, ISO o archivo comprimido (.zip, .7z).</p>
+                <p class="text-xs text-gray-400 mt-1">Selecciona tu consola y carga directamente tu ROM, ISO o archivo comprimido (.zip).</p>
             </div>
 
             <!-- Botones Exclusivos de N64 y PS1 -->
@@ -187,7 +186,7 @@
                         <i class="fa-solid fa-cube text-2xl"></i>
                         <div class="text-left">
                             <span class="block text-sm text-white font-extrabold">Nintendo 64</span>
-                            <span class="text-[10px] text-gray-400">Soporta .z64, .n64, .v64, .zip, .7z</span>
+                            <span class="text-[10px] text-gray-400">Soporta .z64, .n64, .v64, .zip</span>
                         </div>
                     </div>
                     <i class="fa-solid fa-check-circle text-lg"></i>
@@ -198,7 +197,7 @@
                         <i class="fa-solid fa-compact-disc text-2xl"></i>
                         <div class="text-left">
                             <span class="block text-sm text-white font-extrabold">PlayStation 1</span>
-                            <span class="text-[10px] text-gray-400">Soporta .iso, .bin, .cue, .chd, .zip, .7z</span>
+                            <span class="text-[10px] text-gray-400">Soporta .iso, .bin, .cue, .chd, .zip</span>
                         </div>
                     </div>
                     <i class="fa-solid fa-circle text-lg text-transparent"></i>
@@ -206,9 +205,9 @@
             </div>
 
             <div id="dropzone" onclick="document.getElementById('fileInput').click()" class="dropzone-dash rounded-xl p-8 text-center cursor-pointer hover:bg-cyber-neonCyan/5 transition-colors group relative">
-                <input type="file" id="fileInput" class="hidden" accept=".zip,.7z,.iso,.bin,.cue,.img,.chd,.z64,.n64,.v64" onchange="handleFileSelected(event)">
+                <input type="file" id="fileInput" class="hidden" accept=".zip,.iso,.bin,.cue,.img,.chd,.z64,.n64,.v64" onchange="handleFileSelected(event)">
                 <i class="fa-solid fa-cloud-arrow-up text-4xl text-cyber-neonCyan mb-3 group-hover:scale-110 transition-transform"></i>
-                <p class="text-sm font-bold text-white">Haz clic aquí o arrastra tu juego (.zip, .7z, .z64, .iso)</p>
+                <p class="text-sm font-bold text-white">Haz clic aquí o arrastra tu juego (.zip, .iso, .bin, .z64)</p>
                 <p id="selectedConsoleIndicator" class="text-xs text-cyber-neonCyan font-bold mt-1">Consola activa actual: Nintendo 64</p>
             </div>
         </section>
@@ -270,7 +269,7 @@
         </div>
     </footer>
 
-    <!-- SCRIPT TÉCNICO CON SOPORTE ZIP/7Z Y ARRANQUE DIRECTO -->
+    <!-- SCRIPT TÉCNICO -->
     <script>
         let currentCore = 'n64';
         let currentConsoleName = 'Nintendo 64';
@@ -305,12 +304,10 @@
                 btnAccept.disabled = false;
                 btnAccept.classList.remove('bg-gray-700', 'text-gray-400', 'cursor-not-allowed');
                 btnAccept.classList.add('bg-cyber-neonPink', 'text-white', 'hover:bg-white', 'hover:text-black', 'cursor-pointer');
-                btnAccept.innerHTML = '<i class="fa-solid fa-unlock"></i> ACEPTAR Y ENTRAR AL ARCADE';
             } else {
                 btnAccept.disabled = true;
                 btnAccept.classList.add('bg-gray-700', 'text-gray-400', 'cursor-not-allowed');
                 btnAccept.classList.remove('bg-cyber-neonPink', 'text-white', 'hover:bg-white', 'hover:text-black', 'cursor-pointer');
-                btnAccept.innerHTML = '<i class="fa-solid fa-lock"></i> ACEPTAR Y ENTRAR AL ARCADE';
             }
         }
 
@@ -333,7 +330,7 @@
             }
         }
 
-                // MANEJADOR DE ARCHIVOS INTELIGENTE (SOPORTE DIRECTO E HÍBRIDO)
+        // MANEJADOR DE ARCHIVOS INTELIGENTE
         async function handleFileSelected(evt) {
             const files = evt.target.files;
             if(!files.length) return;
@@ -341,7 +338,6 @@
             let fileName = file.name.toLowerCase();
             let targetBlob = file;
 
-            // Si es un archivo comprimido .zip y pesa poco, intentamos descomprimir
             if (fileName.endsWith('.zip')) {
                 try {
                     document.getElementById('emulatorStatusBadge').innerHTML = `<span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> Procesando archivo...`;
@@ -363,9 +359,8 @@
                         targetBlob = await zipContent.files[validFileKey].async('blob');
                         fileName = validFileKey.toLowerCase();
                     }
-                    // Si fallara el zip pero es un archivo directo de PS1, pasa directo abajo
                 } catch (err) {
-                    console.log("Aviso: Leyendo archivo de forma directa por tamaño o formato.");
+                    console.log("Leyendo archivo de forma directa.");
                 }
             }
 
@@ -380,67 +375,6 @@
 
             document.getElementById('emulator').innerHTML = '';
 
-            // CARGA EN EMULATORJS
-            window.EJS_player = '#emulator';
-            window.EJS_core = currentCore;
-            window.EJS_gameUrl = URL.createObjectURL(targetBlob);
-            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-            window.EJS_autostart = true;
-            window.EJS_startOnLoaded = true;
-            window.EJS_threads = false;
-            window.EJS_backgroundColor = '#0a0a12';
-
-            const script = document.createElement('script');
-            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-            document.body.appendChild(script);
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-
-            // Descompresión automática si es .zip o .7z
-            if (fileName.endsWith('.zip') || fileName.endsWith('.7z')) {
-                try {
-                    document.getElementById('emulatorStatusBadge').innerHTML = `<span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> Descomprimiendo archivo comprimido...`;
-                    const zip = new JSZip();
-                    const zipContent = await zip.loadAsync(file);
-                    
-                    let validFileKey = null;
-                    const validExtensions = ['.z64', '.n64', '.v64', '.iso', '.bin', '.cue', '.img', '.chd'];
-                    
-                    for (let filename of Object.keys(zipContent.files)) {
-                        let lower = filename.toLowerCase();
-                        if (validExtensions.some(ext => lower.endsWith(ext))) {
-                            validFileKey = filename;
-                            break;
-                        }
-                    }
-
-                    if (!validFileKey) {
-                        alert('⚠️ El archivo comprimido no contiene una ROM o ISO válida de N64 o PS1.');
-                        return;
-                    }
-
-                    targetBlob = await zipContent.files[validFileKey].async('blob');
-                    fileName = validFileKey.toLowerCase();
-                } catch (err) {
-                    alert('Error al procesar el archivo comprimido.');
-                    return;
-                }
-            }
-
-            initAudioContext();
-            document.getElementById('arcadeCanvas').classList.add('hidden');
-            document.getElementById('emulatorContainer').classList.remove('hidden');
-            document.getElementById('canvasOverlay').classList.add('opacity-0', 'pointer-events-none');
-            document.getElementById('emulatorStatusBadge').innerHTML = `<span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span> Emulando en ${currentConsoleName}`;
-
-            document.getElementById('gameTitleDisplay').innerHTML = `<i class="fa-solid fa-gamepad mr-1"></i> ${file.name}`;
-            document.getElementById('scoreDisplay').innerText = `Core: ${currentCore.toUpperCase()}`;
-
-            document.getElementById('emulator').innerHTML = '';
-
-            // BANDERAS ESTRICTAS PARA EVITAR EL MENÚ DE CONFIGURACIÓN Y LANZAR EL JUEGO
             window.EJS_player = '#emulator';
             window.EJS_core = currentCore;
             window.EJS_gameUrl = URL.createObjectURL(targetBlob);
