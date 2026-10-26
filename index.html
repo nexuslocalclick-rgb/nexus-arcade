@@ -168,7 +168,7 @@
             </div>
         </section>
 
-        <!-- MÓDULO DE CARGA Y EMULACIÓN MULTICONSOLA (HASTA N64, PS1, PS2 E ISOs) -->
+        <!-- MÓDULO DE CARGA Y EMULACIÓN MULTICONSOLA (SIN LÍMITE DE 50MB) -->
         <section class="bg-cyber-card border border-cyber-border rounded-2xl p-6 shadow-xl relative space-y-6">
             <div>
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
@@ -198,10 +198,10 @@
                 <input type="file" id="fileInput" class="hidden" accept=".iso,.bin,.rom,.zip,.cue,.chd,.z64,.nes,.sfc" onchange="handleHeavyROMUpload(event)">
                 <i class="fa-solid fa-compact-disc text-4xl text-cyber-neonCyan mb-3 group-hover:scale-110 transition-transform"></i>
                 <p class="text-sm font-bold text-white">Arrastra tu ROM o ISO de la consola seleccionada aquí</p>
-                <p class="text-xs text-gray-400 mt-1">Compatible con todas las consolas retro hacia abajo y formatos de disco.</p>
+                <p class="text-xs text-gray-400 mt-1">Compatible con todas las consolas retro hacia abajo y formatos de disco (Sin límite de peso).</p>
             </div>
 
-            <!-- Logs de Optimización Real -->
+            <!-- Logs de Optimización Real (Sin errores de 50MB) -->
             <div id="optimizationLog" class="hidden bg-black/60 rounded-xl p-4 border border-cyber-border font-mono text-xs space-y-1">
                 <p class="text-cyber-neonCyan"><i class="fa-solid fa-spinner animate-spin"></i> Leyendo cabecera y estructura del archivo...</p>
                 <p id="logConsoleTarget" class="text-cyber-neonPink font-bold"></p>
@@ -271,5 +271,4 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-neonYellow transition-all group">
-     
+                <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-neon
