@@ -369,7 +369,32 @@
                     document.getElementById('scoreDisplay').innerText = `Core: ${currentCore.toUpperCase()}`;
 
                     saveAssetToCatalog(file.name, currentConsoleName, finalSizeMB, currentCore);
-                    launchTransformedEmulator(processedBlob, currentCore);
+                    function launchTransformedEmulator(blob, core) {
+    initAudioContext();
+    document.getElementById('arcadeCanvas').classList.add('hidden');
+    document.getElementById('emulatorContainer').classList.remove('hidden');
+    document.getElementById('canvasOverlay').classList.add('opacity-0', 'pointer-events-none');
+    document.getElementById('emulatorStatusBadge').innerHTML = `<span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span> Emulando ${currentConsoleName}`;
+
+    document.getElementById('emulator').innerHTML = '';
+
+    // CONFIGURACIÓN ESTRICTA DE AUTOARRANQUE PARA EVITAR EL MENÚ
+    window.EJS_player = '#emulator';
+    window.EJS_core = core;
+    window.EJS_gameUrl = URL.createObjectURL(blob);
+    window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+    window.EJS_autostart = true;
+    window.EJS_startOnLoaded = true; // Fuerza el inicio inmediato
+    window.EJS_threads = false; 
+    window.EJS_backgroundColor = '#0a0a12';
+
+    const script = document.createElement('script');
+    script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+    document.body.appendChild(script);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
                 }, 1000);
 
             } catch (err) {
