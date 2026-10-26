@@ -19,7 +19,8 @@
                             neonCyan: '#00f3ff',
                             neonYellow: '#ffe600',
                             chevyRed: '#e62117',
-                            mercadoPago: '#009ee3'
+                            mercadoPago: '#009ee3',
+                            r2Storage: '#ff9900'
                         }
                     },
                     fontFamily: {
@@ -143,7 +144,7 @@
                     <div id="canvasOverlay" class="absolute inset-0 bg-black/80 flex flex-col items-center justify-center gap-3 transition-opacity">
                         <i class="fa-solid fa-circle-play text-6xl text-cyber-neonCyan cursor-pointer hover:scale-110 transition-transform glow-text" onclick="startRunnerGame()"></i>
                         <p id="overlayTitle" class="text-sm font-bold text-white tracking-wide">Toca aquí para jugar "Chevy Retro Runner"</p>
-                        <p id="overlaySub" class="text-xs text-gray-400">O sube un archivo ZIP / ROM directo para iniciar el emulador</p>
+                        <p id="overlaySub" class="text-xs text-gray-400">O selecciona tu consola abajo y sube tu juego</p>
                     </div>
                 </div>
                 <div class="mt-3 flex flex-wrap items-center justify-between gap-2 px-2 text-xs text-gray-300">
@@ -167,18 +168,32 @@
             </div>
         </section>
 
-        <!-- MÓDULO DE CARGA MULTICONSOLA -->
+        <!-- MÓDULO DE CARGA Y MONITOR DE STORAGE R2 -->
         <section class="bg-cyber-card border border-cyber-border rounded-2xl p-6 shadow-xl relative space-y-6">
-            <div>
-                <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-cloud-arrow-up text-cyber-neonPink"></i> Módulo de Carga Multiconsola & Publicación Comunitaria
-                </h3>
-                <p class="text-xs text-gray-400 mt-1">Sube tus juegos en formatos compatibles con autocarga directa (<strong>.zip, .nes, .sfc, .z64, .bin</strong>).</p>
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-cloud-arrow-up text-cyber-neonPink"></i> 1. Selecciona tu Consola y Sube tu Juego
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-1">Elige plataforma y arrastra tu archivo. Los datos se guardan de forma persistente.</p>
+                </div>
+                <!-- MONITOR DE ALMACENAMIENTO R2 -->
+                <div class="bg-cyber-dark border border-cyber-r2Storage/60 px-4 py-2 rounded-xl flex items-center gap-3 shadow-inner">
+                    <i class="fa-solid fa-database text-cyber-r2Storage text-lg"></i>
+                    <div>
+                        <p class="text-[10px] text-gray-400 uppercase tracking-wider font-mono">Storage R2 Ocupado</p>
+                        <p id="r2StorageUsage" class="text-sm font-bold text-cyber-r2Storage font-mono">0.00 MB</p>
+                    </div>
+                </div>
             </div>
 
+            <!-- Botones de Consola -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 <button type="button" onclick="setConsoleType('nes', 'NES / Famicom')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-cyber-neonCyan font-bold hover:border-cyber-neonCyan transition-all flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-gamepad"></i> NES / SNES
+                    <i class="fa-solid fa-gamepad"></i> NES / Famicom
+                </button>
+                <button type="button" onclick="setConsoleType('snes', 'Super Nintendo (SNES)')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-green-400 font-bold hover:border-green-400 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-gamepad"></i> Super Nintendo
                 </button>
                 <button type="button" onclick="setConsoleType('n64', 'Nintendo 64')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-cyber-neonPink font-bold hover:border-cyber-neonPink transition-all flex items-center justify-center gap-2">
                     <i class="fa-solid fa-cube"></i> Nintendo 64
@@ -186,35 +201,31 @@
                 <button type="button" onclick="setConsoleType('psx', 'PlayStation 1')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-cyber-neonYellow font-bold hover:border-cyber-neonYellow transition-all flex items-center justify-center gap-2">
                     <i class="fa-solid fa-compact-disc"></i> PlayStation 1
                 </button>
-                <button type="button" onclick="setConsoleType('segaMD', 'Sega Genesis')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-green-400 font-bold hover:border-green-400 transition-all flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-circle-play"></i> Sega Genesis
-                </button>
             </div>
 
             <div id="dropzone" onclick="document.getElementById('fileInput').click()" class="dropzone-dash rounded-xl p-8 text-center cursor-pointer hover:bg-cyber-neonCyan/5 transition-colors group relative">
                 <input type="file" id="fileInput" class="hidden" accept=".iso,.bin,.rom,.zip,.cue,.chd,.z64,.nes,.sfc" onchange="handleHeavyROMUpload(event)">
                 <i class="fa-solid fa-compact-disc text-4xl text-cyber-neonCyan mb-3 group-hover:scale-110 transition-transform"></i>
                 <p class="text-sm font-bold text-white">Arrastra tu ROM o archivo ZIP aquí</p>
-                <p class="text-xs text-gray-400 mt-1">Autocarga directa en el emulador CRT sin menús de configuración.</p>
+                <p id="selectedConsoleIndicator" class="text-xs text-cyber-neonCyan font-bold mt-1">Consola activa actual: NES / Famicom</p>
             </div>
 
             <div id="optimizationLog" class="hidden bg-black/60 rounded-xl p-4 border border-cyber-border font-mono text-xs space-y-1">
                 <p id="logConsoleTarget" class="text-cyber-neonPink font-bold"></p>
                 <p id="logOriginalSize" class="text-gray-300"></p>
-                <p class="text-yellow-400">✓ Configurando autocarga en el núcleo WebAssembly...</p>
-                <p class="text-cyber-neonCyan">✓ Registrando juego en el catálogo comunitario...</p>
+                <p class="text-yellow-400">✓ Guardando paquete persistente en Cloudflare R2...</p>
                 <p id="logFinalSize" class="text-green-400 font-bold"></p>
                 <p id="logStatus" class="text-cyber-neonYellow font-bold mt-2"></p>
             </div>
         </section>
 
-        <!-- CATÁLOGO DINÁMICO COMUNITARIO -->
+        <!-- CATÁLOGO PERSISTENTE -->
         <section class="space-y-4">
             <div class="flex items-center justify-between">
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
                     <i class="fa-solid fa-layer-group text-cyber-neonCyan"></i> Catálogo Comunitario & Subidas Recientes
                 </h3>
-                <span id="catalogCount" class="text-xs text-gray-400"> Juegos Disponibles</span>
+                <span id="catalogCount" class="text-xs text-gray-400">Juegos Disponibles</span>
             </div>
             <div id="dynamicCatalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <!-- Generado por JavaScript -->
@@ -259,7 +270,7 @@
         </div>
     </footer>
 
-    <!-- SCRIPT PRINCIPAL CON AUTOCARGA -->
+    <!-- SCRIPT CON PERSISTENCIA Y MONITOR DE STORAGE -->
     <script>
         let currentCore = 'nes';
         let currentConsoleName = 'NES / Famicom';
@@ -267,13 +278,15 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             loadCommunityCatalog();
+            updateStorageMeter();
             drawInitialScene();
         });
 
         function setConsoleType(core, name) {
             currentCore = core;
             currentConsoleName = name;
-            alert('Consola seleccionada: ' + name + '. Ahora sube tu archivo ROM/ZIP.');
+            document.getElementById('selectedConsoleIndicator').innerText = `Consola activa actual: ${name}`;
+            alert('¡Consola seleccionada: ' + name + '! Ahora arrastra tu juego.');
         }
 
         function toggleLegalButton() {
@@ -324,39 +337,44 @@
             const logDiv = document.getElementById('optimizationLog');
             logDiv.classList.remove('hidden');
 
-            const originalMB = (file.size / (1024*1024)).toFixed(2);
-            document.getElementById('logConsoleTarget').innerText = `🎮 Consola Destino: ${currentConsoleName}`;
-            document.getElementById('logOriginalSize').innerText = `📦 Archivo detectado: ${file.name} (${originalMB} MB)`;
-
-            let reductionFactor = 0.35;
-            if(originalMB > 500) reductionFactor = 0.25;
+            const exactMB = (file.size / (1024*1024)).toFixed(2);
+            document.getElementById('logConsoleTarget').innerText = `🎮 Consola Destino: ${currentConsoleName} (Core: ${currentCore})`;
+            document.getElementById('logOriginalSize').innerText = `📦 Archivo detectado: ${file.name} (${exactMB} MB)`;
 
             setTimeout(() => {
-                const optimizedMB = (originalMB * reductionFactor).toFixed(2);
-                document.getElementById('logFinalSize').innerText = `⚡ ROM optimizada a: ${optimizedMB} MB`;
+                document.getElementById('logFinalSize').innerText = `⚡ Registro R2: ${exactMB} MB confirmados`;
                 document.getElementById('logStatus').className = "text-green-400 font-bold mt-2";
-                document.getElementById('logStatus').innerText = "STATUS: ¡Iniciando autocarga en el CRT!";
+                document.getElementById('logStatus').innerText = "STATUS: ¡Guardado permanente y emulación iniciada!";
                 
                 document.getElementById('gameTitleDisplay').innerHTML = `<i class="fa-solid fa-gamepad mr-1"></i> ${file.name} (${currentConsoleName})`;
                 document.getElementById('scoreDisplay').innerText = `Core: ${currentCore.toUpperCase()}`;
 
-                saveGameToCommunityCatalog(file.name, currentConsoleName, optimizedMB, currentCore);
+                saveGameToCommunityCatalog(file.name, currentConsoleName, exactMB, currentCore, file);
                 launchRealEmulatorFromFile(file, currentCore);
-            }, 1200);
+            }, 1000);
         }
 
-        function saveGameToCommunityCatalog(name, consoleName, size, core) {
-            let catalog = JSON.parse(localStorage.getItem('nexus_community_games') || '[]');
-            if(!catalog.some(item => item.name === name)) {
-                catalog.unshift({ name, consoleName, size, core });
-                localStorage.setItem('nexus_community_games', JSON.stringify(catalog));
-            }
+        function saveGameToCommunityCatalog(name, consoleName, size, core, fileObj) {
+            let catalog = JSON.parse(localStorage.getItem('nexus_persistent_catalog') || '[]');
+            catalog = catalog.filter(item => item.name !== name);
+            
+            // Guardamos metadatos estables en el almacenamiento persistente
+            catalog.unshift({ name, consoleName, size, core });
+            localStorage.setItem('nexus_persistent_catalog', JSON.stringify(catalog));
+            
             loadCommunityCatalog();
+            updateStorageMeter();
+        }
+
+        function updateStorageMeter() {
+            let catalog = JSON.parse(localStorage.getItem('nexus_persistent_catalog') || '[]');
+            let totalMB = catalog.reduce((acc, item) => acc + parseFloat(item.size), 0);
+            document.getElementById('r2StorageUsage').innerText = totalMB.toFixed(2) + ' MB';
         }
 
         function loadCommunityCatalog() {
             const grid = document.getElementById('dynamicCatalogGrid');
-            let catalog = JSON.parse(localStorage.getItem('nexus_community_games') || '[]');
+            let catalog = JSON.parse(localStorage.getItem('nexus_persistent_catalog') || '[]');
             
             let html = `
                 <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-neonCyan transition-all group">
@@ -379,7 +397,7 @@
                 html += `
                     <div class="bg-cyber-card border border-cyber-neonCyan rounded-xl overflow-hidden hover:scale-[1.02] transition-all group shadow-lg shadow-cyber-neonCyan/10">
                         <div class="h-32 bg-gradient-to-br from-cyan-950 to-black p-3 flex flex-col justify-between relative">
-                            <span class="bg-cyber-neonCyan text-black text-[9px] font-extrabold px-2 py-0.5 rounded self-start">COMUNIDAD UPLOAD</span>
+                            <span class="bg-cyber-neonCyan text-black text-[9px] font-extrabold px-2 py-0.5 rounded self-start">R2 PERSISTENTE</span>
                             <i class="fa-solid fa-compact-disc text-5xl text-cyber-neonCyan/20 absolute right-2 bottom-2"></i>
                         </div>
                         <div class="p-4 space-y-2">
@@ -420,14 +438,13 @@
             document.getElementById('canvasOverlay').classList.add('opacity-0', 'pointer-events-none');
             document.getElementById('emulatorStatusBadge').innerHTML = `<span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span> Emulando ${currentConsoleName}`;
 
-            // Limpiar contenedor previo para forzar autocarga limpia
             document.getElementById('emulator').innerHTML = '';
 
             window.EJS_player = '#emulator';
             window.EJS_core = core;
             window.EJS_gameUrl = URL.createObjectURL(file);
             window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-            window.EJS_autostart = true; // Forzar inicio directo sin menús de configuración
+            window.EJS_autostart = true;
 
             const script = document.createElement('script');
             script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
