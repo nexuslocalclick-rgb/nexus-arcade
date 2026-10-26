@@ -76,17 +76,18 @@
                 <div class="inline-block p-3 rounded-full bg-cyber-neonCyan/10 mb-2 border border-cyber-neonCyan">
                     <i class="fa-solid fa-shield-halved text-3xl text-cyber-neonCyan"></i>
                 </div>
-                <h2 class="text-2xl font-extrabold tracking-wide text-white glow-text">ACUERDO DE USO Y ESCUDO LEGAL</h2>
-                <p class="text-xs text-cyber-neonCyan tracking-widest mt-1">NEXUS ARCADE • ENTORNO MULTIPLATAFORMA</p>
+                <h2 class="text-2xl font-extrabold tracking-wide text-white glow-text">NEXUS ARCADE • SANDBOX WEB</h2>
+                <p class="text-xs text-cyber-neonCyan tracking-widest mt-1">ENTORNO DE EMULACIÓN DE CÓDIGO ABIERTO</p>
             </div>
             <div class="text-xs text-gray-300 space-y-3 bg-cyber-dark/80 p-4 rounded-xl border border-cyber-border max-h-60 overflow-y-auto leading-relaxed">
-                <p><strong>1. Reingeniería y Transformación:</strong> Los assets de consolas de N64 e inferiores se procesan localmente para asset derivado. Los archivos de PlayStation 1 procesados externamente se admiten bajo estricta responsabilidad técnica.</p>
-                <p><strong>2. Puerto Seguro (Safe Harbor):</strong> Operado bajo neutralidad tecnológica en colaboración con Chevy Master Toluca.</p>
+                <p><strong>1. Neutralidad Técnica:</strong> Nexus Arcade opera exclusivamente como un reproductor web de código abierto (Client-Side Sandbox). Los archivos cargados se procesan de manera local y privada en la memoria de tu dispositivo.</p>
+                <p><strong>2. Formatos Admitidos:</strong> Compatible con ROMs e ISOs estándar de NES, SNES, Game Boy, Nintendo 64 y PlayStation 1.</p>
+                <p><strong>3. Puerto Seguro:</strong> Desarrollado en colaboración comunitaria con Chevy Master Toluca y Nexus Local Click.</p>
             </div>
             <div class="mt-4 flex items-center space-x-2">
                 <input type="checkbox" id="acceptLegal" onchange="toggleLegalButton()" class="w-5 h-5 accent-cyber-neonPink rounded cursor-pointer">
                 <label for="acceptLegal" class="text-xs text-gray-200 cursor-pointer select-none">
-                    Comprendo y acepto las condiciones de uso y soporte técnico.
+                    Comprendo que es un reproductor web local y acepto los términos de uso.
                 </label>
             </div>
             <button id="btnAcceptLegal" disabled onclick="acceptShield()" class="mt-5 w-full py-3 bg-gray-700 text-gray-400 font-bold rounded-xl transition-all duration-300 tracking-wider shadow-lg flex items-center justify-center gap-2 cursor-not-allowed">
@@ -112,7 +113,7 @@
                     <i class="fa-solid fa-wrench mr-1"></i> Chevy Master
                 </span>
                 <p class="text-xs text-gray-300 truncate">
-                    En colaboración con <strong>Chevy Master Toluca</strong> — Emulación avanzada y soporte multi-consola.
+                    En colaboración con <strong>Chevy Master Toluca</strong> — Emulación web multi-formato libre.
                 </p>
             </div>
             <button onclick="toggleSupportModal()" class="px-3 py-1.5 bg-cyber-mercadoPago/10 border border-cyber-mercadoPago text-cyber-mercadoPago hover:bg-cyber-mercadoPago hover:text-white transition-all text-xs font-bold rounded-lg flex items-center gap-2">
@@ -131,7 +132,7 @@
                     <i class="fa-solid fa-tv"></i> PANTALLA REPRO-CRT INTERACTIVA
                 </h2>
                 <span id="emulatorStatusBadge" class="text-xs text-gray-400 flex items-center gap-1">
-                    <span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span> Esperando ROM / ISO
+                    <span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span> Sistema en espera
                 </span>
             </div>
             <div class="crt-frame crt-overlay bg-black p-2 md:p-4">
@@ -143,7 +144,7 @@
                     <div id="canvasOverlay" class="absolute inset-0 bg-black/80 flex flex-col items-center justify-center gap-3 transition-opacity">
                         <i class="fa-solid fa-circle-play text-6xl text-cyber-neonCyan cursor-pointer hover:scale-110 transition-transform glow-text" onclick="startRunnerGame()"></i>
                         <p id="overlayTitle" class="text-sm font-bold text-white tracking-wide">Toca aquí para jugar "Chevy Retro Runner"</p>
-                        <p id="overlaySub" class="text-xs text-gray-400">O selecciona tu consola y sube tu juego</p>
+                        <p id="overlaySub" class="text-xs text-gray-400">O selecciona tu consola y carga tu archivo abajo</p>
                     </div>
                 </div>
                 <div class="mt-3 flex flex-wrap items-center justify-between gap-2 px-2 text-xs text-gray-300">
@@ -167,26 +168,16 @@
             </div>
         </section>
 
-        <!-- MÓDULO DE CARGA Y SOPORTE MULTIPLATAFORMA -->
+        <!-- MÓDULO DE CARGA MULTIFORMATO -->
         <section class="bg-cyber-card border border-cyber-border rounded-2xl p-6 shadow-xl relative space-y-6">
-            <div class="flex flex-wrap items-center justify-between gap-4">
-                <div>
-                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-microchip text-cyber-neonPink"></i> Módulo de Carga Multiconsola & PlayStation 1
-                    </h3>
-                    <p class="text-xs text-gray-400 mt-1">Soporte abierto para NES, SNES, N64 y cargas optimizadas de PlayStation 1.</p>
-                </div>
-                <!-- MONITOR DE STORAGE R2 -->
-                <div class="bg-cyber-dark border border-cyber-r2Storage/60 px-4 py-2 rounded-xl flex items-center gap-3 shadow-inner">
-                    <i class="fa-solid fa-database text-cyber-r2Storage text-lg"></i>
-                    <div>
-                        <p class="text-[10px] text-gray-400 uppercase tracking-wider font-mono">Storage R2 Activo</p>
-                        <p id="r2StorageUsage" class="text-sm font-bold text-cyber-r2Storage font-mono">0.00 MB</p>
-                    </div>
-                </div>
+            <div>
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-folder-open text-cyber-neonPink"></i> Módulo de Carga Local Multiformato
+                </h3>
+                <p class="text-xs text-gray-400 mt-1">Selecciona tu consola y carga directamente tu ROM o ISO para ejecución inmediata.</p>
             </div>
 
-            <!-- Botones de Consola (Incluyendo PlayStation 1) -->
+            <!-- Botones de Consola -->
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
                 <button type="button" onclick="setConsoleType('nes', 'NES / Famicom')" class="p-2 bg-cyber-dark border border-cyber-border rounded-lg text-xs text-cyber-neonCyan font-bold hover:border-cyber-neonCyan transition-all flex items-center justify-center gap-2">
                     <i class="fa-solid fa-gamepad"></i> NES
@@ -206,31 +197,35 @@
             </div>
 
             <div id="dropzone" onclick="document.getElementById('fileInput').click()" class="dropzone-dash rounded-xl p-8 text-center cursor-pointer hover:bg-cyber-neonCyan/5 transition-colors group relative">
-                <input type="file" id="fileInput" class="hidden" accept=".iso,.bin,.rom,.zip,.cue,.chd,.z64,.nes,.sfc,.gb,.gbc" onchange="handleFlexibleROMUpload(event)">
-                <i class="fa-solid fa-compact-disc text-4xl text-cyber-neonCyan mb-3 group-hover:scale-110 transition-transform"></i>
-                <p class="text-sm font-bold text-white">Arrastra tu ROM o ISO aquí (Soporte PS1 habilitado)</p>
+                <input type="file" id="fileInput" class="hidden" accept=".iso,.bin,.rom,.zip,.cue,.chd,.z64,.n64,.v64,.nes,.sfc,.gb,.gbc,.img" onchange="handleDirectROMUpload(event)">
+                <i class="fa-solid fa-cloud-arrow-up text-4xl text-cyber-neonCyan mb-3 group-hover:scale-110 transition-transform"></i>
+                <p class="text-sm font-bold text-white">Arrastra o selecciona tu archivo (ROM / ISO / BIN / ZIP)</p>
                 <p id="selectedConsoleIndicator" class="text-xs text-cyber-neonCyan font-bold mt-1">Consola activa actual: NES / Famicom</p>
-            </div>
-
-            <div id="optimizationLog" class="hidden bg-black/60 rounded-xl p-4 border border-cyber-border font-mono text-xs space-y-1">
-                <p id="logConsoleTarget" class="text-cyber-neonPink font-bold"></p>
-                <p id="logOriginalSize" class="text-gray-300"></p>
-                <p class="text-yellow-400">✓ Procesando asset en el cliente...</p>
-                <p id="logFinalSize" class="text-green-400 font-bold"></p>
-                <p id="logStatus" class="text-cyber-neonYellow font-bold mt-2"></p>
             </div>
         </section>
 
-        <!-- CATÁLOGO PERSISTENTE -->
+        <!-- CATÁLOGO LOCAL -->
         <section class="space-y-4">
             <div class="flex items-center justify-between">
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-layer-group text-cyber-neonCyan"></i> Catálogo Comunitario & Nube R2
+                    <i class="fa-solid fa-layer-group text-cyber-neonCyan"></i> Catálogo Rápido & Demos
                 </h3>
-                <span id="catalogCount" class="text-xs text-gray-400">Juegos Disponibles</span>
             </div>
-            <div id="dynamicCatalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Generado por JavaScript -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-neonCyan transition-all group">
+                    <div class="h-32 bg-gradient-to-br from-red-900 to-black p-3 flex flex-col justify-between relative">
+                        <span class="bg-cyber-chevyRed text-white text-[9px] font-bold px-2 py-0.5 rounded self-start">CHEVY ORIGINAL</span>
+                        <i class="fa-solid fa-car-side text-5xl text-white/20 absolute right-2 bottom-2 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <h4 class="font-bold text-white text-sm">Chevy Master Retro Racer</h4>
+                        <p class="text-xs text-gray-400">Demo 8-bit runner en Canvas.</p>
+                        <div class="pt-2 flex items-center justify-between text-xs">
+                            <span class="text-cyber-neonCyan font-mono">HTML5</span>
+                            <button onclick="loadPresetGame('Chevy Master Retro Racer')" class="px-3 py-1 bg-cyber-neonCyan text-black font-bold rounded hover:bg-white transition-colors">Jugar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -247,7 +242,7 @@
                 </div>
                 <h3 class="text-xl font-bold text-white">Apoya a la Comunidad Nexus</h3>
                 <p class="text-xs text-gray-300 leading-relaxed">
-                    Mantenimiento de infraestructura R2 y servidores sin costo mediante aportaciones voluntarias.
+                    Mantenimiento de infraestructura web y dominio mediante aportaciones voluntarias.
                 </p>
                 <div class="pt-3 flex flex-col gap-2">
                     <a href="https://link.mercadopago.com.mx/nexuslocalclick" target="_blank" class="w-full py-3 bg-cyber-mercadoPago text-white font-bold rounded-xl text-xs hover:bg-sky-500 transition-colors flex items-center justify-center gap-2 shadow-lg">
@@ -272,15 +267,13 @@
         </div>
     </footer>
 
-    <!-- SCRIPT FLEXIBLE CON SOPORTE PSX Y REINGENIERÍA -->
+    <!-- SCRIPT LIMPIO Y DIRECTO -->
     <script>
         let currentCore = 'nes';
         let currentConsoleName = 'NES / Famicom';
         let audioCtx, audioEnabled = true;
 
         window.addEventListener('DOMContentLoaded', () => {
-            loadCloudCatalog();
-            updateStorageMeter();
             drawInitialScene();
         });
 
@@ -288,7 +281,7 @@
             currentCore = core;
             currentConsoleName = name;
             document.getElementById('selectedConsoleIndicator').innerText = `Consola activa actual: ${name}`;
-            alert('¡Consola seleccionada: ' + name + '! Listo para cargar.');
+            alert('¡Consola seleccionada: ' + name + '!');
         }
 
         function toggleLegalButton() {
@@ -326,172 +319,30 @@
             }
         }
 
-        // CARGA FLEXIBLE: PERMITE PS1 PESADOS Y APLICA REINGENIERÍA EN OTROS
-        async function handleFlexibleROMUpload(evt) {
+        function handleDirectROMUpload(evt) {
             const files = evt.target.files;
             if(!files.length) return;
             const file = files[0];
 
-            const sizeMB = file.size / (1024 * 1024);
-
-            if(file.name.endsWith('.7z')) {
-                alert('⚠️ Formato .7z no compatible directamente. Usa archivos .zip o ROMs directas.');
-                return;
-            }
-
-            const logDiv = document.getElementById('optimizationLog');
-            logDiv.classList.remove('hidden');
-
-            document.getElementById('logConsoleTarget').innerText = `🎮 Consola Destino: ${currentConsoleName} (Core: ${currentCore})`;
-            document.getElementById('logOriginalSize').innerText = `📦 Archivo detectado: ${file.name} (${sizeMB.toFixed(2)} MB)`;
-
-            try {
-                let processedBlob = file;
-
-                // Si es consola menor, aplicamos reingeniería binaria local
-                if (currentCore !== 'psx') {
-                    const buffer = await file.arrayBuffer();
-                    const view = new Uint8Array(buffer);
-                    for(let i = 0; i < Math.min(view.length, 128); i++) {
-                        view[i] = view[i] ^ 0x33;
-                    }
-                    processedBlob = new Blob([view], { type: 'application/octet-stream' });
-                }
-
-                const finalSizeMB = (processedBlob.size / (1024 * 1024)).toFixed(2);
-
-                setTimeout(() => {
-                    document.getElementById('logFinalSize').innerText = `⚡ Archivo listo para emulación: ${finalSizeMB} MB`;
-                    document.getElementById('logStatus').className = "text-green-400 font-bold mt-2";
-                    document.getElementById('logStatus').innerText = "STATUS: ¡Carga exitosa y emulador activo!";
-                    
-                    document.getElementById('gameTitleDisplay').innerHTML = `<i class="fa-solid fa-gamepad mr-1"></i> ${file.name} (${currentConsoleName})`;
-                    document.getElementById('scoreDisplay').innerText = `Core: ${currentCore.toUpperCase()}`;
-
-                    saveAssetToCatalog(file.name, currentConsoleName, finalSizeMB, currentCore);
-                    function launchTransformedEmulator(blob, core) {
-    initAudioContext();
-    document.getElementById('arcadeCanvas').classList.add('hidden');
-    document.getElementById('emulatorContainer').classList.remove('hidden');
-    document.getElementById('canvasOverlay').classList.add('opacity-0', 'pointer-events-none');
-    document.getElementById('emulatorStatusBadge').innerHTML = `<span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span> Emulando ${currentConsoleName}`;
-
-    document.getElementById('emulator').innerHTML = '';
-
-    // CONFIGURACIÓN ESTRICTA DE AUTOARRANQUE PARA EVITAR EL MENÚ
-    window.EJS_player = '#emulator';
-    window.EJS_core = core;
-    window.EJS_gameUrl = URL.createObjectURL(blob);
-    window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-    window.EJS_autostart = true;
-    window.EJS_startOnLoaded = true; // Fuerza el inicio inmediato
-    window.EJS_threads = false; 
-    window.EJS_backgroundColor = '#0a0a12';
-
-    const script = document.createElement('script');
-    script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-    document.body.appendChild(script);
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-                }, 1000);
-
-            } catch (err) {
-                alert('Error procesando el archivo.');
-            }
-        }
-
-        function saveAssetToCatalog(name, consoleName, size, core) {
-            let catalog = JSON.parse(localStorage.getItem('nexus_flex_catalog') || '[]');
-            catalog = catalog.filter(item => item.name !== name);
-            
-            catalog.unshift({ name, consoleName, size, core, date: new Date().toLocaleDateString() });
-            localStorage.setItem('nexus_flex_catalog', JSON.stringify(catalog));
-            
-            loadCloudCatalog();
-            updateStorageMeter();
-        }
-
-        function updateStorageMeter() {
-            let catalog = JSON.parse(localStorage.getItem('nexus_flex_catalog') || '[]');
-            let totalMB = catalog.reduce((acc, item) => acc + parseFloat(item.size), 0);
-            document.getElementById('r2StorageUsage').innerText = totalMB.toFixed(2) + ' MB';
-        }
-
-        function loadCloudCatalog() {
-            const grid = document.getElementById('dynamicCatalogGrid');
-            let catalog = JSON.parse(localStorage.getItem('nexus_flex_catalog') || '[]');
-            
-            let html = `
-                <div class="bg-cyber-card border border-cyber-border rounded-xl overflow-hidden hover:border-cyber-neonCyan transition-all group">
-                    <div class="h-32 bg-gradient-to-br from-red-900 to-black p-3 flex flex-col justify-between relative">
-                        <span class="bg-cyber-chevyRed text-white text-[9px] font-bold px-2 py-0.5 rounded self-start">CHEVY ORIGINAL</span>
-                        <i class="fa-solid fa-car-side text-5xl text-white/20 absolute right-2 bottom-2 group-hover:scale-110 transition-transform"></i>
-                    </div>
-                    <div class="p-4 space-y-2">
-                        <h4 class="font-bold text-white text-sm">Chevy Master Retro Racer</h4>
-                        <p class="text-xs text-gray-400">Demo 8-bit runner para celulares y PC.</p>
-                        <div class="pt-2 flex items-center justify-between text-xs">
-                            <span class="text-cyber-neonCyan font-mono">1.2 MB</span>
-                            <button onclick="loadPresetGame('Chevy Master Retro Racer')" class="px-3 py-1 bg-cyber-neonCyan text-black font-bold rounded hover:bg-white transition-colors">Jugar</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            catalog.forEach((game) => {
-                html += `
-                    <div class="bg-cyber-card border border-cyber-neonCyan rounded-xl overflow-hidden hover:scale-[1.02] transition-all group shadow-lg shadow-cyber-neonCyan/10">
-                        <div class="h-32 bg-gradient-to-br from-cyan-950 to-black p-3 flex flex-col justify-between relative">
-                            <span class="bg-amber-400 text-black text-[9px] font-extrabold px-2 py-0.5 rounded self-start">R2 STORAGE</span>
-                            <i class="fa-solid fa-compact-disc text-5xl text-amber-400/20 absolute right-2 bottom-2"></i>
-                        </div>
-                        <div class="p-4 space-y-2">
-                            <h4 class="font-bold text-white text-sm truncate" title="${game.name}">${game.name}</h4>
-                            <p class="text-xs text-cyber-neonCyan">${game.consoleName}</p>
-                            <div class="pt-2 flex items-center justify-between text-xs">
-                                <span class="text-green-400 font-mono">${game.size} MB</span>
-                                <button onclick="playCatalogGame('${game.name}', '${game.core}', '${game.consoleName}')" class="px-3 py-1 bg-cyber-neonPink text-white font-bold rounded hover:bg-white hover:text-black transition-colors shadow">
-                                    <i class="fa-solid fa-play text-[10px] mr-1"></i> Jugar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            grid.innerHTML = html;
-            document.getElementById('catalogCount').innerText = `${1 + catalog.length} Juegos Disponibles`;
-        }
-
-        function playCatalogGame(name, core, consoleName) {
-            initAudioContext();
-            document.getElementById('gameTitleDisplay').innerHTML = `<i class="fa-solid fa-gamepad mr-1"></i> ${name} (${consoleName})`;
-            document.getElementById('scoreDisplay').innerText = `Core: ${core.toUpperCase()}`;
-            
-            document.getElementById('arcadeCanvas').classList.add('hidden');
-            document.getElementById('emulatorContainer').classList.remove('hidden');
-            document.getElementById('canvasOverlay').classList.add('opacity-0', 'pointer-events-none');
-            document.getElementById('emulatorStatusBadge').innerHTML = `<span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span> Emulando ${consoleName}`;
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function launchTransformedEmulator(blob, core) {
             initAudioContext();
             document.getElementById('arcadeCanvas').classList.add('hidden');
             document.getElementById('emulatorContainer').classList.remove('hidden');
             document.getElementById('canvasOverlay').classList.add('opacity-0', 'pointer-events-none');
             document.getElementById('emulatorStatusBadge').innerHTML = `<span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span> Emulando ${currentConsoleName}`;
 
+            document.getElementById('gameTitleDisplay').innerHTML = `<i class="fa-solid fa-gamepad mr-1"></i> ${file.name} (${currentConsoleName})`;
+            document.getElementById('scoreDisplay').innerText = `Core: ${currentCore.toUpperCase()}`;
+
             document.getElementById('emulator').innerHTML = '';
 
             window.EJS_player = '#emulator';
-            window.EJS_core = core;
-            window.EJS_gameUrl = URL.createObjectURL(blob);
+            window.EJS_core = currentCore;
+            window.EJS_gameUrl = URL.createObjectURL(file);
             window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
             window.EJS_autostart = true;
+            window.EJS_startOnLoaded = true;
+            window.EJS_threads = false;
+            window.EJS_backgroundColor = '#0a0a12';
 
             const script = document.createElement('script');
             script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
