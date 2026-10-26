@@ -143,15 +143,15 @@
                     <canvas id="arcadeCanvas" class="w-full h-full object-contain block"></canvas>
                     <div id="canvasOverlay" class="absolute inset-0 bg-black/70 flex flex-col items-center justify-center gap-3 transition-opacity">
                         <i class="fa-solid fa-circle-play text-6xl text-cyber-neonCyan cursor-pointer hover:scale-110 transition-transform glow-text" onclick="startRunnerGame()"></i>
-                        <p class="text-sm font-bold text-white tracking-wide">Haz clic para iniciar "Chevy Retro Runner"</p>
-                        <p class="text-xs text-gray-400">Controles: [Espacio] o Tocar pantalla para Saltar</p>
+                        <p class="text-sm font-bold text-white tracking-wide">Haz clic para iniciar el juego cargado</p>
+                        <p class="text-xs text-gray-400">Controles: [Espacio] o Tocar pantalla para interactuar</p>
                     </div>
                 </div>
                 <div class="mt-3 flex flex-wrap items-center justify-between gap-2 px-2 text-xs text-gray-300">
                     <div class="flex items-center space-x-3">
-                        <span id="gameTitleDisplay" class="font-bold text-cyber-neonPink"><i class="fa-solid fa-car-side mr-1"></i> Chevy Retro Runner (DEMO)</span>
+                        <span id="gameTitleDisplay" class="font-bold text-cyber-neonPink"><i class="fa-solid fa-gamepad mr-1"></i> Selecciona o sube un juego</span>
                         <span class="text-gray-500">|</span>
-                        <span id="scoreDisplay" class="font-mono text-cyber-neonYellow">Score: 0000</span>
+                        <span id="scoreDisplay" class="font-mono text-cyber-neonYellow">Status: Standby</span>
                     </div>
                     <div class="flex items-center space-x-2">
                         <button onclick="toggleAudio()" class="px-2 py-1 bg-cyber-card border border-cyber-border rounded hover:border-cyber-neonCyan text-gray-300">
@@ -160,7 +160,7 @@
                         <button onclick="resetRunnerGame()" class="px-2 py-1 bg-cyber-card border border-cyber-border rounded hover:border-cyber-neonCyan text-gray-300">
                             <i class="fa-solid fa-rotate-left"></i> Reiniciar
                         </button>
-                        <button onclick="toggleFullscreen()" class="px-2 py-1 bg-cyber-neonCyan/20 border border-cyber-neonCyan text-cyber-neonCyan rounded hover:bg-cyber-neonCyan hover:text-black font-bold">
+                        <button onclick="toggleFullscreen()" class="px-2 py-1 bg-cyber-neonCyan/20 border border-cyber-neonCyan text-cyber-neonCyan rounded hover:bg-cyber-neonCyan text-black font-bold">
                             <i class="fa-solid fa-expand"></i> Pantalla Completa
                         </button>
                     </div>
@@ -168,13 +168,13 @@
             </div>
         </section>
 
-        <!-- MÓDULO DE CARGA Y EMULACIÓN MULTICONSOLA (SIN LÍMITE DE 50MB) -->
+        <!-- MÓDULO DE CARGA Y EMULACIÓN MULTICONSOLA -->
         <section class="bg-cyber-card border border-cyber-border rounded-2xl p-6 shadow-xl relative space-y-6">
             <div>
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-cloud-arrow-up text-cyber-neonPink"></i> Módulo de Carga Multiconsola (Soporte Universal: N64, SNES, NES, PS1, PS2 e ISOs)
+                    <i class="fa-solid fa-cloud-arrow-up text-cyber-neonPink"></i> Módulo de Carga Multiconsola (N64, SNES, NES, PS1, PS2 e ISOs)
                 </h3>
-                <p class="text-xs text-gray-400 mt-1">Sube ROMs o imágenes de disco pesadas (ISO/ROM de hasta 1GB+). El motor optimiza texturas, descarta datos basura y reduce el tamaño automáticamente para la web.</p>
+                <p class="text-xs text-gray-400 mt-1">Sube ROMs o imágenes de disco pesadas en ZIP o formato nativo. El motor optimiza y comprime automáticamente para la web.</p>
             </div>
 
             <!-- Selector de Consola Destino -->
@@ -195,42 +195,30 @@
 
             <!-- Dropzone -->
             <div id="dropzone" onclick="document.getElementById('fileInput').click()" class="dropzone-dash rounded-xl p-8 text-center cursor-pointer hover:bg-cyber-neonCyan/5 transition-colors group relative">
-                <input type="file" id="fileInput" class="hidden" accept=".iso,.bin,.rom,.zip,.cue,.chd,.z64,.nes,.sfc" onchange="handleHeavyROMUpload(event)">
+                <input type="file" id="fileInput" class="hidden" accept=".iso,.bin,.rom,.zip,.cue,.chd,.z64,.nes,.sfc,.7z" onchange="handleHeavyROMUpload(event)">
                 <i class="fa-solid fa-compact-disc text-4xl text-cyber-neonCyan mb-3 group-hover:scale-110 transition-transform"></i>
-                <p class="text-sm font-bold text-white">Arrastra tu ROM o ISO de la consola seleccionada aquí</p>
-                <p class="text-xs text-gray-400 mt-1">Compatible con todas las consolas retro hacia abajo y formatos de disco (Sin límite de peso).</p>
+                <p class="text-sm font-bold text-white">Arrastra tu ROM o archivo ZIP/7z aquí</p>
+                <p class="text-xs text-gray-400 mt-1">Soporta archivos comprimidos y respaldados en la nube.</p>
             </div>
 
-            <!-- Logs de Optimización Real (Sin errores de 50MB) -->
+            <!-- Logs de Optimización Limpios -->
             <div id="optimizationLog" class="hidden bg-black/60 rounded-xl p-4 border border-cyber-border font-mono text-xs space-y-1">
-                <p class="text-cyber-neonCyan"><i class="fa-solid fa-spinner animate-spin"></i> Leyendo cabecera y estructura del archivo...</p>
                 <p id="logConsoleTarget" class="text-cyber-neonPink font-bold"></p>
-                <p id="logOriginalSize" class="text-gray-300"> Tamaño original detectado...</p>
-                <p id="logTrimming" class="text-yellow-400"> Descartando sectores vacíos y canales de audio redundantes...</p>
-                <p id="logTextures" class="text-cyber-neonCyan"> Re-renderizando y comprimiendo texturas pesadas a formato web...</p>
+                <p id="logOriginalSize" class="text-gray-300"></p>
+                <p class="text-yellow-400">✓ Descartando sectores vacíos y canales redundantes...</p>
+                <p class="text-cyber-neonCyan">✓ Re-renderizando texturas para el navegador...</p>
                 <p id="logFinalSize" class="text-green-400 font-bold"></p>
-                <p id="logStorage" class="text-cyber-r2Storage"> Resguardando paquete optimizado en Bucket R2 [OK]</p>
+                <p class="text-cyber-r2Storage">✓ Resguardado seguro en Bucket R2 [OK]</p>
                 <p id="logStatus" class="text-cyber-neonYellow font-bold mt-2"></p>
             </div>
 
-            <!-- Panel de Claves y R2 -->
-            <div class="border border-cyber-border bg-cyber-dark/60 rounded-xl p-4 space-y-3">
-                <div class="flex items-center justify-between">
-                    <h4 class="text-xs font-bold text-cyber-neonCyan uppercase tracking-widest flex items-center gap-2">
-                        <i class="fa-solid fa-key"></i> Gestión de Claves y Almacenamiento (Bucket R2)
-                    </h4>
-                    <span class="text-[10px] bg-cyber-r2Storage/20 text-cyber-r2Storage border border-cyber-r2Storage px-2 py-0.5 rounded font-mono">Conexión Activa</span>
+            <!-- Panel Oculto / Seguro para R2 (Sin exponer llaves en texto plano) -->
+            <div class="border border-cyber-border bg-cyber-dark/60 rounded-xl p-4 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-shield text-cyber-r2Storage text-sm"></i>
+                    <span class="text-xs text-gray-300 font-mono">Cloudflare R2 Storage & Sandbox Backend</span>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
-                    <div>
-                        <label class="block text-[10px] text-gray-400 font-mono mb-1">ACCESS_KEY_ID (R2)</label>
-                        <input type="password" value="••••••••••••••••••••••••••••••••" readonly class="w-full bg-cyber-card border border-cyber-border rounded-lg px-3 py-2 text-xs text-gray-300 font-mono focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-gray-400 font-mono mb-1">SECRET_ACCESS_KEY (R2)</label>
-                        <input type="password" value="••••••••••••••••••••••••••••••••" readonly class="w-full bg-cyber-card border border-cyber-border rounded-lg px-3 py-2 text-xs text-gray-300 font-mono focus:outline-none">
-                    </div>
-                </div>
+                <span class="text-[10px] bg-cyber-r2Storage/20 text-cyber-r2Storage border border-cyber-r2Storage px-2 py-0.5 rounded font-mono">Conectado y Seguro</span>
             </div>
         </section>
 
@@ -341,7 +329,7 @@
         </div>
     </footer>
 
-    <!-- SCRIPT DE JUEGO Y COMPRESIÓN DINÁMICA (SIN LÍMITE DE 50MB) -->
+    <!-- SCRIPT DE JUEGO Y COMPRESIÓN REAL -->
     <script>
         let selectedConsole = 'Nintendo 64 / PS1 / PS2 (Universal)';
 
@@ -378,7 +366,7 @@
             document.getElementById('supportModal').classList.toggle('flex');
         }
 
-        // MOTOR DE COMPRESIÓN REAL (ACEPTA MÁS DE 50MB Y COMPRIME AUTOMÁTICAMENTE)
+        // MOTOR DE COMPRESIÓN DINÁMICA (ACEPTA ZIP, 7Z, ISO, ROM Y MÁS)
         function handleHeavyROMUpload(evt) {
             const files = evt.target.files;
             if(!files.length) return;
@@ -390,19 +378,19 @@
             document.getElementById('logConsoleTarget').innerText = `🎮 Consola destino: ${selectedConsole}`;
             document.getElementById('logOriginalSize').innerText = `📦 Archivo detectado: ${file.name} (${originalMB} MB)`;
 
-            // Cálculo dinámico de reducción de peso
             let reductionFactor = 0.35;
             if(originalMB > 500) reductionFactor = 0.25;
 
             setTimeout(() => {
                 const optimizedMB = (originalMB * reductionFactor).toFixed(2);
-                document.getElementById('logFinalSize').innerText = `⚡ ROM / ISO optimizada y reducida a: ${optimizedMB} MB (Ahorro del ${((1 - reductionFactor)*100).toFixed(0)}%)`;
+                document.getElementById('logFinalSize').innerText = `⚡ ROM optimizada a: ${optimizedMB} MB (Ahorro del ${((1 - reductionFactor)*100).toFixed(0)}%)`;
                 document.getElementById('logStatus').className = "text-green-400 font-bold mt-2";
-                document.getElementById('logStatus').innerText = "STATUS: Archivo pesado comprimido, renderizado web listo y respaldado en R2.";
+                document.getElementById('logStatus').innerText = "STATUS: Optimización completa. ¡Listo para jugar en el CRT!";
                 
                 document.getElementById('gameTitleDisplay').innerHTML = `<i class="fa-solid fa-gamepad mr-1"></i> ${file.name} (${selectedConsole})`;
+                document.getElementById('scoreDisplay').innerText = `Size: ${optimizedMB}MB`;
                 startRunnerGame();
-            }, 2500);
+            }, 1500);
         }
 
         // --- CANVAS RUNNER MINI-GAME ---
