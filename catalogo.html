@@ -18,7 +18,8 @@
                             neonPink: '#ff007f',
                             neonCyan: '#00f3ff',
                             neonYellow: '#ffe600',
-                            chevyRed: '#e62117'
+                            chevyRed: '#e62117',
+                            mercadoPago: '#009ee3'
                         }
                     },
                     fontFamily: {
@@ -60,10 +61,13 @@
                 </div>
             </div>
 
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2">
                 <a href="index.html" class="px-3 py-1.5 bg-cyber-card border border-cyber-border text-gray-300 hover:border-cyber-neonCyan hover:text-white transition-all text-xs font-bold rounded-lg flex items-center gap-2">
-                    <i class="fa-solid fa-house"></i> Volver al Sandbox N64/PS1
+                    <i class="fa-solid fa-house"></i> Volver al Sandbox
                 </a>
+                <button onclick="toggleSupportModal()" class="px-3 py-1.5 bg-cyber-mercadoPago/10 border border-cyber-mercadoPago text-cyber-mercadoPago hover:bg-cyber-mercadoPago hover:text-white transition-all text-xs font-bold rounded-lg flex items-center gap-2 shadow-lg">
+                    <i class="fa-solid fa-hand-holding-dollar"></i> Apoyar
+                </button>
             </div>
         </div>
     </header>
@@ -168,7 +172,7 @@
                 </div>
             </div>
 
-            <!-- Tarjeta 4: CrazyGames (Web Games) -->
+            <!-- Tarjeta 4: CrazyGames -->
             <div class="bg-cyber-card border border-cyber-border rounded-xl p-6 flex flex-col justify-between hover:border-cyber-neonCyan transition-all group shadow-xl">
                 <div class="space-y-4">
                     <div class="flex items-center justify-between">
@@ -196,7 +200,7 @@
                 </div>
             </div>
 
-            <!-- Tarjeta 5: Poki (Arcade & Acción) -->
+            <!-- Tarjeta 5: Poki Arcade -->
             <div class="bg-cyber-card border border-cyber-border rounded-xl p-6 flex flex-col justify-between hover:border-cyber-neonCyan transition-all group shadow-xl">
                 <div class="space-y-4">
                     <div class="flex items-center justify-between">
@@ -224,7 +228,7 @@
                 </div>
             </div>
 
-            <!-- Tarjeta 6: Free Games / Open Source -->
+            <!-- Tarjeta 6: Classic Reload -->
             <div class="bg-cyber-card border border-cyber-border rounded-xl p-6 flex flex-col justify-between hover:border-cyber-neonCyan transition-all group shadow-xl">
                 <div class="space-y-4">
                     <div class="flex items-center justify-between">
@@ -255,6 +259,29 @@
         </section>
     </main>
 
+    <!-- SOPORTE / MERCADO PAGO MODAL -->
+    <div id="supportModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div class="max-w-md w-full bg-cyber-card border border-cyber-mercadoPago rounded-2xl p-6 shadow-2xl relative">
+            <button onclick="toggleSupportModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="text-center space-y-3">
+                <div class="inline-block p-3 rounded-full bg-cyber-mercadoPago/10 mb-1 border border-cyber-mercadoPago">
+                    <i class="fa-solid fa-hand-holding-dollar text-3xl text-cyber-mercadoPago"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Apoya a la Comunidad Nexus</h3>
+                <p class="text-xs text-gray-300 leading-relaxed">
+                    Mantenimiento de infraestructura web y dominio mediante aportaciones voluntarias. Cero cobros comerciales por software.
+                </p>
+                <div class="pt-3 flex flex-col gap-2">
+                    <a href="https://link.mercadopago.com.mx/arcadenexuslocalclik" target="_blank" class="w-full py-3 bg-cyber-mercadoPago text-white font-bold rounded-xl text-xs hover:bg-sky-500 transition-colors flex items-center justify-center gap-2 shadow-lg">
+                        <i class="fa-solid fa-credit-card"></i> Donar con Mercado Pago
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer class="border-t border-cyber-border bg-cyber-dark py-6 mt-12">
         <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-4 text-xs text-gray-400">
@@ -268,5 +295,13 @@
         </div>
     </footer>
 
+    <!-- SCRIPT PARA EL MODAL DE APOYO -->
+    <script>
+        function toggleSupportModal() {
+            const modal = document.getElementById('supportModal');
+            modal.classList.toggle('hidden');
+            modal.classList.toggle('flex');
+        }
+    </script>
 </body>
 </html>
