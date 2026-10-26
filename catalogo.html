@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Arcade | Catálogo Indie Web & Gratis</title>
+    <title>Nexus Arcade | Directorio de Juegos Web y Retro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -56,13 +56,13 @@
                 </a>
                 <div>
                     <h1 class="text-xl font-black tracking-wider text-white glow-text">NEXUS ARCADE</h1>
-                    <p class="text-[10px] text-gray-400">Directorio Indie 100% Gratis y Web</p>
+                    <p class="text-[10px] text-gray-400">Salas Externas de Juegos Web & Retro</p>
                 </div>
             </div>
 
             <div class="flex items-center gap-3">
                 <a href="index.html" class="px-3 py-1.5 bg-cyber-card border border-cyber-border text-gray-300 hover:border-cyber-neonCyan hover:text-white transition-all text-xs font-bold rounded-lg flex items-center gap-2">
-                    <i class="fa-solid fa-house"></i> Volver al Sandbox
+                    <i class="fa-solid fa-house"></i> Volver al Sandbox N64/PS1
                 </a>
             </div>
         </div>
@@ -74,36 +74,184 @@
         <!-- PRESENTACIÓN -->
         <section class="text-center max-w-3xl mx-auto space-y-3">
             <h2 class="text-2xl md:text-3xl font-black text-white glow-text uppercase tracking-wider">
-                Catálogo Indie • Jugables en Web y 100% Gratis
+                Directorio de Portales Arcade & Retro en Línea
             </h2>
             <p class="text-xs md:text-sm text-gray-400 leading-relaxed">
-                Selección exclusiva de juegos independientes totalmente gratuitos para jugar directo en el navegador o proyectos libres de comunidad. Cero cobros, cero instalaciones pesadas.
+                Acceso directo a las mejores salas web del mundo para jugar clásicos de reta, retromachines, peleas (estilo Street Fighter / King of Fighters) y juegos de navegador <strong>sin registros, sin logueos obligatorios y 100% en línea</strong>.
             </p>
         </section>
 
-        <!-- PANEL DE BÚSQUEDA Y FILTROS -->
-        <section class="bg-cyber-card border border-cyber-border rounded-2xl p-4 md:p-6 shadow-xl space-y-4">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                <!-- Buscador -->
-                <div class="relative w-full md:w-1/2">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-xs text-cyber-neonCyan"></i>
-                    <input type="text" id="searchInput" onkeyup="filterGames()" placeholder="Buscar juego gratuito..." class="w-full bg-cyber-dark border border-cyber-border rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-cyber-neonCyan transition-colors">
-                </div>
+        <!-- REJILLA DE PLATAFORMAS EXTERNAS (SIN LOGUEO) -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                <!-- Filtros por Género -->
-                <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
-                    <button onclick="setCategory('Todos')" class="cat-btn px-3 py-1.5 bg-cyber-neonCyan text-black font-bold text-xs rounded-lg transition-all" data-cat="Todos">Todos</button>
-                    <button onclick="setCategory('Navegador')" class="cat-btn px-3 py-1.5 bg-cyber-dark border border-cyber-border text-gray-300 font-bold text-xs rounded-lg hover:border-cyber-neonCyan transition-all" data-cat="Navegador">🌐 En Navegador</button>
-                    <button onclick="setCategory('Arcade')" class="cat-btn px-3 py-1.5 bg-cyber-dark border border-cyber-border text-gray-300 font-bold text-xs rounded-lg hover:border-cyber-neonCyan transition-all" data-cat="Arcade">Arcade</button>
-                    <button onclick="setCategory('Plataformas')" class="cat-btn px-3 py-1.5 bg-cyber-dark border border-cyber-border text-gray-300 font-bold text-xs rounded-lg hover:border-cyber-neonCyan transition-all" data-cat="Plataformas">Plataformas</button>
-                    <button onclick="setCategory('Puzle')" class="cat-btn px-3 py-1.5 bg-cyber-dark border border-cyber-border text-gray-300 font-bold text-xs rounded-lg hover:border-cyber-neonCyan transition-all" data-cat="Puzle">Puzle</button>
+            <!-- Tarjeta 1: RetroGames.cc -->
+            <div class="bg-cyber-card border border-cyber-border rounded-xl p-6 flex flex-col justify-between hover:border-cyber-neonCyan transition-all group shadow-xl">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[9px] font-extrabold px-2.5 py-1 rounded bg-cyber-neonCyan/10 border border-cyber-neonCyan text-cyber-neonCyan uppercase tracking-wider">
+                            <i class="fa-solid fa-bolt mr-1"></i> ARCADE & RETRO
+                        </span>
+                        <span class="text-xs text-green-400 font-mono"><i class="fa-solid fa-check-circle"></i> Sin Registro</span>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-white text-lg group-hover:text-cyber-neonCyan transition-colors">RetroGames.cc</h3>
+                        <p class="text-xs text-gray-400 mt-2 leading-relaxed">
+                            Biblioteca gigantesca de juegos clásicos de maquinitas, consolas retro y retas multijugador que corren directamente en el navegador web.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-1 pt-1">
+                        <span class="text-[10px] bg-cyber-dark text-gray-300 px-2 py-0.5 rounded border border-cyber-border">Arcade Clásico</span>
+                        <span class="text-[10px] bg-cyber-dark text-gray-300 px-2 py-0.5 rounded border border-cyber-border">16-bit / 32-bit</span>
+                    </div>
+                </div>
+                <div class="pt-6 mt-6 border-t border-cyber-border/55 flex items-center justify-between">
+                    <span class="text-[10px] text-cyber-neonYellow font-bold">Acceso Inmediato</span>
+                    <a href="https://www.retrogames.cc/" target="_blank" class="px-4 py-2 bg-cyber-neonCyan text-black font-bold rounded-xl text-xs hover:bg-white transition-colors flex items-center gap-1.5 shadow-lg">
+                        Abrir Sala <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
                 </div>
             </div>
-        </section>
 
-        <!-- REJILLA DE JUEGOS -->
-        <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="gamesGrid">
-            <!-- Renderizado por JS -->
+            <!-- Tarjeta 2: Arcade Spot -->
+            <div class="bg-cyber-card border border-cyber-border rounded-xl p-6 flex flex-col justify-between hover:border-cyber-neonCyan transition-all group shadow-xl">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[9px] font-extrabold px-2.5 py-1 rounded bg-cyber-neonPink/10 border border-cyber-neonPink text-cyber-neonPink uppercase tracking-wider">
+                            <i class="fa-solid fa-hand-fist mr-1"></i> PELEAS & RETAS
+                        </span>
+                        <span class="text-xs text-green-400 font-mono"><i class="fa-solid fa-check-circle"></i> Sin Registro</span>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-white text-lg group-hover:text-cyber-neonPink transition-colors">Arcade Spot</h3>
+                        <p class="text-xs text-gray-400 mt-2 leading-relaxed">
+                            Especializado en juegos de pelea estilo Street Fighter, King of Fighters, beat 'em ups y clásicos de retas jugables online al instante.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-1 pt-1">
+                        <span class="text-[10px] bg-cyber-dark text-gray-300 px-2 py-0.5 rounded border border-cyber-border">Street Fighter</span>
+                        <span class="text-[10px] bg-cyber-dark text-gray-300 px-2 py-0.5 rounded border border-cyber-border">King of Fighters</span>
+                    </div>
+                </div>
+                <div class="pt-6 mt-6 border-t border-cyber-border/55 flex items-center justify-between">
+                    <span class="text-[10px] text-cyber-neonYellow font-bold">Acceso Inmediato</span>
+                    <a href="https://arcadespot.com/" target="_blank" class="px-4 py-2 bg-cyber-neonPink text-white font-bold rounded-xl text-xs hover:bg-white hover:text-black transition-colors flex items-center gap-1.5 shadow-lg">
+                        Abrir Sala <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tarjeta 3: Play Retro Games -->
+            <div class="bg-cyber-card border border-cyber-border rounded-xl p-6 flex flex-col justify-between hover:border-cyber-neonCyan transition-all group shadow-xl">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[9px] font-extrabold px-2.5 py-1 rounded bg-amber-400/10 border border-amber-400 text-amber-400 uppercase tracking-wider">
+                            <i class="fa-solid fa-gamepad mr-1"></i> EMULACIÓN WEB
+                        </span>
+                        <span class="text-xs text-green-400 font-mono"><i class="fa-solid fa-check-circle"></i> Sin Registro</span>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-white text-lg group-hover:text-amber-400 transition-colors">Play Retro Games Online</h3>
+                        <p class="text-xs text-gray-400 mt-2 leading-relaxed">
+                            Plataforma libre con emuladores integrados de múltiples consolas clásicas directamente en la pestaña de tu navegador.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-1 pt-1">
+                        <span class="text-[10px] bg-cyber-dark text-gray-300 px-2 py-0.5 rounded border border-cyber-border">Multi-Consola</span>
+                        <span class="text-[10px] bg-cyber-dark text-gray-300 px-2 py-0.5 rounded border border-cyber-border">1 Click Play</span>
+                    </div>
+                </div>
+                <div class="pt-6 mt-6 border-t border-cyber-border/55 flex items-center justify-between">
+                    <span class="text-[10px] text-cyber-neonYellow font-bold">Acceso Inmediato</span>
+                    <a href="https://www.playretrogames.com/" target="_blank" class="px-4 py-2 bg-amber-400 text-black font-bold rounded-xl text-xs hover:bg-white transition-colors flex items-center gap-1.5 shadow-lg">
+                        Abrir Sala <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tarjeta 4: CrazyGames (Web Games) -->
+            <div class="bg-cyber-card border border-cyber-border rounded-xl p-6 flex flex-col justify-between hover:border-cyber-neonCyan transition-all group shadow-xl">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[9px] font-extrabold px-2.5 py-1 rounded bg-cyan-400/10 border border-cyan-400 text-cyan-400 uppercase tracking-wider">
+                            <i class="fa-solid fa-globe mr-1"></i> JUEGOS WEB HTML5
+                        </span>
+                        <span class="text-xs text-green-400 font-mono"><i class="fa-solid fa-check-circle"></i> Sin Registro</span>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-white text-lg group-hover:text-cyan-400 transition-colors">CrazyGames (Acción & Arcade)</h3>
+                        <p class="text-xs text-gray-400 mt-2 leading-relaxed">
+                            Miles de títulos modernos y retro optimizados para correr ultrarrápidos en cualquier celular o computadora sin instalar nada.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-1 pt-1">
+                        <span class="text-[10px] bg-cyber-dark text-gray-300 px-2 py-0.5 rounded border border-cyber-border">Acción Rápida</span>
+                        <span class="text-[10px] bg-cyber-dark text-gray-300 px-2 py-0.5 rounded border border-cyber-border">Multijugador Web</span>
+                    </div>
+                </div>
+                <div class="pt-6 mt-6 border-t border-cyber-border/55 flex items-center justify-between">
+                    <span class="text-[10px] text-cyber-neonYellow font-bold">Acceso Inmediato</span>
+                    <a href="https://www.crazygames.com/c/arcade" target="_blank" class="px-4 py-2 bg-cyan-400 text-black font-bold rounded-xl text-xs hover:bg-white transition-colors flex items-center gap-1.5 shadow-lg">
+                        Abrir Sala <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tarjeta 5: Poki (Arcade & Acción) -->
+            <div class="bg-cyber-card border border-cyber-border rounded-xl p-6 flex flex-col justify-between hover:border-cyber-neonCyan transition-all group shadow-xl">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[9px] font-extrabold px-2.5 py-1 rounded bg-purple-400/10 border border-purple-400 text-purple-400 uppercase tracking-wider">
+                            <i class="fa-solid fa-gamepad mr-1"></i> MINI JUEGOS
+                        </span>
+                        <span class="text-xs text-green-400 font-mono"><i class="fa-solid fa-check-circle"></i> Sin Registro</span>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-white text-lg group-hover:text-purple-400 transition-colors">Poki Arcade</h3>
+                        <p class="text-xs text-gray-400 mt-2 leading-relaxed">
+                            Plataforma líder de juegos web casuales y de acción con carga instantánea y controles adaptados para touch y teclado.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-1 pt-1">
+                        <span class="text-[10px] bg-cyber-dark text-gray-300 px-2 py-0.5 rounded border border-cyber-border">Casual & Acción</span>
+                        <span class="text-[10px] bg-cyber-dark text-gray-300 px-2 py-0.5 rounded border border-cyber-border">Ideal Móvil</span>
+                    </div>
+                </div>
+                <div class="pt-6 mt-6 border-t border-cyber-border/55 flex items-center justify-between">
+                    <span class="text-[10px] text-cyber-neonYellow font-bold">Acceso Inmediato</span>
+                    <a href="https://poki.com/es/g/arcade" target="_blank" class="px-4 py-2 bg-purple-500 text-white font-bold rounded-xl text-xs hover:bg-white hover:text-black transition-colors flex items-center gap-1.5 shadow-lg">
+                        Abrir Sala <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tarjeta 6: Free Games / Open Source -->
+            <div class="bg-cyber-card border border-cyber-border rounded-xl p-6 flex flex-col justify-between hover:border-cyber-neonCyan transition-all group shadow-xl">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[9px] font-extrabold px-2.5 py-1 rounded bg-green-400/10 border border-green-400 text-green-400 uppercase tracking-wider">
+                            <i class="fa-solid fa-code mr-1"></i> CÓDIGO ABIERTO
+                        </span>
+                        <span class="text-xs text-green-400 font-mono"><i class="fa-solid fa-check-circle"></i> Sin Registro</span>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-white text-lg group-hover:text-green-400 transition-colors">Classic Reload (DOS / Arcade)</h3>
+                        <p class="text-xs text-gray-400 mt-2 leading-relaxed">
+                            Museo digital en línea para jugar miles de juegos clásicos de DOS y arcade directamente en el explorador web.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-1 pt-1">
+                        <span class="text-[10px] bg-cyber-dark text-gray-300 px-2 py-0.5 rounded border border-cyber-border">Abandonware Web</span>
+                        <span class="text-[10px] bg-cyber-dark text-gray-300 px-2 py-0.5 rounded border border-cyber-border">Clásicos PC</span>
+                    </div>
+                </div>
+                <div class="pt-6 mt-6 border-t border-cyber-border/55 flex items-center justify-between">
+                    <span class="text-[10px] text-cyber-neonYellow font-bold">Acceso Inmediato</span>
+                    <a href="https://classicreload.com/" target="_blank" class="px-4 py-2 bg-green-500 text-black font-bold rounded-xl text-xs hover:bg-white transition-colors flex items-center gap-1.5 shadow-lg">
+                        Abrir Sala <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+
         </section>
     </main>
 
@@ -111,149 +259,14 @@
     <footer class="border-t border-cyber-border bg-cyber-dark py-6 mt-12">
         <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-4 text-xs text-gray-400">
             <div>
-                <p><strong>Nexus Arcade</strong> © 2026. Directorio Indie Gratuito.</p>
-                <p class="text-[10px] text-gray-500 mt-0.5">Contenido libre y de acceso web.</p>
+                <p><strong>Nexus Arcade</strong> © 2026. Directorio de Enlaces Externos.</p>
+                <p class="text-[10px] text-gray-500 mt-0.5">Redirección a salas independientes de libre acceso web.</p>
             </div>
             <div class="flex items-center space-x-4">
-                <a href="index.html" class="hover:text-cyber-neonCyan">Ir al Sandbox Web</a>
+                <a href="index.html" class="hover:text-cyber-neonCyan">Ir al Sandbox N64 / PS1</a>
             </div>
         </div>
     </footer>
 
-    <!-- SCRIPT DEL CATÁLOGO (PURAS JOYAS GRATIS Y WEB) -->
-    <script>
-        const gamesData = [
-            {
-                title: "Tiny Islands",
-                category: "Navegador",
-                genre: "Puzle / Cartas",
-                source: "itch.io",
-                desc: "Crea e ilustra pequeñas islas con combinaciones aleatorias directamente en tu navegador.",
-                url: "https://dr-d-king.itch.io/tiny-islands",
-                badge: "🎮 JUEGA EN WEB • GRATIS"
-            },
-            {
-                title: "Windowframe",
-                category: "Navegador",
-                genre: "Puzle / Plataformas",
-                source: "itch.io",
-                desc: "Manipula el tamaño de la ventana de juego para resolver los niveles web.",
-                url: "https://managore.itch.io/windowframe",
-                badge: "🌐 HTML5 • GRATIS"
-            },
-            {
-                title: "The Maître D'",
-                category: "Puzle",
-                genre: "Estrategia / Casual",
-                source: "itch.io",
-                desc: "Ayuda a este peculiar mesero a estirarse para atender a todos los clientes.",
-                url: "https://seadads.itch.io/the-maitre-d",
-                badge: "⭐ 100% GRATIS"
-            },
-            {
-                title: "Friday Night Funkin'",
-                category: "Arcade",
-                genre: "Ritmo / Música",
-                source: "Newgrounds",
-                desc: "El legendario juego de batallas de ritmo musical jugable online sin pagar nada.",
-                url: "https://www.newgrounds.com/portal/view/770371",
-                badge: "🔥 GRATIS ONLINE"
-            },
-            {
-                title: "Shattered Pixel Dungeon",
-                category: "Arcade",
-                genre: "Roguelike / Mazmorras",
-                source: "itch.io",
-                desc: "Exploración clásica de calabozos de código abierto, sin micropagos abusivos.",
-                url: "https://shatteredpixel.itch.io/shattered-pixel-dungeon",
-                badge: "🛡️ OPEN SOURCE"
-            },
-            {
-                title: "Babbdi",
-                category: "Plataformas",
-                genre: "Exploración / Surrealista",
-                source: "itch.io",
-                desc: "Un título indie de culto de exploración libre en una ciudad de concreto completamente gratis.",
-                url: "https://sir-babbdi.itch.io/babbdi",
-                badge: "🎁 100% GRATIS"
-            },
-            {
-                title: "A Dark Room",
-                category: "Navegador",
-                genre: "Texto / RPG Minimalista",
-                source: "Web Original",
-                desc: "Un adictivo RPG basado en texto que corre por completo en la memoria de tu navegador.",
-                url: "https://adarkroom.doublespeakgames.com/",
-                badge: "🌐 PURA WEB • GRATIS"
-            },
-            {
-                title: "2048 (Edición Indie)",
-                category: "Puzle",
-                genre: "Lógica / Números",
-                source: "Open Source",
-                desc: "El clásico rompecabezas numérico optimizado para cualquier dispositivo y navegador.",
-                url: "https://gabrielecirulli.github.io/2048/",
-                badge: "🧩 CLÁSICO WEB"
-            }
-        ];
-
-        let selectedCategory = 'Todos';
-
-        function renderGames(data) {
-            const grid = document.getElementById('gamesGrid');
-            grid.innerHTML = '';
-
-            if (data.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500 text-xs">No se encontraron juegos con ese filtro.</div>`;
-                return;
-            }
-
-            data.forEach(game => {
-                const card = document.createElement('div');
-                card.className = "bg-cyber-card border border-cyber-border rounded-xl p-5 flex flex-col justify-between hover:border-cyber-neonCyan transition-all group shadow-lg";
-                card.innerHTML = `
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between">
-                            <span class="text-[9px] font-extrabold px-2 py-0.5 rounded bg-cyber-neonCyan/10 border border-cyber-neonCyan text-cyber-neonCyan uppercase tracking-wider">${game.badge}</span>
-                            <span class="text-[10px] text-gray-400 font-mono"><i class="fa-solid fa-globe mr-1"></i>${game.source}</span>
-                        </div>
-                        <h3 class="font-extrabold text-white text-base group-hover:text-cyber-neonCyan transition-colors">${game.title}</h3>
-                        <p class="text-xs text-gray-400 leading-relaxed line-clamp-2">${game.desc}</p>
-                    </div>
-                    <div class="pt-4 mt-4 border-t border-cyber-border/50 flex items-center justify-between">
-                        <span class="text-[10px] text-cyber-neonYellow font-bold">${game.genre}</span>
-                        <a href="${game.url}" target="_blank" class="px-3 py-1.5 bg-cyber-neonCyan text-black font-bold rounded-lg text-xs hover:bg-white transition-colors flex items-center gap-1 shadow">
-                            Jugar <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                        </a>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function setCategory(cat) {
-            selectedCategory = cat;
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                if (btn.getAttribute('data-cat') === cat) {
-                    btn.className = "cat-btn px-3 py-1.5 bg-cyber-neonCyan text-black font-bold text-xs rounded-lg transition-all";
-                } else {
-                    btn.className = "cat-btn px-3 py-1.5 bg-cyber-dark border border-cyber-border text-gray-300 font-bold text-xs rounded-lg hover:border-cyber-neonCyan transition-all";
-                }
-            });
-            filterGames();
-        }
-
-        function filterGames() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = gamesData.filter(g => {
-                const matchesCategory = (selectedCategory === 'Todos') || (g.category === selectedCategory);
-                const matchesSearch = g.title.toLowerCase().includes(query) || g.desc.toLowerCase().includes(query) || g.genre.toLowerCase().includes(query);
-                return matchesCategory && matchesSearch;
-            });
-            renderGames(filtered);
-        }
-
-        renderGames(gamesData);
-    </script>
 </body>
 </html>
